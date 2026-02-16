@@ -1,0 +1,162 @@
+/* Mobile-only custom styles for the header mobile menu
+   Place this file where your build pipeline picks up CSS (e.g., mixed into app.css or imported in your main CSS)
+*/
+
+:root{
+  --mobile-nav-width: 320px;
+  --accent: #ff6b6b;
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --shadow: 0 8px 30px rgba(15, 23, 42, 0.2);
+}
+
+/* Only apply below 900px to be conservative */
+@media (max-width: 900px) {
+
+  /* Hide desktop nav menus that may conflict */
+  header .nav-menu { display: none !important; }
+
+  /* Hamburger button */
+  .mobile-menu-btn{
+    background: transparent;
+    border: none;
+    padding: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .mobile-menu-btn .hamburger{
+    display: inline-block;
+    width: 26px;
+    height: 18px;
+    position: relative;
+  }
+  .mobile-menu-btn .hamburger span{
+    display: block;
+    height: 2px;
+    background: var(--accent);
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: transform .28s ease, opacity .2s ease, background .2s ease;
+  }
+
+  /* Mobile nav panel */
+  .mobile-nav{
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: var(--mobile-nav-width);
+    max-width: calc(100% - 48px);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    transition: left .32s cubic-bezier(.2,.9,.3,1), visibility .32s;
+    visibility: hidden;
+  }
+  .mobile-nav.open{ left: 0; visibility: visible; }
+    right: 0;
+    visibility: visible;
+  }
+  .mobile-nav-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .mobile-logo img{ height:36px; display:block; }
+  .mobile-close-btn{
+    background: transparent;
+    border:none;
+    font-size:28px;
+    line-height:1;
+    padding:6px 10px;
+    cursor:pointer;
+    color:var(--muted);
+  }
+
+  .mobile-nav-list{
+    list-style: none;
+    margin:0;
+    padding: 12px 8px;
+    overflow:auto;
+  }
+  .mobile-nav-list li{ margin:6px 0; }
+  .mobile-nav-list a{
+    display:block;
+    padding:12px 12px;
+    color:#111827;
+    text-decoration:none;
+    border-radius:8px;
+    transition: background .18s ease, transform .12s ease;
+    font-weight:600;
+  }
+  .mobile-nav-list a:hover{ background:#f8fafc; transform: translateY(-1px); }
+
+  .mobile-divider{ height:1px; background:#f1f1f1; margin:12px 0; }
+
+  /* Actions */
+  .mobile-actions .mobile-action{
+    display:block;
+    padding:10px 12px;
+    color:var(--muted);
+    font-weight:500;
+  }
+
+  /* Submenu / accordion */
+  .mobile-nav-item .mobile-accordion-btn{
+    width:100%;
+    background:transparent;
+    border:none;
+    text-align:left;
+    padding:12px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    color:#111827;
+  }
+  .mobile-submenu{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .32s ease, opacity .22s ease;
+    opacity:0;
+    padding-left:8px;
+  }
+  .mobile-submenu.open{
+    opacity:1;
+    max-height:400px;
+  }
+  .mobile-submenu li a{
+    padding:8px 16px;
+    font-weight:600;
+    color:#374151;
+    border-radius:6px;
+  }
+
+  /* Backdrop */
+  .mobile-nav-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(2,6,23,0.48);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .28s ease;
+    z-index: 1150;
+  }
+  .mobile-nav-backdrop.visible{ opacity:1; visibility: visible; }
+
+  /* Improve focus states */
+  .mobile-nav a:focus, .mobile-accordion-btn:focus, .mobile-close-btn:focus{ outline: 3px solid rgba(99,102,241,0.12); outline-offset:2px; }
+
+}
+
+/* Ensure desktop still shows default nav when larger screens */
+@media (min-width: 901px){
+  .mobile-nav, .mobile-nav-backdrop, .mobile-menu-btn{ display: none !important; }
+}

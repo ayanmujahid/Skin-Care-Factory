@@ -1,0 +1,25 @@
+---
+deployment:
+  tasks:
+    # Set deploy path
+    - export DEPLOYPATH=/home/nohfilco/christelle-store.designatrix.com
+    - cd $DEPLOYPATH
+
+    # Fetch latest changes from GitHub
+    - /usr/local/cpanel/3rdparty/bin/git fetch origin
+
+    # Force checkout main branch to match remote
+    - /usr/local/cpanel/3rdparty/bin/git checkout -B main origin/main
+
+    # Pull latest changes safely
+    - /usr/local/cpanel/3rdparty/bin/git pull origin main
+
+    # Install composer dependencies
+    - /opt/cpanel/composer/bin/composer install --no-dev --prefer-dist -d $DEPLOYPATH
+
+    # Set correct permissions for Laravel
+    - /bin/chmod -R 755 $DEPLOYPATH/storage
+    - /bin/chmod -R 755 $DEPLOYPATH/bootstrap/cache
+
+    # Run Laravel optimizations
+    - /usr/local/bin/php $DEPLOYPATH/artisan optimize
