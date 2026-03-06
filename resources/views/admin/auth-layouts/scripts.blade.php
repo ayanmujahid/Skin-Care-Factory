@@ -1,47 +1,88 @@
-
-<!-- Popper JS -->
-<script src="{{asset('admin/libs/%40popperjs/core/umd/popper.min.js')}}"></script>
-
-<!-- Bootstrap JS -->
-<script src="{{asset('admin/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-<!-- Defaultmenu JS -->
-<script src="{{asset('admin/js/defaultmenu.min.js')}}"></script>
-
-<!-- Node Waves JS-->
-<script src="{{asset('admin/libs/node-waves/waves.min.js')}}"></script>
-
-<!-- Sticky JS -->
-<script src="{{asset('admin/js/sticky.js')}}"></script>
-
-<!-- Simplebar JS -->
-<script src="{{asset('admin/libs/simplebar/simplebar.min.js')}}"></script>
-<script src="{{asset('admin/js/simplebar.js')}}"></script>
-
-<!-- Auto Complete JS -->
-<script src="{{asset('admin/libs/%40tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
-
-<!-- Color Picker JS -->
-<script src="{{asset('admin/libs/%40simonwep/pickr/pickr.es5.min.js')}}"></script>
-
-<!-- Date & Time Picker JS -->
-<script src="{{asset('admin/libs/flatpickr/flatpickr.min.js')}}"></script>
-
-        <script src="{{asset('admin/js/show-password.js')}}"></script>
-
-    
-<!-- Custom-Switcher JS -->
-<script src="{{asset('admin/js/custom-switcher.min.js')}}"></script>
-
-    <!-- Custom JS -->
-    <script src="{{asset('admin/js/custom.js')}}"></script>
 <script>
-new WOW().init();
+    window.baseUrl = "{{ url('/') }}"; // must come BEFORE product.js
 </script>
+<!-- jQuery library js -->
+  <script src="{{asset('admin/js/lib/jquery-3.7.1.min.js')}}"></script>
+  <!-- Bootstrap js -->
+  <script src="{{asset('admin/js/lib/bootstrap.bundle.min.js')}}"></script>
+  <!-- Apex Chart js -->
+  <script src="{{asset('admin/js/lib/apexcharts.min.js')}}"></script>
+  <!-- Data Table js -->
+  <script src="{{asset('admin/js/lib/dataTables.min.js')}}"></script>
+  <!-- Iconify Font js -->
+  <script src="{{asset('admin/js/lib/iconify-icon.min.js')}}"></script>
+  <!-- jQuery UI js -->
+  <script src="{{asset('admin/js/lib/jquery-ui.min.js')}}"></script>
+  <!-- Vector Map js -->
+  <script src="{{asset('admin/js/lib/jquery-jvectormap-2.0.5.min.js')}}"></script>
+  <script src="{{asset('admin/js/lib/jquery-jvectormap-world-mill-en.js')}}"></script>
+  <!-- Popup js -->
+  <script src="{{asset('admin/js/lib/magnifc-popup.min.js')}}"></script>
+  <!-- Slick Slider js -->
+  <script src="{{asset('admin/js/lib/slick.min.js')}}"></script>
+  <!-- prism js -->
+  <script src="{{asset('admin/js/lib/prism.js')}}"></script>
+  <!-- file upload js -->
+  <script src="{{asset('admin/js/lib/file-upload.js')}}"></script>
+  <!-- audioplayer -->
+  <script src="{{asset('admin/js/lib/audioplayer.js')}}"></script>
+  
+  <!-- main js -->
+  <script src="{{asset('admin/js/app.js')}}"></script>
+
+<script src="{{asset('admin/js/homeOneChart.js')}}"></script>
+
+<script src="{{ asset('dash/js/jquery.toast.js') }}"></script>
+<script type="text/javascript">
+    (() => {
+
+        var Loader = function() {
+
+            return {
+
+                show: function() {
+                    jQuery("#preloader").show();
+                },
+
+                hide: function() {
+                    jQuery("#preloader").hide();
+                }
+            };
+
+        }();
+        @if(session('crawl_success'))
+        $('#crawl-success-alert-modal-1').modal('show');
+        @endif
+        /*in page css here*/
+
+        $('.li-dropdown').on('click', function() {
+            var dropdown = $(this).find('>.dropdown-content');
+            if (!dropdown.hasClass('open')) {
+                dropdown.addClass('open');
+                dropdown.slideDown(500);
+            } else {
+                dropdown.removeClass('open');
+                dropdown.slideUp(500);
+            }
+        });
+
+    })();
+</script>
+
 <script>
-AOS.init({
-    mirror: true
-});
+      // ================== Password Show Hide Js Start ==========
+      function initializePasswordToggle(toggleSelector) {
+        $(toggleSelector).on('click', function() {
+            $(this).toggleClass("ri-eye-off-line");
+            var input = $($(this).attr("data-toggle"));
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    }
+    // Call the function
+    initializePasswordToggle('.toggle-password');
+  // ========================= Password Show Hide Js End ===========================
 </script>
-
-

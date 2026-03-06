@@ -1,11 +1,12 @@
-<!-- <footer>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 text-center">
-                    <p>© <?=date('Y')?> CARVINFAX . All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
+{{-- 
+  <footer class="d-footer">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-auto">
+      <p class="mb-0">© 2024 WowDash. All Rights Reserved.</p>
     </div>
-</footer> -->
+    <div class="col-auto">
+      <p class="mb-0">Made by <span class="text-primary-600">wowtheme7</span></p>
+    </div>
+  </div>
+</footer>
+</main> --}}
