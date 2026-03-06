@@ -2,7 +2,7 @@
 deployment:
   tasks:
     # Set deploy path
-    - export DEPLOYPATH=/home/nohfilco/christelle-store.designatrix.com
+    - export DEPLOYPATH=/home/nohfilco/beautybstore.com
     - cd $DEPLOYPATH
 
     # Fetch latest changes from GitHub

@@ -1,88 +1,36 @@
-<script src="{{asset('admin/js/sticky.js')}}"></script>
-
 <script>
     window.baseUrl = "{{ url('/') }}"; // must come BEFORE product.js
 </script>
-<!-- Grid JS -->
-<script src="{{asset('admin/libs/gridjs/gridjs.umd.js')}}"></script>
+<!-- jQuery library js -->
+  <script src="{{asset('admin/js/lib/jquery-3.7.1.min.js')}}"></script>
+  <!-- Bootstrap js -->
+  <script src="{{asset('admin/js/lib/bootstrap.bundle.min.js')}}"></script>
+  <!-- Apex Chart js -->
+  <script src="{{asset('admin/js/lib/apexcharts.min.js')}}"></script>
+  <!-- Data Table js -->
+  <script src="{{asset('admin/js/lib/dataTables.min.js')}}"></script>
+  <!-- Iconify Font js -->
+  <script src="{{asset('admin/js/lib/iconify-icon.min.js')}}"></script>
+  <!-- jQuery UI js -->
+  <script src="{{asset('admin/js/lib/jquery-ui.min.js')}}"></script>
+  <!-- Vector Map js -->
+  <script src="{{asset('admin/js/lib/jquery-jvectormap-2.0.5.min.js')}}"></script>
+  <script src="{{asset('admin/js/lib/jquery-jvectormap-world-mill-en.js')}}"></script>
+  <!-- Popup js -->
+  <script src="{{asset('admin/js/lib/magnifc-popup.min.js')}}"></script>
+  <!-- Slick Slider js -->
+  <script src="{{asset('admin/js/lib/slick.min.js')}}"></script>
+  <!-- prism js -->
+  <script src="{{asset('admin/js/lib/prism.js')}}"></script>
+  <!-- file upload js -->
+  <script src="{{asset('admin/js/lib/file-upload.js')}}"></script>
+  <!-- audioplayer -->
+  <script src="{{asset('admin/js/lib/audioplayer.js')}}"></script>
+  
+  <!-- main js -->
+  <script src="{{asset('admin/js/app.js')}}"></script>
 
-<!-- Sweetalerts JS -->
-<script src="{{asset('admin/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-
-<!-- Products List JS -->
-<script src="{{asset('admin/js/products.js')}}"></script>
-
-<!-- Custom JS -->
-
-<script src="{{asset('admin/libs/%40popperjs/core/umd/popper.min.js')}}"></script>
-
-<!-- Bootstrap JS -->
-<script src="{{asset('admin/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-<!-- Defaultmenu JS -->
-<script src="{{asset('admin/js/defaultmenu.min.js')}}"></script>
-
-<!-- Node Waves JS-->
-<script src="{{asset('admin/libs/node-waves/waves.min.js')}}"></script>
-
-<!-- Sticky JS -->
-<script src="{{asset('admin/js/sticky.js')}}"></script>
-
-<!-- Simplebar JS -->
-<script src="{{asset('admin/libs/simplebar/simplebar.min.js')}}"></script>
-<script src="{{asset('admin/js/simplebar.js')}}"></script>
-
-<!-- Auto Complete JS -->
-<script src="{{asset('admin/libs/%40tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
-
-<!-- Color Picker JS -->
-<script src="{{asset('admin/libs/%40simonwep/pickr/pickr.es5.min.js')}}"></script>
-
-<!-- Date & Time Picker JS -->
-<script src="{{asset('admin/libs/flatpickr/flatpickr.min.js')}}"></script>
-
-
-<!-- Apex Charts JS -->
-<script src="{{asset('admin/libs/apexcharts/apexcharts.min.js')}}"></script>
-
-<!-- Ecommerce Dashboard -->
-<script src="{{asset('admin/js/ecommerce-dashboard.js')}}"></script>
-
-<!-- Custom JS -->
-<script src="{{asset('admin/js/custom.js')}}"></script>
-
-
-<!-- Custom-Switcher JS -->
-<script src="{{asset('admin/js/custom-switcher.min.js')}}"></script>
-
-<!-- Popper JS -->
-<!-- <script src="admin/libs/%40popperjs/core/umd/popper.min.js"></script> -->
-
-<!-- Quill Editor JS -->
-<script src="{{('admin/libs/quill/quill.js')}}"></script>
-
-<!-- Filepond JS -->
-<script src="{{asset('admin/libs/filepond/filepond.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js')}}"></script>
-<script src="{{asset('admin/libs/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js')}}"></script>
-
-<!-- Internal Add Products JS -->
-<script src="{{asset('admin/js/add-products.js')}}"></script>
-
-
-
-<script src="{{asset('admin/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
-
-<!-- Main Theme Js -->
-<script src="{{asset('admin/js/main.js')}}"></script>
+<script src="{{asset('admin/js/homeOneChart.js')}}"></script>
 
 <script src="{{ asset('dash/js/jquery.toast.js') }}"></script>
 <script type="text/javascript">

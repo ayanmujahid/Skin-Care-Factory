@@ -2,392 +2,679 @@
 @section('content')
 @include('admin.layouts.sidebar')
 
-<div class="main-content app-content">
-    <div class="container-fluid page-container main-body-container">
-
-        <!-- Start::page-header -->
-        <div class="page-header-breadcrumb mb-3">
-            <div class="d-flex align-center justify-content-between flex-wrap gap-1">
-                <h1 class="page-title fw-medium fs-18 mb-0">Dashboard</h1>
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item">
-                        <a href="javascript:void(0);">
-                            Dashboards
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="javascript:void(0);">
-                            Ecommerce
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
-            </div>
-        </div>
-        <!-- End::page-header -->
-
-        <!-- Start:: row-1 -->
-        <div class="row">
-            <div class="col-xxl-6">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card custom-card dashboard-main-card primary">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="fw-semibold">$43,038.00</h5>
-                                        <span class="d-block fs-12 text-muted">Total Sales</span>
-                                    </div>
-                                    <div>
-                                        <span class="avatar avatar-lg bg-primary-transparent svg-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                <path d="M5 22h14a2 2 0 0 0 2-2V9a1 1 0 0 0-1-1h-3v-.777c0-2.609-1.903-4.945-4.5-5.198A5.005 5.005 0 0 0 7 7v1H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2zm12-12v2h-2v-2h2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-2 3h2v2H7v-2z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card custom-card dashboard-main-card secondary">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="fw-semibold">$28,346.00</h5>
-                                        <span class="d-block fs-12 text-muted">Total Expenses</span>
-                                    </div>
-                                    <div>
-                                        <span class="avatar avatar-lg bg-secondary-transparent svg-secondary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                <path d="M20 12v6a1 1 0 0 1-2 0V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3v-6h-2zm-6-1v2H6v-2h8zM6 9V7h8v2H6zm8 6v2h-3v-2h3z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6">
-                        <div class="card custom-card dashboard-main-card success">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="fw-semibold">35,367</h5>
-                                        <span class="d-block fs-12 text-muted">Total Orders</span>
-                                    </div>
-                                    <div>
-                                        <span class="avatar avatar-lg bg-success-transparent svg-success">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                <path d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921z"></path>
-                                                <circle cx="10.5" cy="19.5" r="1.5"></circle>
-                                                <circle cx="17.5" cy="19.5" r="1.5"></circle>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-        <!-- End:: row-1 -->
-
-        <!-- Start:: row-2 -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card custom-card overflow-hidden">
-                    <div class="card-header justify-content-between">
-                        <div class="card-title">
-                            Order History
-                        </div>
-                        <div class="d-flex flex-wrap gap-2">
-                            <div class="dropdown custom-invoice">
-                                <a href="javascript:void(0);" class="btn btn-outline-light btn-wave waves-effect waves-light" data-bs-toggle="dropdown" aria-expanded="false">Filters<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a class="dropdown-item" href="javascript:void(0);">New</a></li>
-                                    <li><a class="dropdown-item" href="javascript:void(0);">Popular</a></li>
-                                    <li><a class="dropdown-item" href="javascript:void(0);">Relevant</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <input class="form-control" type="text" placeholder="Search Here" aria-label=".form-control-sm example">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Customer</th>
-                                        <th>Product</th>
-                                        <th class="text-center">Quantity</th>
-                                        <th>Total Amount</th>
-                                        <th>Payment Method</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">$SPK15432</a></td>
-                                        <td><a href="javascript:void(0);">John Doe</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/13.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div>Urban Chic Ladies Bag</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            2
-                                        </td>
-                                        <td>$150.00</td>
-                                        <td>Credit Card</td>
-                                        <td>
-                                            2025-02-10
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success">Completed</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">$SPK15433</a></td>
-                                        <td><a href="javascript:void(0);">Jane Smith</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/15.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div>TrailBlaze Runners</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            1
-                                        </td>
-                                        <td>$230.75</td>
-                                        <td>PayPal</td>
-                                        <td>
-                                            2025-02-11
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-warning">Pending</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">$SPK15434</a></td>
-                                        <td><a href="javascript:void(0);">Michael Green</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/19.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div>VisionTech SLR</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            3
-                                        </td>
-                                        <td>$95.50</td>
-                                        <td>Debit Card</td>
-                                        <td>
-                                            2025-02-12
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-danger">Failed</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">$SPK15435</a></td>
-                                        <td><a href="javascript:void(0);">Sarah Johnson</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/6.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div> FlexiSeat Sofa Chair</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            1
-                                        </td>
-                                        <td>$112.00</td>
-                                        <td>Credit Card</td>
-                                        <td>
-                                            2025-02-13
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success">Completed</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">$SPK15436</a></td>
-                                        <td><a href="javascript:void(0);">William Brown</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/11.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div>DecoDial Classic</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            5
-                                        </td>
-                                        <td>$60.25</td>
-                                        <td>Credit Card</td>
-                                        <td>
-                                            2025-02-14
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-warning">Pending</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border-bottom-0"><a href="javascript:void(0);">$SPK15437</a></td>
-                                        <td class="border-bottom-0"><a href="javascript:void(0);">Emma White</a></td>
-                                        <td class="border-bottom-0">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="lh-1">
-                                                    <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{asset('admin/images/ecommerce/png/12.png')}}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div>Club Fleece Hoodie</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center border-bottom-0">
-                                            2
-                                        </td>
-                                        <td class="border-bottom-0">$145.80</td>
-                                        <td class="border-bottom-0">PayPal</td>
-                                        <td class="border-bottom-0">
-                                            2025-02-14
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <span class="badge bg-success">Completed</span>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <div class="dropdown">
-                                                <a aria-label="anchor" href="javascript:void(0);" class="btn btn-icon btn-sm btn-light border" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fe fe-more-vertical"></i> </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-line me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex align-items-center flex-wrap">
-                            <div> Showing 6 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
-                            <div class="ms-auto">
-                                <nav aria-label="Page navigation" class="pagination-style-2">
-                                    <ul class="pagination mb-0 flex-wrap">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript:void(0);">
-                                                Prev
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0);">
-                                                <i class="bi bi-three-dots"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">17</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link text-primary" href="javascript:void(0);">
-                                                next
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End:: row-2 -->
-
-    </div>
+<div class="dashboard-main-body">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+  <h6 class="fw-semibold mb-0">Dashboard</h6>
+  <ul class="d-flex align-items-center gap-2">
+    <li class="fw-medium">
+      <a href="index.html" class="d-flex align-items-center gap-1 hover-text-primary">
+        <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+        Dashboard
+      </a>
+    </li>
+    <li>-</li>
+    <li class="fw-medium">AI</li>
+  </ul>
 </div>
-<!-- End::app-content -->
+
+    <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
+      <div class="col">
+        <div class="card shadow-none border bg-gradient-start-1 h-100">
+          <div class="card-body p-20">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <div>
+                <p class="fw-medium text-primary-light mb-1">Total Users</p>
+                <h6 class="mb-0">20,000</h6>
+              </div>
+              <div class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center">
+                <iconify-icon icon="gridicons:multiple-users" class="text-white text-2xl mb-0"></iconify-icon>
+              </div>
+            </div>
+            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
+              <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +5000</span> 
+              Last 30 days users
+            </p>
+          </div>
+        </div><!-- card end -->
+      </div>
+      <div class="col">
+        <div class="card shadow-none border bg-gradient-start-2 h-100">
+          <div class="card-body p-20">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <div>
+                <p class="fw-medium text-primary-light mb-1">Total Subscription</p>
+                <h6 class="mb-0">15,000</h6>
+              </div>
+              <div class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center">
+                <iconify-icon icon="fa-solid:award" class="text-white text-2xl mb-0"></iconify-icon>
+              </div>
+            </div>
+            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
+              <span class="d-inline-flex align-items-center gap-1 text-danger-main"><iconify-icon icon="bxs:down-arrow" class="text-xs"></iconify-icon> -800</span> 
+              Last 30 days subscription
+            </p>
+          </div>
+        </div><!-- card end -->
+      </div>
+      <div class="col">
+        <div class="card shadow-none border bg-gradient-start-3 h-100">
+          <div class="card-body p-20">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <div>
+                <p class="fw-medium text-primary-light mb-1">Total Free Users</p>
+                <h6 class="mb-0">5,000</h6>
+              </div>
+              <div class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center">
+                <iconify-icon icon="fluent:people-20-filled" class="text-white text-2xl mb-0"></iconify-icon>
+              </div>
+            </div>
+            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
+              <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +200</span> 
+              Last 30 days users
+            </p>
+          </div>
+        </div><!-- card end -->
+      </div>
+      <div class="col">
+        <div class="card shadow-none border bg-gradient-start-4 h-100">
+          <div class="card-body p-20">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <div>
+                <p class="fw-medium text-primary-light mb-1">Total Income</p>
+                <h6 class="mb-0">$42,000</h6>
+              </div>
+              <div class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
+                <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
+              </div>
+            </div>
+            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
+              <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$20,000</span> 
+              Last 30 days income
+            </p>
+          </div>
+        </div><!-- card end -->
+      </div>
+      <div class="col">
+        <div class="card shadow-none border bg-gradient-start-5 h-100">
+          <div class="card-body p-20">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <div>
+                <p class="fw-medium text-primary-light mb-1">Total Expense</p>
+                <h6 class="mb-0">$30,000</h6>
+              </div>
+              <div class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center">
+                <iconify-icon icon="fa6-solid:file-invoice-dollar" class="text-white text-2xl mb-0"></iconify-icon>
+              </div>
+            </div>
+            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
+              <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$5,000</span> 
+              Last 30 days expense
+            </p>
+          </div>
+        </div><!-- card end -->
+      </div>
+    </div>
+
+    <div class="row gy-4 mt-1">
+      <div class="col-xxl-6 col-xl-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+              <h6 class="text-lg mb-0">Sales Statistic</h6>
+              <select class="form-select bg-base form-select-sm w-auto radius-8">
+                <option>Yearly</option>
+                <option>Monthly</option>
+                <option>Weekly</option>
+                <option>Today</option>
+              </select>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
+              <h6 class="mb-0">$27,200</h6>
+              <span class="text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1 d-flex align-items-center gap-1">
+                10% <iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon>
+              </span>
+              <span class="text-xs fw-medium">+ $1500 Per Day</span>
+            </div>
+            <div id="chart" class="pt-28 apexcharts-tooltip-style-1"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3 col-xl-6">
+        <div class="card h-100 radius-8 border">
+          <div class="card-body p-24">
+              <h6 class="mb-12 fw-semibold text-lg mb-16">Total Subscriber</h6>
+              <div class="d-flex align-items-center gap-2 mb-20">
+                  <h6 class="fw-semibold mb-0">5,000</h6>
+                  <p class="text-sm mb-0">
+                      <span class="bg-danger-focus border br-danger px-8 py-2 rounded-pill fw-semibold text-danger-main text-sm d-inline-flex align-items-center gap-1">
+                          10%
+                          <iconify-icon icon="iconamoon:arrow-down-2-fill" class="icon"></iconify-icon>  
+                      </span> 
+                    - 20 Per Day 
+                  </p>
+              </div>
+
+              <div id="barChart" class="barChart"></div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3 col-xl-6">
+        <div class="card h-100 radius-8 border-0 overflow-hidden">
+          <div class="card-body p-24">
+            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
+              <h6 class="mb-2 fw-bold text-lg">Users Overview</h6>
+              <div class="">
+                <select class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8">
+                  <option>Today</option>
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div id="userOverviewDonutChart" class="apexcharts-tooltip-z-none"></div>
+
+            <ul class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+              <li class="d-flex align-items-center gap-2">
+                  <span class="w-12-px h-12-px radius-2 bg-primary-600"></span>
+                  <span class="text-secondary-light text-sm fw-normal">New: 
+                      <span class="text-primary-light fw-semibold">500</span>
+                  </span>
+              </li>
+              <li class="d-flex align-items-center gap-2">
+                  <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
+                  <span class="text-secondary-light text-sm fw-normal">Subscribed:  
+                      <span class="text-primary-light fw-semibold">300</span>
+                  </span>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-9 col-xl-12">
+        <div class="card h-100">
+            <div class="card-body p-24">
+
+              <div class="d-flex flex-wrap align-items-center gap-1 justify-content-between mb-16">
+                <ul class="nav border-gradient-tab nav-pills mb-0" id="pills-tab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link d-flex align-items-center active" id="pills-to-do-list-tab" data-bs-toggle="pill" data-bs-target="#pills-to-do-list" type="button" role="tab" aria-controls="pills-to-do-list" aria-selected="true">
+                      Latest Registered 
+                      <span class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert">35</span>
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link d-flex align-items-center" id="pills-recent-leads-tab" data-bs-toggle="pill" data-bs-target="#pills-recent-leads" type="button" role="tab" aria-controls="pills-recent-leads" aria-selected="false" tabindex="-1">
+                      Latest Subscribe 
+                      <span class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert">35</span>
+                    </button>
+                  </li>
+                </ul>
+                <a href="javascript:void(0)" class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
+                  View All
+                  <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
+                </a>
+              </div>
+
+              <div class="tab-content" id="pills-tabContent">   
+                <div class="tab-pane fade show active" id="pills-to-do-list" role="tabpanel" aria-labelledby="pills-to-do-list-tab" tabindex="0">
+                  <div class="table-responsive scroll-sm">
+                    <table class="table bordered-table sm-table mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Users </th>
+                          <th scope="col">Registered On</th>
+                          <th scope="col">Plan</th>
+                          <th scope="col" class="text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
+                                <span class="text-sm text-secondary-light fw-medium">redaniel@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Free</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user2.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
+                                <span class="text-sm text-secondary-light fw-medium">xterris@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Basic</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user3.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
+                                <span class="text-sm text-secondary-light fw-medium">seannand@mail.ru</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Standard</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user4.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Bessie Cooper </h6>
+                                <span class="text-sm text-secondary-light fw-medium">igerrin@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Business</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user5.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
+                                <span class="text-sm text-secondary-light fw-medium">fellora@mail.ru</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Enterprise </td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-recent-leads" role="tabpanel" aria-labelledby="pills-recent-leads-tab" tabindex="0">
+                  <div class="table-responsive scroll-sm">
+                    <table class="table bordered-table sm-table mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Users </th>
+                          <th scope="col">Registered On</th>
+                          <th scope="col">Plan</th>
+                          <th scope="col" class="text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
+                                <span class="text-sm text-secondary-light fw-medium">redaniel@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Free</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user2.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
+                                <span class="text-sm text-secondary-light fw-medium">xterris@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Basic</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user3.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
+                                <span class="text-sm text-secondary-light fw-medium">seannand@mail.ru</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Standard</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user4.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Bessie Cooper </h6>
+                                <span class="text-sm text-secondary-light fw-medium">igerrin@gmail.com</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Business</td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="assets/images/users/user5.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                              <div class="flex-grow-1">
+                                <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
+                                <span class="text-sm text-secondary-light fw-medium">fellora@mail.ru</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>27 Mar 2024</td>
+                          <td>Enterprise </td>
+                          <td class="text-center"> 
+                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> 
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3 col-xl-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
+              <h6 class="mb-2 fw-bold text-lg mb-0">Top Performer</h6>
+              <a href="javascript:void(0)" class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
+                View All
+                <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
+              </a>
+            </div>
+
+            <div class="mt-32">
+
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$20</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user2.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$20</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user3.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$30</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user4.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Bessie Cooper</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$40</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user5.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$10</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center">
+                  <img src="assets/images/users/user1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                  <div class="flex-grow-1">
+                    <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
+                    <span class="text-sm text-secondary-light fw-medium">Agent ID: 36254</span>
+                  </div>
+                </div>
+                <span class="text-primary-light text-md fw-medium">$10</span>
+              </div>
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
+              <h6 class="mb-2 fw-bold text-lg mb-0">Top Countries</h6>
+                <select class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8">
+                  <option>Today</option>
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                </select>
+            </div>
+
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <div id="world-map" class="h-100 border radius-8"></div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="h-100 border p-16 pe-0 radius-8">
+                  <div class="max-h-266-px overflow-y-auto scroll-sm pe-16">
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">USA</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-primary-600 rounded-pill" style="width: 80%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">80%</span>
+                      </div>
+                    </div>
+      
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag2.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">Japan</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-orange rounded-pill" style="width: 60%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">60%</span>
+                      </div>
+                    </div>
+      
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag3.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">France</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-yellow rounded-pill" style="width: 49%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">49%</span>
+                      </div>
+                    </div>
+      
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag4.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">Germany</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-success-main rounded-pill" style="width: 100%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">100%</span>
+                      </div>
+                    </div>
+      
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag5.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">South Korea</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-info-main rounded-pill" style="width: 30%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">30%</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                      <div class="d-flex align-items-center w-100">
+                          <img src="assets/images/flags/flag1.png" alt="Image" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                        <div class="flex-grow-1">
+                          <h6 class="text-sm mb-0">USA</h6>
+                          <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 w-100">
+                        <div class="w-100 max-w-66 ms-auto">
+                          <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-primary-600 rounded-pill" style="width: 80%;"></div>
+                          </div>
+                        </div>
+                        <span class="text-secondary-light font-xs fw-semibold">80%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
+              <h6 class="mb-2 fw-bold text-lg mb-0">Generated Content</h6>
+              <select class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8">
+                <option>Today</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+                <option>Yearly</option>
+              </select>
+            </div>
+
+            <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
+              <li class="d-flex align-items-center gap-2">
+                  <span class="w-12-px h-12-px rounded-circle bg-primary-600"></span>
+                  <span class="text-secondary-light text-sm fw-semibold">Word: 
+                      <span class="text-primary-light fw-bold">500</span>
+                  </span>
+              </li>
+              <li class="d-flex align-items-center gap-2">
+                  <span class="w-12-px h-12-px rounded-circle bg-yellow"></span>
+                  <span class="text-secondary-light text-sm fw-semibold">Image:  
+                      <span class="text-primary-light fw-bold">300</span>
+                  </span>
+              </li>
+            </ul>
+
+            <div class="mt-40">
+              <div id="paymentStatusChart" class="margin-16-minus"></div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 @endsection
 @section('css')

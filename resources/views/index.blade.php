@@ -1,753 +1,1177 @@
 @extends('layouts.main')
 @section('content')
- 
-<section class="hero-section" style=" background-image:  url('{{ asset('assets/images/banner-image.jpg') }}');">
-  <div class="hero-container">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        Order Tasty Fruits<br>
-        and Get Free Delivery!
-      </h1>
-      <div class="hero-actions">
-        <a href="#shop" class="btn-explore">
-          <i class="fa-solid fa-bag-shopping"></i>
-          Explore Shop
-        </a>
-        <div class="hero-text">2500+ Fresh Products 2</div>
-      </div>
-    </div>
-    <!-- <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&q=80" alt="Fresh Fruits Collection">
-            </div> -->
-  </div>
-</section>
 
-<!-- Demo Content Below Hero -->
-<section class="promo-section container mt-3 py-5">
-  <div class="promo-grid">
-    <!-- Card 1 -->
-    <div class="promo-card" style="background-color:#DFF2E1;">
-      <div class="promo-content">
-        <h3>Fresh Seafood Everyday.</h3>
-        <a href="#" class="promo-btn">Shop Now</a>
-      </div>
-      <img src="{{asset('assets/images/category-one.jpg')}}" alt="Fresh Seafood">
-    </div>
+<div class="hero-area slider-navigation-1">
 
-    <!-- Card 2 -->
-    <div class="promo-card" style="background-color:#FDE8C9;">
-      <div class="promo-content">
-        <h3>Sweet Organic Drinks</h3>
-        <a href="#" class="promo-btn">Shop Now</a>
-      </div>
-      <img src="{{asset('assets/images/category-two.jpg')}}" alt="Organic Drinks">
-    </div>
+			<!-- Single Slide Item -->
+			<div class="single-hero-item bg-grey d-flex align-items-center">
+				<div class="container">
+					<div class="hero-item-inner">
+						<div class="row align-items-center justify-content-center">
+							<div class="col-xl-6 col-lg-7 col-md-7 col-12 order-2 order-md-1">
+								<div class="hero-content">
+									<h1><span>SHAPE UP YOU</span> GET YOUR BODY SLIMFIT</h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiunt ut labore et dmagna aliqua. Ut enim ad minim veniam, quis nostrud .</p>
+									<a href="shop-right-sidebar.html" class="sf-button">
+										<span>Shop Now</span>
+									</a>
+								</div>
+							</div>
+							<div class="col-xl-6 col-lg-5 col-md-5 col-sm-6 order-1 order-md-2 align-self-end">
+								<div class="hero-image">
+									<img src="{{asset('assets/img/hero-image/hero-image-1.png')}}" alt="hero image">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Single Slide Item -->
 
-    <!-- Card 3 -->
-    <div class="promo-card" style="background-color:#D4EBF2;">
-      <div class="promo-content">
-        <h3>For Steak Lovers</h3>
-        <a href="#" class="promo-btn">Shop Now</a>
-      </div>
-      <img src="{{asset('assets/images/category-three.jpg')}}" alt="Steak Lovers">
-    </div>
-  </div>
-</section>
+			<!-- Single Slide Item -->
+			<div class="single-hero-item bg-grey d-flex align-items-center">
+				<div class="container">
+					<div class="hero-item-inner">
+						<div class="row align-items-center justify-content-center">
+							<div class="col-xl-6 col-lg-7 col-md-7 col-12 order-2 order-md-1">
+								<div class="hero-content">
+									<h1><span>AWESOME SHAPE</span>SLIMFIT BODY MAKER</h1>
+									<p>Amet, a ratione sunt quia accusantium labore. Magni quas error, voluptatum beatae saepe magnam commodi possimus ex impedit aliquam.</p>
+									<a href="shop-right-sidebar.html" class="sf-button">
+										<span>Shop Now</span>
+									</a>
+								</div>
+							</div>
+							<div class="col-xl-6 col-lg-5 col-md-5 col-sm-6 order-1 order-md-2 align-self-end">
+								<div class="hero-image">
+									<img src="{{asset('assets/img/hero-image/hero-image-2.png')}}" alt="hero image">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Single Slide Item -->
 
+			<!-- Single Slide Item -->
+			<div class="single-hero-item bg-grey d-flex align-items-center">
+				<div class="container">
+					<div class="hero-item-inner">
+						<div class="row align-items-center justify-content-center">
+							<div class="col-xl-6 col-lg-7 col-md-7 col-12 order-2 order-md-1">
+								<div class="hero-content">
+									<h1><span>BEAUTIFUL SHAPE</span>STAY SLIMFIT FOREVER</h1>
+									<p>Magni cupiditate soluta omnis dicta recusandae pariatur laboriosam obcaecati explicabo consequatur doloribus, molestias a, esse officia.</p>
+									<a href="shop-right-sidebar.html" class="sf-button">
+										<span>Shop Now</span>
+									</a>
+								</div>
+							</div>
+							<div class="col-xl-6 col-lg-5 col-md-5 col-sm-6 order-1 order-md-2 align-self-end">
+								<div class="hero-image">
+									<img src="{{asset('assets/img/hero-image/hero-image-3.png')}}" alt="hero image">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Single Slide Item -->
 
-<section class="bestsellers-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Bestsellers in September</h2>
-    </div>
+		</div>
+		<!--// Hero Area -->
 
-    <div class="products-grid">
-      <!-- Product 1 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p1.jpg')}}" alt="Ewan Still Water">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Ewan Still Water in 500 Ml X 12</h3>
-          <p class="product-description">It's a uniquely sourced spring water that's always refreshing and naturally hydrating.</p>
-          <div class="product-price">
-            <span class="current-price">$20.00</span>
-          </div>
-        </div>
-      </div>
+		<!-- Page Conttent -->
+		<main class="page-content">
 
-      <!-- Product 2 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p2.jpg')}}" alt="Spring Onions">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Spring Onions 1 Bunch</h3>
-          <p class="product-description">Go for spring onions with firm, unblemished bulbs and bright green, perky leaves.</p>
-          <div class="product-price">
-            <span class="current-price">$10.00</span>
-          </div>
-        </div>
-      </div>
+			<!-- Banner Area -->
+			<div class="banners-area bg-white">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-7 col-md-7 col-12 mt-30">
+							<div class="image-banner">
+								<a href="{{route('productDetails')}}">
+									<img src="{{asset('assets/img/banners/banner-image-1.jpg')}}" alt="Banner Image 1">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-5 col-md-5 col-12 mt-30">
+							<div class="image-banner">
+								<a href="{{route('productDetails')}}">
+									<img src="{{asset('assets/img/banners/banner-image-2.jpg')}}" alt="Banner Image 2">
+								</a>
+							</div>
+						</div>
+						<div class="col-12 mt-30">
+							<div class="image-banner">
+								<a href="{{route('productDetails')}}">
+									<img src="{{asset('assets/img/banners/banner-image-3.jpg')}}" alt="Banner Image 3">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Banner Area -->
 
-      <!-- Product 3 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p3.jpg')}}" alt="Red Radish">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Red Radish 1 Pack</h3>
-          <p class="product-description">The color of a radish is a strong indicator of its taste. Pick the ones that are a rich, full red.</p>
-          <div class="product-price">
-            <span class="current-price">$8.00</span>
-          </div>
-        </div>
-      </div>
+			<!-- Section New Arrival -->
+			<div class="sf-section new-arrival-area section-padding-lg bg-white">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+							<div class="section-title text-center">
+								<h6>BE THE HOURGLASS</h6>
+								<h3>NEW ARRIVAL</h3>
+							</div>
+						</div>
+					</div>
+					<div class="row products-wrapper products-slider-active slider-navigation-1">
 
-      <!-- Product 4 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p4.jpg')}}" alt="Boisli">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Boisli</h3>
-          <p class="product-description">To keep boisli fresh, trim the stems and place them in a glass or jar of water.</p>
-          <div class="product-price">
-            <span class="current-price">$12.00</span>
-          </div>
-        </div>
-      </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-1.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-5.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-      <!-- Product 5 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p5.jpg')}}" alt="Leafy Greens">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Leafy Green 2 units</h3>
-          <p class="product-description">Fresh leafy greens packed with nutrients and flavor for your healthy meals.</p>
-          <div class="product-price">
-            <span class="current-price">$10.00</span>
-          </div>
-        </div>
-      </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-2.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-6.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-      <!-- Product 6 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="{{asset('assets/images/p6.jpg')}}" alt="Root Vegetables">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Root Vegetables Bundle</h3>
-          <p class="product-description">A selection of fresh root vegetables including radishes, carrots, and more.</p>
-          <div class="product-price">
-            <span class="original-price">$20.00</span>
-            <span class="current-price">$10.00</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="video-cont">
-  <div class="video-container">
-    <div class="video-wrapper">
-      <div class="video-thumbnail">
-        <img src="{{asset('assets/images/banner-image.jpg')}}" alt="Video Thumbnail" class="thumbnail-image">
-        <div class="play-button-overlay">
-          <button class="play-button" onclick="playVideo()">
-            <svg viewBox="0 0 24 24" width="80" height="80">
-              <path d="M8 5v14l11-7z" fill="white"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <video id="mainVideo" src="{{asset('assets/images/v1.mp4')}}" controls class="video-element" style="display: none;"></video>
-    </div>
-    <div class="video-info">
-      <h3>Discover Fresh Produce Delivered</h3>
-      <p>Watch how we source and deliver the freshest fruits and vegetables directly to your doorstep with quality assurance at every step.</p>
-    </div>
-  </div>
-</section>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-3.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-7.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-<div class="big-sales-container">
-  <div class="left-section">
-    <div class="header-v">
-      <h1>Big Sales Today</h1>
-      <div class="countdown">
-        <div class="countdown-item">
-          <div class="countdown-number">2</div>
-          <div class="countdown-label">days</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number">00</div>
-          <div class="countdown-label">hours</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number">42</div>
-          <div class="countdown-label">mins</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number">00</div>
-          <div class="countdown-label">secs</div>
-        </div>
-      </div>
-    </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-4.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-8.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">Sale</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <!-- Product 1: Mint -->
-        <div class="swiper-slide">
-          <div class="product-card-v">
-            <div class="product-image-container-v">
-              <div class="badges">
-                <span class="badge-v markdown">MARKDOWN</span>
-                <span class="badge-v new">NEW</span>
-              </div>
-              <span class="discount-badge-v">-13%</span>
-              <img src="{{asset('assets/images/p4.jpg')}}" alt="Mint" />
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 67%;"></div>
-            </div>
-            <div class="stock-info">
-              <span>Sold: 43</span>
-              <span>Available: 21</span>
-            </div>
-            <h3 class="product-title-v">Mint</h3>
-            <p class="product-category">Leafy Green</p>
-            <div class="quantity-selector">
-              <select>
-                <option>Choose an option</option>
-                <option>1 unit</option>
-                <option>2 units</option>
-                <option>3 units</option>
-              </select>
-            </div>
-            <div class="price-row">
-              <div class="price-container">
-                <span class="current-price-v">$13.00</span>
-                <span class="original-price-v">$22.00</span>
-              </div>
-              <button class="add-to-cart">
-                <svg viewBox="0 0 24 24">
-                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-9.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-13.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">Sale</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-        <!-- Product 2: Basil -->
-        <div class="swiper-slide">
-          <div class="product-card-v">
-            <div class="product-image-container-v">
-              <div class="badges">
-                <span class="badge-v new">NEW</span>
-              </div>
-              <span class="discount-badge-v">-20%</span>
-              <img src="{{asset('assets/images/p4.jpg')}}" alt="Basil" />
-            </div>
-            <h3 class="product-title-v">Basil</h3>
-            <p class="product-category">Leafy Green</p>
-            <div class="quantity-selector">
-              <select>
-                <option>2 units</option>
-                <option>1 unit</option>
-                <option>3 units</option>
-              </select>
-            </div>
-            <span class="stock-badge in-stock">126 IN STOCK</span>
-            <div class="price-row">
-              <div class="price-container">
-                <span class="current-price-v">$8.00</span>
-                <span class="original-price-v">$10.00</span>
-              </div>
-              <button class="add-to-cart">
-                <svg viewBox="0 0 24 24">
-                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-10.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-14.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-        <!-- Product 3: Oyster Mushroom -->
-        <div class="swiper-slide">
-          <div class="product-card-v">
-            <div class="product-image-container-v">
-              <span class="discount-badge-v">-25%</span>
-              <img src="{{asset('assets/images/oister.jpg')}}" alt="Oyster Mushroom" />
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 31%;"></div>
-            </div>
-            <div class="stock-info">
-              <span>Sold: 54</span>
-              <span>Available: 120</span>
-            </div>
-            <h3 class="product-title-v">Oyster Mushroom 500 Gr</h3>
-            <p class="product-category">Mushrooms</p>
-            <div class="country-flags">
-              <svg width="24" height="18" viewBox="0 0 24 18">
-                <rect width="24" height="18" fill="#002395" />
-                <rect width="16" height="18" fill="#fff" />
-                <rect width="8" height="18" fill="#ED2939" />
-              </svg>
-              <svg width="24" height="18" viewBox="0 0 24 18">
-                <rect width="24" height="6" fill="#009246" />
-                <rect y="6" width="24" height="6" fill="#fff" />
-                <rect y="12" width="24" height="6" fill="#CE2B37" />
-              </svg>
-            </div>
-            <span class="stock-badge in-stock">120 IN STOCK</span>
-            <div class="price-row">
-              <div class="price-container">
-                <span class="current-price-v">$12.00</span>
-                <span class="original-price-v">$15.00</span>
-              </div>
-              <button class="add-to-cart">
-                <svg viewBox="0 0 24 24">
-                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+						<!-- Single product -->
+						<div class="col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-11.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-15.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-        <!-- Product 4: Kiwi -->
-        <div class="swiper-slide">
-          <div class="product-card-v">
-            <div class="product-image-container-v">
-              <span class="discount-badge-v">-33%</span>
-              <span class="out-of-stock-badge">OUT OF STOCK</span>
-              <img src="{{asset('assets/images/kiwi.jpg')}}" alt="Kiwi" />
-            </div>
-            <h3 class="product-title-v">Kiwi</h3>
-            <p class="product-category">Tropical & Exotic</p>
-            <div class="color-options">
-              <div class="color-dot" style="background-color: #8fbc4e; border-color: #8fbc4e;"></div>
-              <div class="color-dot" style="background-color: #f4d03f;"></div>
-            </div>
-            <span class="stock-badge out">OUT OF STOCK</span>
-            <div class="price-row">
-              <div class="price-container">
-                <span class="current-price-v">$10.00</span>
-                <span class="original-price-v">$15.00</span>
-              </div>
-              <button class="add-to-cart">
-                <svg viewBox="0 0 24 24">
-                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+					</div>
+				</div>
+			</div>
+			<!--// Section New Arrival -->
 
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
+			<!-- Fullwidth Banner -->
+			<div class="sf-section fullwidth-banner-area section-padding-lg bg-banner-1" data-white-overlay="7">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-6 col-md-8 col-sm-10 col-12">
+							<div class="banner-content text-center">
+								<h6>NEW ARRIVAL</h6>
+								<h2><span>40%</span> OFF FOR ALL</h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiunt ut labore et dmagna aliqua.</p>
+								<a href="shop.html" class="sf-button">
+									<span>Shop Now</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Fullwidth Banner -->
 
-  <div class="promo-card-v"
-    style="background-image: linear-gradient(135deg, rgba(142, 188, 78, 0) 0%, rgba(167, 204, 108, 0) 100%), url('{{asset('assets/images/best-sales.jpg')}}'); 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;">
-    <h2>Tasty Cheeses From Farm Vendors</h2>
-    <button class="shop-now-btn">Shop Now</button>
-  </div>
+			<!-- Featured Shop Item -->
+			<div class="sf-section featured-shop-item section-padding-lg bg-white">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+							<div class="section-title text-center">
+								<h6>FEATURED SHOP ITEM</h6>
+								<h3>FEATURED PRODUCT</h3>
+							</div>
+						</div>
+					</div>
 
-</div>
+					<div class="row products-wrapper">
 
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-9.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-13.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">Sale</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-<div class="discount-section">
-  <div class="discount-card" style="background-image: url('{{asset('assets/images/egg.jpg')}}');">
-    <span class="discount-badge">-33%</span>
-    <h3>For Ten<br>Chicken Eggs</h3>
-  </div>
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-10.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-14.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-  <div class="discount-card" style="background-image: url('{{asset('assets/images/crab.jpg')}}');">
-    <span class="discount-badge">-25%</span>
-    <h3>Every Friday<br>Big Discounts<br>for Seafood</h3>
-  </div>
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-11.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-15.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-  <div class="discount-card" style="background-image: url('{{asset('assets/images/cake.jpg')}}');">
-    <span class="discount-badge">-15%</span>
-    <h3>Excellent Bread<br>From Our<br>Bakers</h3>
-  </div>
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-12.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-16.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-  <div class="discount-card" style="background-image: url('{{asset('assets/images/burger.jpg')}}');">
-    <span class="discount-badge red">-50%</span>
-    <h3>Order Burger<br>with Great<br>Meat</h3>
-  </div>
-</div>
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-1.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-5.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-2.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-6.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">New</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-3.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-7.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox"><del>$60.00</del> $50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-<!-- 🟢 Product Lists Section -->
-<div class="product-lists">
-  <!-- Sale Products -->
-  <div class="product-column">
-    <h3>Sale Products</h3>
-    <div class="product-item">
-      <img src="{{asset('assets/images/mint.jpg')}}" alt="Mint">
-      <div>
-        <p class="title">Mint</p>
-        <p class="price">$13.00 – $22.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/basil.jpg')}}" alt="Basil">
-      <div>
-        <p class="title">Basil</p>
-        <p class="price">$8.00 – $16.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/oister.jpg')}}" alt="Oyster Mushroom 500 gr">
-      <div>
-        <p class="title">Oyster Mushroom 500 gr</p>
-        <p class="price">$12.00 – $15.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/kiwi.jpg')}}" alt="Kiwi">
-      <div>
-        <p class="title">Kiwi</p>
-        <p class="price">$10.00 – $15.00</p>
-      </div>
-    </div>
-  </div>
+						<!-- Single product -->
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="product-item">
+								<div class="product-item-topside">
+									<div class="product-item-images">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-4.jpg')}}" alt="product image">
+										<img src="{{asset('assets/img/product/thumbnail-size/product-image-8.jpg')}}" alt="product image">
+									</div>
+									<ul class="product-item-actions">
+										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+									</ul>
+									<span class="product-item-badge">Sale</span>
+								</div>
+								<div class="product-item-bottomside">
+									<div class="ratting-box">
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span class="active"><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+										<span><i class="ti ti-star"></i></span>
+									</div>
+									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+									<span class="pricebox">$50.00</span>
+								</div>
+							</div>	
+						</div>
+						<!--// Single product -->
 
-  <!-- Top Selling -->
-  <div class="product-column">
-    <h3>Top Selling</h3>
-    <div class="product-item">
-      <img src="{{asset('assets/images/evian.jpg')}}" alt="Evian Still Water">
-      <div>
-        <p class="title">Evian Still Water in 500 ml × 12</p>
-        <p class="price">$20.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/spring.jpg')}}" alt="Spring Onions 1 bunch">
-      <div>
-        <p class="title">Spring Onions 1 bunch</p>
-        <p class="price">$10.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/redish.jpg')}}" alt="Red Radish 1 pack">
-      <div>
-        <p class="title">Red Radish 1 pack</p>
-        <p class="price">$20.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/basil.jpg')}}" alt="Basil">
-      <div>
-        <p class="title">Basil</p>
-        <p class="price">$8.00 – $16.00</p>
-      </div>
-    </div>
-  </div>
+					</div>
 
-  <!-- Recently Added -->
-  <div class="product-column">
-    <h3>Recently Added</h3>
-    <div class="product-item">
-      <img src="{{asset('assets/images/spring.jpg')}}" alt="Spring Onions">
-      <div>
-        <p class="title">Spring Onions 1 bunch</p>
-        <p class="price">$10.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/mint.jpg')}}" alt="Mint">
-      <div>
-        <p class="title">Mint</p>
-        <p class="price">$13.00 – $22.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/basil.jpg')}}" alt="Basil">
-      <div>
-        <p class="title">Basil</p>
-        <p class="price">$8.00 – $16.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/carot.jpg')}}" alt="Carrots 1 kg">
-      <div>
-        <p class="title">Carrots 1 kg</p>
-        <p class="price">$10.00</p>
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+			<!--// Featured Shop Item -->
 
-  <!-- Top Rated -->
-  <div class="product-column">
-    <h3>Top Rated</h3>
-    <div class="product-item">
-      <img src="{{asset('assets/images/menisez.jpg')}}" alt="Menissez Mini Pains Bake At Home">
-      <div>
-        <p class="title">Menissez Mini Pains Bake At Home</p>
-        <p class="stars">★★★★★</p>
-        <p class="price">$15.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/grapes.jpg')}}" alt="Delicious Grapes">
-      <div>
-        <p class="title">Delicious Grapes</p>
-        <p class="stars">★★★★★</p>
-        <p class="price">$14.00 – $16.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/avacado.jpg')}}" alt="Avocados 2 Units">
-      <div>
-        <p class="title">Avocados 2 Units</p>
-        <p class="stars">★★★★★</p>
-        <p class="price">$60.00</p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="{{asset('assets/images/meat.jpg')}}" alt="Halal Chuck Steak 500 gr">
-      <div>
-        <p class="title">Halal Chuck Steak 500 gr</p>
-        <p class="stars">★★★★★</p>
-        <p class="price">$350.00</p>
-      </div>
-    </div>
-  </div>
-</div>
+			<!-- Banner Area -->
+			<div class="sf-section banners-area bg-white section-padding-bottom-lg">
+				<div class="container">
+					<div class="image-banner-wrapper">
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+								<div class="image-banner mt-30">
+									<a href="{{route('productDetails')}}">
+										<img src="{{asset('assets/img/banners/banner-image-4.jpg')}}" alt="Banner Image 4">
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+								<div class="image-banner mt-30">
+									<a href="{{route('productDetails')}}">
+										<img src="{{asset('assets/img/banners/banner-image-5.jpg')}}" alt="Banner Image 5">
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+								<div class="image-banner mt-30">
+									<a href="{{route('productDetails')}}">
+										<img src="{{asset('assets/img/banners/banner-image-6.jpg')}}" alt="Banner Image 6">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Banner Area -->
 
+			<!-- Random Products View -->
+			<div class="sf-section random-products-view bg-grey section-padding-lg">
+				<div class="container">
+					<div class="random-products-margin-fix">
+						<div class="row">
 
+							<!-- Single Column -->
+							<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+								<div class="random-products-column">
+									<h6>RANDOM PRODUCTS</h6>
+									<div class="random-products-wrapper">
 
-<!-- Welcome Modal -->
-<div id="welcomeModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="Welcome" class="modal-image">
-    <h2>Welcome to <span>Christelle Store!</span> 🍎</h2>
-    <p>Enjoy fresh fruits, vegetables, and get <strong>free delivery</strong> on your first order!</p>
-    <a href="/shop" class="explore-btn">Explore Shop</a>
-  </div>
-</div>
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-1.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
 
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-2.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox"><del>$60.00</del> $50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-3.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+									</div>
+								</div>
+							</div>
+							<!--// Single Column -->
+
+							<!-- Single Column -->
+							<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+								<div class="random-products-column">
+									<h6>NEW ARRIVAL PRODUCT</h6>
+									<div class="random-products-wrapper">
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-4.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-5.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox"><del>$60.00</del> $50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-6.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+									</div>
+								</div>
+							</div>
+							<!--// Single Column -->
+
+							<!-- Single Column -->
+							<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+								<div class="random-products-column">
+									<h6>BEST SELLER PRODUCT</h6>
+									<div class="random-products-wrapper">
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-7.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox"><del>$60.00</del> $50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-8.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-9.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+									</div>
+								</div>
+							</div>
+							<!--// Single Column -->
+
+							<!-- Single Column -->
+							<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+								<div class="random-products-column">
+									<h6>ON SALE PRODUCT</h6>
+									<div class="random-products-wrapper">
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-10.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox"><del>$60.00</del> $50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-11.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+										<!-- Single product -->
+										<div class="product-item product-item-mini">
+											<div class="product-item-topside">
+												<div class="product-item-images">
+													<img src="{{asset('assets/img/product/mini-size/product-image-mini-12.png')}}" alt="product image">
+												</div>
+												<ul class="product-item-actions">
+													<li><a href="{{route('productDetails')}}"><i class="ti ti-share"></i></a></li>
+												</ul>
+											</div>
+											<div class="product-item-bottomside">
+												<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
+												<div class="ratting-box">
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span class="active"><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+													<span><i class="ti ti-star"></i></span>
+												</div>
+												<span class="pricebox">$50.00</span>
+											</div>
+										</div>
+										<!--// Single product -->
+
+									</div>
+								</div>
+							</div>
+							<!--// Single Column -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Random Products View -->
+
+			<!-- Blog Area -->
+			<div class="sf-section blog-area bg-white section-padding-lg">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+							<div class="section-title text-center">
+								<h6>FEATURED SHOP ITEM</h6>
+								<h3>FROM OUR LATEST BLOG</h3>
+							</div>
+						</div>
+					</div>
+
+					<div class="row blog-slider-active slider-navigation-1">
+
+						<!-- Single Blog -->
+						<div class="col-12">
+							<div class="blog-item">
+								<div class="blog-item-image">
+									<img src="{{asset('assets/img/blog/blog-image-1.jpg')}}" alt="blog image">
+								</div>
+								<div class="blog-item-content">
+									<div class="blog-item-content-inner">
+										<span class="blog-item-author">By: <a href="blog.html">Denial Mikko</a></span>
+										<h6 class="blog-item-title"><a href="blog-details.html">NAOMI & NICOLE CLASSIC BODYSHORT </a></h6>
+										<p>Lorem ipsum or sit amet, consectetur adipisicing elit, sed por incididunt ut laborer.</p>
+										<div class="blog-item-meta">
+											<span>20th July, 2018</span>
+											<span><a href="#">Comment’s : 05</a></span>
+											<span><a href="#">Like : 08</a></span>
+										</div>
+										<a href="blog-details.html" class="sf-button sf-button-transparent sf-button-sm">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--// Single Blog -->
+
+						<!-- Single Blog -->
+						<div class="col-12">
+							<div class="blog-item">
+								<div class="blog-item-image">
+									<img src="{{asset('assets/img/blog/blog-image-2.jpg')}}" alt="blog image">
+								</div>
+								<div class="blog-item-content">
+									<div class="blog-item-content-inner">
+										<span class="blog-item-author">By: <a href="blog.html">Denial Mikko</a></span>
+										<h6 class="blog-item-title"><a href="blog-details.html">NAOMI & NICOLE CLASSIC BODYSHORT </a></h6>
+										<p>Lorem ipsum or sit amet, consectetur adipisicing elit, sed por incididunt ut laborer.</p>
+										<div class="blog-item-meta">
+											<span>20th July, 2018</span>
+											<span><a href="#">Comment’s : 05</a></span>
+											<span><a href="#">Like : 08</a></span>
+										</div>
+										<a href="blog-details.html" class="sf-button sf-button-transparent sf-button-sm">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--// Single Blog -->
+
+						<!-- Single Blog -->
+						<div class="col-12">
+							<div class="blog-item">
+								<div class="blog-item-image">
+									<img src="{{asset('assets/img/blog/blog-image-3.jpg')}}" alt="blog image">
+								</div>
+								<div class="blog-item-content">
+									<div class="blog-item-content-inner">
+										<span class="blog-item-author">By: <a href="blog.html">Denial Mikko</a></span>
+										<h6 class="blog-item-title"><a href="blog-details.html">NAOMI & NICOLE CLASSIC BODYSHORT </a></h6>
+										<p>Lorem ipsum or sit amet, consectetur adipisicing elit, sed por incididunt ut laborer.</p>
+										<div class="blog-item-meta">
+											<span>20th July, 2018</span>
+											<span><a href="#">Comment’s : 05</a></span>
+											<span><a href="#">Like : 08</a></span>
+										</div>
+										<a href="blog-details.html" class="sf-button sf-button-transparent sf-button-sm">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--// Single Blog -->
+
+						<!-- Single Blog -->
+						<div class="col-12">
+							<div class="blog-item">
+								<div class="blog-item-image">
+									<img src="{{asset('assets/img/blog/blog-image-4.jpg')}}" alt="blog image">
+								</div>
+								<div class="blog-item-content">
+									<div class="blog-item-content-inner">
+										<span class="blog-item-author">By: <a href="blog.html">Denial Mikko</a></span>
+										<h6 class="blog-item-title"><a href="blog-details.html">NAOMI & NICOLE CLASSIC BODYSHORT </a></h6>
+										<p>Lorem ipsum or sit amet, consectetur adipisicing elit, sed por incididunt ut laborer.</p>
+										<div class="blog-item-meta">
+											<span>20th July, 2018</span>
+											<span><a href="#">Comment’s : 05</a></span>
+											<span><a href="#">Like : 08</a></span>
+										</div>
+										<a href="blog-details.html" class="sf-button sf-button-transparent sf-button-sm">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--// Single Blog -->
+
+					</div>
+				</div>
+			</div>
+			<!--// Blog Area -->
+
+			<!-- Supports Area -->
+			<div class="sf-section supports-area bg-white section-padding-bottom-lg">
+				<div class="container">
+					<div class="support-items-wrapper">
+						<div class="support-item">
+							<span class="support-item-icon">
+								<img src="{{asset('assets/img/icons/icon-reload.png')}}" alt="return">
+							</span>
+							<h5>90 DAYS RETURN</h5>
+							<p>30 days for free return</p>
+						</div>
+						<div class="support-item">
+							<span class="support-item-icon">
+								<img src="{{asset('assets/img/icons/icon-support.png')}}" alt="return">
+							</span>
+							<h5>24/7 SUPPORT</h5>
+							<p>30 days for free return</p>
+						</div>
+						<div class="support-item">
+							<span class="support-item-icon">
+								<img src="{{asset('assets/img/icons/icon-origami.png')}}" alt="return">
+							</span>
+							<h5>FREE SHIPPING</h5>
+							<p>Gift card on 2 purchase</p>
+						</div>
+						<div class="support-item">
+							<span class="support-item-icon">
+								<img src="{{asset('assets/img/icons/icon-present.png')}}" alt="return">
+							</span>
+							<h5>GIFT CARD</h5>
+							<p>Gift card on 2 purchase</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// Supports Area -->
+
+		</main>
+		<!--// Page Conttent -->
 
 @endsection
 @section('css')
     <style type="text/css">
         /* Video Section Styling */
-        .video-cont {
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            padding: 80px 20px;
-            margin: 60px 0;
-        }
-
-        .video-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-            margin-bottom: 40px;
-        }
-
-        .video-thumbnail {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .thumbnail-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .video-thumbnail:hover .thumbnail-image {
-            transform: scale(1.05);
-        }
-
-        .play-button-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s ease;
-            cursor: pointer;
-        }
-
-        .video-thumbnail:hover .play-button-overlay {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .play-button {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #8fbc4e 0%, #7aa844 100%);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 12px 40px rgba(143, 188, 78, 0.5);
-        }
-
-        .play-button:hover {
-            transform: scale(1.15);
-            box-shadow: 0 15px 50px rgba(143, 188, 78, 0.7);
-        }
-
-        .play-button svg {
-            margin-left: 5px;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-        }
-
-        .video-element {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 16px;
-        }
-
-        .video-info {
-            text-align: center;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .video-info h3 {
-            font-size: 32px;
-            font-weight: 600;
-            color: #2c2c2c;
-            margin: 0 0 18px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .video-info p {
-            font-size: 17px;
-            color: #666;
-            line-height: 1.7;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .video-cont {
-                padding: 40px 15px;
-                margin: 30px 0;
-            }
-
-            .video-wrapper {
-                border-radius: 12px;
-                margin-bottom: 20px;
-            }
-
-            .play-button {
-                width: 70px;
-                height: 70px;
-            }
-
-            .play-button svg {
-                width: 50px;
-                height: 50px;
-            }
-
-            .video-info h3 {
-                font-size: 22px;
-                margin-bottom: 12px;
-            }
-
-            .video-info p {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .video-cont {
-                padding: 30px 10px;
-            }
-
-            .play-button {
-                width: 60px;
-                height: 60px;
-            }
-
-            .video-info h3 {
-                font-size: 18px;
-            }
-
-            .video-info p {
-                font-size: 13px;
-            }
-        }
     </style>
 @endsection
 @section('js')
-    <script type="text/javascript">
-        (() => {
-            function playVideo() {
-                const thumbnail = document.querySelector('.video-thumbnail');
-                const videoElement = document.getElementById('mainVideo');
-                
-                thumbnail.style.display = 'none';
-                videoElement.style.display = 'block';
-                videoElement.play();
-            }
-
-            window.playVideo = playVideo;
-
-            // Reset video to thumbnail when it ends
-            const videoElement = document.getElementById('mainVideo');
-            if (videoElement) {
-                videoElement.addEventListener('ended', function() {
-                    document.querySelector('.video-thumbnail').style.display = 'flex';
-                    videoElement.style.display = 'none';
-                });
-            }
-        })()
-    </script>
+    <script type="text/javascript"></script>
 @endsection

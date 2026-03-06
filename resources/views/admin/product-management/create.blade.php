@@ -99,6 +99,14 @@
                                         <input type="number" name="discounted_price" class="form-control" step="0.01">
                                     </div>
                                 </div>
+                                 <!-- Featured -->
+                                <div class="col-xl-6">
+                                    <label class="form-label">Featured :</label>
+                                    <select class="form-control" name="featured">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
 
                             </div>
                         </div>

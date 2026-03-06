@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, DashboardController, ProductController, NewsletterController, InquiryController, ProductCategoryController, ProductSubCategoryController, UserController};
+use App\Http\Controllers\Backend\{AdminController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, ProductCategoryController, ProductSubCategoryController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
 
@@ -31,13 +31,32 @@ Route::get('/privacy-policy', [IndexController::class, 'privacyPolicy'])->name('
 Route::get('/product-details/{slug?}', [IndexController::class, 'productDetails'])->name('productDetails');
 Route::get('/return-policy', [IndexController::class, 'returnPolicy'])->name('returnPolicy');
 Route::get('/shipping-policy', [IndexController::class, 'shippingPolicy'])->name('shippingPolicy');
-Route::get('/shop', [IndexController::class, 'shop'])->name('shop');
+Route::get('/shop/{slug?}/{subSlug?}', [IndexController::class, 'shop'])->name('shop');
 Route::get('/signup', [IndexController::class, 'signup'])->name('signup');
 Route::get('/terms-and-conditions', [IndexController::class, 'termsAndConditions'])->name('termsAndConditions');
 Route::get('/testimonials', [IndexController::class, 'testimonials'])->name('testimonials');
 Route::get('/wishlist', [IndexController::class, 'wishlist'])->name('wishlist');
 
 // ---------------------------------------For Frontend-----------------------------------
+
+
+// ---------------------------------------For Cart Setup-----------------------------------
+Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place.order');
+
+// Add product to cart
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update']);
+
+
+// View cart
+// Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+// Remove item from cart
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
+// Get cart data (for dropdown)
+Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
+// ---------------------------------------For Cart Setup-----------------------------------
 
 
 
@@ -79,6 +98,12 @@ Route::get(
     [ProductController::class, 'subCategories']
 )->name('admin.categories.subcategories');
 
+
+Route::post('/admin/products-bulk-upload-submit', [ProductController::class, 'importProductsCsv'])->name('admin.importProductsCsv');
+Route::get('/admin/products-bulk-upload', [ProductController::class, 'bulk'])->name('admin.bulkUpload');
+
+Route::post('/admin/products-bulk-upload-submit-json', [ProductController::class, 'importProductsJson'])->name('admin.importProductsJson');
+Route::get('/admin/products-bulk-upload-json', [ProductController::class, 'jsonbulk'])->name('admin.jsonBulkUpload');
 
 
 Route::prefix('admin')

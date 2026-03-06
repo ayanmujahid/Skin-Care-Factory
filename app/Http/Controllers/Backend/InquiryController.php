@@ -82,6 +82,6 @@ class InquiryController extends Controller
         Inquiry::create($request->all());
 
         return redirect()->route('index')
-            ->with('success', 'Inquiry created successfully.');
+            ->with('notify_success', 'Inquiry created successfully.');
     }
 }

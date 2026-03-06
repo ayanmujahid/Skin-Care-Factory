@@ -73,6 +73,6 @@ class NewsletterController extends Controller
         Newsletter::create($request->only('email'));
 
         return redirect()->route('index')
-            ->with('success', 'Newsletter subscription added successfully.');
+            ->with('notify_success', 'Newsletter subscription added successfully.');
     }
 }

@@ -1,53 +1,320 @@
 @extends('layouts.main')
 @section('content')
 <!-- ================= Wishlist Banner ================= -->
-<section class="wishlist-banner" style="background: url('{{ asset('assets/images/banner-image.jpg') }}') center/cover no-repeat; padding: 100px 0; text-align: center; color: #fff;">
-    <div class="container">
-        <h1 style="font-size:48px; font-weight:700;">Your Wishlist</h1>
-        <p style="font-size:18px; margin-top:10px;">Save your favorite products to buy later.</p>
-    </div>
-</section>
-
-<!-- ================= Wishlist Content ================= -->
-<section class="wishlist-content" style="padding:80px 0;">
-    <div class="container" style="display:flex; flex-wrap:wrap; gap:30px;">
-
-        <!-- Example Wishlist Product -->
-        <div class="wishlist-item" style="flex:1 1 calc(33.333% - 20px); background:#fff; border:1px solid #eee; border-radius:12px; overflow:hidden; text-align:center; padding:20px;">
-            <img src="{{asset('assets/images/grapes.jpg')}}" alt="Product" style="width:100%; border-radius:12px;">
-            <h4 style="margin:15px 0 5px; font-weight:600;">Organic grapes</h4>
-            <p style="color:#3cb815; font-weight:600;">$5.00</p>
-            <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:10px;">
-                <a href="#" style="background:#3cb815; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Add to Cart</a>
-                <a href="#" style="background:#007bff; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">See Details</a>
-                <a href="#" style="background:#dc3545; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Remove</a>
+ <!-- Bradcrumb Area -->
+        <div class="sn-breadcrumb-area bg-breadcrumb-1 section-padding-sm" data-white-overlay="7">
+            <div class="container">
+				<div class="sf-breadcrumb">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="shop.html">Shop</a></li>
+						<li>Wishlist</li>
+					</ul>
+				</div>
             </div>
         </div>
+        <!--// Bradcrumb Area -->
 
-        <div class="wishlist-item" style="flex:1 1 calc(33.333% - 20px); background:#fff; border:1px solid #eee; border-radius:12px; overflow:hidden; text-align:center; padding:20px;">
-            <img src="{{asset('assets/images/redish.jpg')}}" alt="Product" style="width:100%; border-radius:12px;">
-            <h4 style="margin:15px 0 5px; font-weight:600;">Organic Radish</h4>
-            <p style="color:#3cb815; font-weight:600;">$6.00</p>
-            <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:10px;">
-                <a href="#" style="background:#3cb815; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Add to Cart</a>
-                <a href="#" style="background:#007bff; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">See Details</a>
-                <a href="#" style="background:#dc3545; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Remove</a>
-            </div>
-        </div>
+		<!-- Page Conttent -->
+		<main class="page-content">
 
-        <div class="wishlist-item" style="flex:1 1 calc(33.333% - 20px); background:#fff; border:1px solid #eee; border-radius:12px; overflow:hidden; text-align:center; padding:20px;">
-            <img src="{{asset('assets/images/carot.jpg')}}" alt="Product" style="width:100%; border-radius:12px;">
-            <h4 style="margin:15px 0 5px; font-weight:600;">Organic Carrots</h4>
-            <p style="color:#3cb815; font-weight:600;">$4.00</p>
-            <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:10px;">
-                <a href="#" style="background:#3cb815; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Add to Cart</a>
-                <a href="#" style="background:#007bff; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">See Details</a>
-                <a href="#" style="background:#dc3545; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-size:14px;">Remove</a>
-            </div>
-        </div>
+			<!-- Shopping Cart Area -->
+			<div class="wishlist-page-area section-padding-lg bg-white">
+				<div class="container">
+					
+					<!-- Cart Products -->
+					<div class="cart-table table-responsive">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>			
+									<th class="cart-column-image" scope="col">IMAGE</th>
+									<th class="cart-column-productname" scope="col">PRODUCT</th>
+									<th class="cart-column-price" scope="col">PRICE</th>
+									<th class="cart-column-quantity" scope="col">QUANTITY</th>
+									<th class="cart-column-addtocart" scope="col">ADD TO CART</th>
+									<th class="cart-column-remove" scope="col">REMOVE</th>
+								</tr>
+							</thead>
+							<tbody>
 
-    </div>
-</section>
+								<tr>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-image">
+											<img src="{{asset('assets/img/product/small-size/product-image-1.jpg')}}" alt="product image">
+										</a>
+									</td>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-title">Aenean sagittis</a>
+									</td>
+									<td>£75.00</td>
+									<td>
+										<div class="quantity-select">
+											<input type="text" value="1">
+										</div>
+									</td>
+									<td>
+										<a href="#" class="sf-button sf-button-sm">
+                                            <span>ADD TO CART</span>
+                                        </a>
+									</td>
+									<td>
+										<button class="remove-product"><i class="ti ti-close"></i></button>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-image">
+											<img src="{{asset('assets/img/product/small-size/product-image-2.jpg')}}" alt="product image">
+										</a>
+									</td>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-title">Elementum felis</a>
+									</td>
+									<td>£75.00</td>
+									<td>
+										<div class="quantity-select">
+											<input type="text" value="1">
+										</div>
+									</td>
+									<td>
+										<a href="#" class="sf-button sf-button-sm">
+                                            <span>ADD TO CART</span>
+                                        </a>
+									</td>
+									<td>
+										<button class="remove-product"><i class="ti ti-close"></i></button>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-image">
+											<img src="{{asset('assets/img/product/small-size/product-image-3.jpg')}}" alt="product image">
+										</a>
+									</td>
+									<td>
+										<a href="product-details-right-sidebar.html" class="product-title">Aenean sagittis</a>
+									</td>
+									<td>£75.00</td>
+									<td>
+										<div class="quantity-select">
+											<input type="text" value="1">
+										</div>
+									</td>
+									<td>
+										<a href="#" class="sf-button sf-button-sm">
+                                            <span>ADD TO CART</span>
+                                        </a>
+									</td>
+									<td>
+										<button class="remove-product"><i class="ti ti-close"></i></button>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<!--// Cart Products -->
+
+					<!-- Similliar Products -->
+					<div class="similliar-products section-padding-top-lg">
+						<h4 class="small-title">SIMILLIAR PRODUCTS</h4>
+						<div class="row products-slider-active slider-navigation-1 products-wrapper">
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-11.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-15.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-12.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-16.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-1.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-5.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+										<span class="product-item-badge">New</span>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-2.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-6.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+										<span class="product-item-badge">New</span>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-3.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-7.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+
+							<!-- Single product -->
+							<div class="col-12">
+								<div class="product-item">
+									<div class="product-item-topside">
+										<div class="product-item-images">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-4.jpg')}}" alt="product image">
+											<img src="{{asset('assets/img/product/thumbnail-size/product-image-8.jpg')}}" alt="product image">
+										</div>
+										<ul class="product-item-actions">
+											<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
+											<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
+											<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
+											<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
+										</ul>
+										<span class="product-item-badge">Sale</span>
+									</div>
+									<div class="product-item-bottomside">
+										<div class="ratting-box">
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span class="active"><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+											<span><i class="ti ti-star"></i></span>
+										</div>
+										<h6><a href="product-details.html">Full Body Shapewear</a></h6>
+										<span class="pricebox">$50.00</span>
+									</div>
+								</div>	
+							</div>
+							<!--// Single product -->
+	
+						</div>
+					</div>
+					<!--// Similliar Products -->
+
+				</div>
+			</div>
+			<!--// Shopping Cart Area -->
+
+		</main>
+		<!--// Page Conttent -->
 @endsection
 @section('css')
     <style type="text/css">

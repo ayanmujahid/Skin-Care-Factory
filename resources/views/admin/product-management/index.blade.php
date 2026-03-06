@@ -1,175 +1,103 @@
 @extends('admin.layouts.main')
 
 @section('content')
-@include('admin.layouts.sidebar')
+    @include('admin.layouts.sidebar')
 
-<div class="main-content app-content">
-    <div class="container-fluid page-container main-body-container">
+    <div class="dashboard-main-body">
 
-        {{-- PAGE HEADER --}}
-        <div class="page-header-breadcrumb mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="page-title fs-18">Products</h1>
-                <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-                    + Add Product
-                </a>
-            </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+            <h6 class="fw-semibold mb-0">Basic Table</h6>
+            <ul class="d-flex align-items-center gap-2">
+                <li class="fw-medium">
+                    <a href="index.html" class="d-flex align-items-center gap-1 hover-text-primary">
+                        <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+                        Dashboard
+                    </a>
+                </li>
+                <li>-</li>
+                <li class="fw-medium">Basic Table</li>
+            </ul>
         </div>
 
-        {{-- STATS --}}
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h6>Total Products</h6>
-                        <h3>{{ $stats['total'] }}</h3>
-                    </div>
-                </div>
+        <div class="card basic-data-table">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Default Datatables</h5>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h6>In Stock</h6>
-                        <h3 class="text-success">{{ $stats['in_stock'] }}</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h6>Out of Stock</h6>
-                        <h3 class="text-danger">{{ $stats['out_stock'] }}</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h6>Total Revenue</h6>
-                        <h3>${{ number_format($stats['revenue'], 2) }}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- FILTERS --}}
-        <div class="card mb-3">
             <div class="card-body">
-                <div class="row g-2">
-                    <div class="col-md-4">
-                        <input type="text" id="search"
-                            value="{{ request('search') }}"
-                            class="form-control"
-                            placeholder="Search product">
-                    </div>
-                    <div class="col-md-3">
-                        <select id="stock" class="form-control">
-                            <option value="">All Stock</option>
-                            <option value="in-stock" {{ request('stock')=='in-stock'?'selected':'' }}>In Stock</option>
-                            <option value="out-of-stock" {{ request('stock')=='out-of-stock'?'selected':'' }}>Out of Stock</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select id="sort" class="form-control">
-                            <option value="">Sort By</option>
-                            <option value="date" {{ request('sort')=='date'?'selected':'' }}>Latest</option>
-                            <option value="price" {{ request('sort')=='price'?'selected':'' }}>Price</option>
-                            <option value="name" {{ request('sort')=='name'?'selected':'' }}>Name</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button onclick="applyFilters()" class="btn btn-dark w-100">
-                            Apply
-                        </button>
-                    </div>
-                </div>
+                <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        S.L
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col">Invoice</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Issued Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        01
+                                    </label>
+                                </div>
+                            </td>
+                            <td><a href="javascript:void(0)" class="text-primary-600">#526534</a></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/user-list/user-list1.png" alt="Image"
+                                        class="flex-shrink-0 me-12 radius-8">
+                                    <h6 class="text-md mb-0 fw-medium flex-grow-1">Kathryn Murphy</h6>
+                                </div>
+                            </td>
+                            <td>25 Jan 2024</td>
+                            <td>$200.00</td>
+                            <td> <span
+                                    class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)"
+                                    class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                </a>
+                                <a href="javascript:void(0)"
+                                    class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="lucide:edit"></iconify-icon>
+                                </a>
+                                <a href="javascript:void(0)"
+                                    class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        {{-- PRODUCT TABLE --}}
-        <div class="card">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Discount</th>
-                                <th>Stock</th>
-                                <th>Created</th>
-                                <th width="150">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($products as $product)
-                            <tr>
-                                <td>
-                                    <img src="{{ asset('storage/' . $product->mainImage->url) }}"
-                                        class="rounded"
-                                        width="50">
-                                </td>
-                                <td>{{ $product->name }}</td>
-                                <td>${{ $product->price }}</td>
-                                <td>
-                                    {{ $product->discounted_price ?? '-' }}
-                                </td>
-                                <td>
-                                    <span class="badge bg-{{ $product->stock > 0 ? 'success' : 'danger' }}">
-                                        {{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
-                                    </span>
-                                </td>
-                                <td>{{ $product->created_at->format('d M Y') }}</td>
-                                <td>
-                                    <a href="{{ route('admin.products.edit', $product->id) }}"
-                                        class="btn btn-sm btn-warning">
-                                        Edit
-                                    </a>
-
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}"
-                                        method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Delete product?')">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted py-4">
-                                    No products found
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        {{-- PAGINATION --}}
-        <div class="mt-3">
-            {{ $products->withQueryString()->links() }}
-        </div>
-
     </div>
-</div>
 @endsection
 @section('js')
-<script>
-function applyFilters() {
-    const params = new URLSearchParams({
-        search: document.getElementById('search').value,
-        stock: document.getElementById('stock').value,
-        sort: document.getElementById('sort').value
-    });
+    <script>
+        function applyFilters() {
+            const params = new URLSearchParams({
+                search: document.getElementById('search').value,
+                stock: document.getElementById('stock').value,
+                sort: document.getElementById('sort').value
+            });
 
-    window.location.href = `?${params.toString()}`;
-}
-</script>
+            window.location.href = `?${params.toString()}`;
+        }
+    </script>
 @endsection

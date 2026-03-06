@@ -1,100 +1,291 @@
 @extends('layouts.main')
 @section('content')
-<!-- ================= About Banner ================= -->
-<section class="about-banner" style="background: url('{{ asset('assets/images/banner-image.jpg') }}') center/cover no-repeat; padding: 100px 0; text-align: center; color: #fff;">
-    <div class="container">
-        <h1 style="font-size:48px; font-weight:700;">About Christelle Grocery Store</h1>
-        <p style="font-size:18px; margin-top:10px;">Your trusted partner for fresh, organic, and sustainable groceries.</p>
-    </div>
-</section>
-
-<!-- ================= About Content ================= -->
-<section class="about-content" style="padding:80px 0;">
-    <div class="container" style="display:flex; flex-wrap:wrap; align-items:center; gap:50px;">
-        <div class="about-image" style="flex:1; min-width:300px;">
-            <img src="images/about-store.jpg" alt="About Christelle" style="width:100%; border-radius:15px;">
-        </div>
-        <div class="about-text" style="flex:1; min-width:300px;">
-            <h2 style="font-size:32px; font-weight:700; margin-bottom:20px;">Who We Are</h2>
-            <p style="color:#555; font-size:16px; line-height:1.8;">
-                Christelle Grocery Store is dedicated to delivering farm-fresh, organic, and high-quality grocery items right to your doorstep. 
-                Our mission is simple — to make healthy living accessible and affordable for every household.
-            </p>
-            <p style="color:#555; font-size:16px; line-height:1.8;">
-                With years of experience and partnerships with local farmers, we ensure every product you receive is handled with care, ethically sourced, and environmentally friendly.
-            </p>
-            <button class="btn btn-success" style="margin-top:20px; padding:12px 30px; border-radius:8px;">Shop Now</button>
-        </div>
-    </div>
-</section>
-
-<!-- ================= Mission & Values ================= -->
-<section class="about-values" style="padding:80px 0; background:#f8f9f8;">
-    <div class="container">
-        <div style="text-align:center; margin-bottom:50px;">
-            <h2 style="font-size:32px; font-weight:700;">Our Mission & Values</h2>
-            <p style="color:#666; max-width:700px; margin:10px auto;">
-                We believe that everyone deserves access to healthy, natural, and sustainable food options.
-            </p>
-        </div>
-
-        <div class="row" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
-            <div style="background:#fff; border-radius:12px; padding:30px; text-align:center; border:1px solid #eee;">
-                <img src="images/mission-icon.png" alt="Mission" style="width:60px; margin-bottom:15px;">
-                <h4 style="font-size:20px; font-weight:600;">Our Mission</h4>
-                <p style="color:#666; font-size:15px; margin-top:10px;">
-                    To empower communities with fresh and organic food that promotes wellness and sustainability.
-                </p>
-            </div>
-
-            <div style="background:#fff; border-radius:12px; padding:30px; text-align:center; border:1px solid #eee;">
-                <img src="images/value-icon.png" alt="Values" style="width:60px; margin-bottom:15px;">
-                <h4 style="font-size:20px; font-weight:600;">Our Values</h4>
-                <p style="color:#666; font-size:15px; margin-top:10px;">
-                    Integrity, sustainability, and community — we grow together by doing what’s right.
-                </p>
-            </div>
-
-            <div style="background:#fff; border-radius:12px; padding:30px; text-align:center; border:1px solid #eee;">
-                <img src="images/quality-icon.png" alt="Quality" style="width:60px; margin-bottom:15px;">
-                <h4 style="font-size:20px; font-weight:600;">Quality Commitment</h4>
-                <p style="color:#666; font-size:15px; margin-top:10px;">
-                    We handpick only the best organic and natural products to ensure freshness and taste in every order.
-                </p>
+<!-- Bradcrumb Area -->
+        <div class="sn-breadcrumb-area bg-breadcrumb-1 section-padding-sm" data-white-overlay="7">
+            <div class="container">
+				<div class="sf-breadcrumb">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li>About Us</li>
+					</ul>
+				</div>
             </div>
         </div>
-    </div>
-</section>
+        <!--// Bradcrumb Area -->
 
-<!-- ================= Team Section ================= -->
-<section class="about-team" style="padding:80px 0;">
-    <div class="container" style="text-align:center;">
-        <h2 style="font-size:32px; font-weight:700;">Meet Our Team</h2>
-        <p style="color:#666; max-width:700px; margin:10px auto 50px;">
-            Our passionate team works every day to make Christelle Grocery Store a symbol of trust and freshness.
-        </p>
+		<!-- Page Conttent -->
+		<main class="page-content">
 
-        <div class="team-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
-            <div style="background:#fff; border:1px solid #eee; border-radius:12px; padding:30px;">
-                <img src="images/team1.jpg" alt="Team Member" style="width:100%; border-radius:12px;">
-                <h4 style="margin-top:15px; font-weight:600;">John Doe</h4>
-                <p style="color:#3cb815;">Founder & CEO</p>
+            <!-- About Page Area -->
+            <div class="about-area section-padding-lg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+							<div class="about-thumb">
+								<img src="{{asset('assets/img/logo/logo.png')}}" alt="about image">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="about-content">
+								<h2>WELCOME TO <span>SLEEPY SLOPES</span> WORLD</h2>
+								<p><strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, reprehenderit possimus ad impedit tempora tenetur saepe. Eius officiis officia, deserunt commodi doloremque omnis voluptatibus sapiente rerum eligendi nisi doloribus eos.</strong></p>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae nisi fuga facilis, consequuntur, maiores eveniet voluptatum, omnis possimus temporibus aspernatur nobis animi in exercitationem vitae nulla! Adipisci ullam illum quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, nulla veniam? Magni aliquid asperiores magnam. Veniam ex tenetur.</p>
+								<a href="shop.html" class="sf-button">
+									<span>SHOP NOW</span>
+								</a>
+							</div>
+						</div>
+                    </div>
+                </div>
             </div>
+            <!--// About Page Area -->
 
-            <div style="background:#fff; border:1px solid #eee; border-radius:12px; padding:30px;">
-                <img src="images/team2.jpg" alt="Team Member" style="width:100%; border-radius:12px;">
-                <h4 style="margin-top:15px; font-weight:600;">Sarah Smith</h4>
-                <p style="color:#3cb815;">Head of Operations</p>
-            </div>
+            <!-- Team Area -->
+            <div class="team-area section-padding-lg bg-grey">
+                <div class="container">
+                    <div class="row justify-content-center">
+						<div class="col-lg-6">
+							<div class="section-title text-center">
+								<h6>BE THE HOURGLASS</h6>
+								<h3>OUR TEAM MEMBERS</h3>
+							</div>
+						</div>
+                    </div>
+                    <div class="row team-wrapper">
 
-            <div style="background:#fff; border:1px solid #eee; border-radius:12px; padding:30px;">
-                <img src="images/team3.jpg" alt="Team Member" style="width:100%; border-radius:12px;">
-                <h4 style="margin-top:15px; font-weight:600;">Michael Brown</h4>
-                <p style="color:#3cb815;">Quality Manager</p>
+						<!-- Single Team Member -->
+						<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+							<div class="single-team">
+								<div class="single-team-thumb">
+									<img src="{{asset('assets/img/team-member/team-member-1.jpg')}}" alt="team image">
+								</div>
+								<div class="single-team-content">
+									<h4>AKCENT CHESTER</h4>
+									<h6>GRAPHIC DESIGNER</h6>
+									<ul class="single-team-socialicons">
+										<li class="facebook">
+											<a href="#">
+												<i class="ti ti-facebook"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#">
+												<i class="ti ti-youtube"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#/">
+												<i class="ti ti-twitter"></i>
+											</a>
+										</li>
+										<li class="google-plus">
+											<a href="#">
+												<i class="ti ti-google"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--// Single Team Member -->
+
+						<!-- Single Team Member -->
+						<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+							<div class="single-team">
+								<div class="single-team-thumb">
+									<img src="{{asset('assets/img/team-member/team-member-2.jpg')}}" alt="team image">
+								</div>
+								<div class="single-team-content">
+									<h4>AKCENT CHESTER</h4>
+									<h6>GRAPHIC DESIGNER</h6>
+									<ul class="single-team-socialicons">
+										<li class="facebook">
+											<a href="#">
+												<i class="ti ti-facebook"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#">
+												<i class="ti ti-youtube"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#/">
+												<i class="ti ti-twitter"></i>
+											</a>
+										</li>
+										<li class="google-plus">
+											<a href="#">
+												<i class="ti ti-google"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--// Single Team Member -->
+
+						<!-- Single Team Member -->
+						<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+							<div class="single-team">
+								<div class="single-team-thumb">
+									<img src="{{asset('assets/img/team-member/team-member-3.jpg')}}" alt="team image">
+								</div>
+								<div class="single-team-content">
+									<h4>AKCENT CHESTER</h4>
+									<h6>GRAPHIC DESIGNER</h6>
+									<ul class="single-team-socialicons">
+										<li class="facebook">
+											<a href="#">
+												<i class="ti ti-facebook"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#">
+												<i class="ti ti-youtube"></i>
+											</a>
+										</li>
+										<li class="twitter">
+											<a href="#/">
+												<i class="ti ti-twitter"></i>
+											</a>
+										</li>
+										<li class="google-plus">
+											<a href="#">
+												<i class="ti ti-google"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--// Single Team Member -->
+
+					</div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+            <!--// Team Area -->
+
+            <!-- Skills Area -->
+            <div class="skills-area section-padding-lg">
+                <div class="container">
+					<div class="section-title">
+						<h4>OUR SKILLS</h4>
+					</div>
+
+					<div class="row sn-progress-wrap">
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">90%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%; " aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>WP DEVELOPING</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">90%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%; " aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>WP DEVELOPING</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">80%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%; " aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>PHP & JAVASCRIPT</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">80%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%; " aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>PHP & JAVASCRIPT</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">95%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 95%; " aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>HTML & CSS3</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">95%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 95%; " aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>HTML & CSS3</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">75%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>WORDPRESS</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                        <!-- Single Progress Bar -->
+                        <div class="col-lg-6">
+                            <div class="sn-progress">
+                                <span class="progress-bar-count">75%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                        <h6>WORDPRESS</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Single Progress Bar -->
+
+                    </div>
+                </div>
+            </div>
+            <!--// Skills Area -->
+
+		</main>
+		<!--// Page Conttent -->
 
 @endsection
 @section('css')

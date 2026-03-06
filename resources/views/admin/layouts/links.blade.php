@@ -1,71 +1,31 @@
-    <!-- Favicon -->
-    <link rel="icon" href="https://preview.sprukomarket.com/html/bootstrap/vyzor/dist/assets/images/brand-logos/favicon.ico" type="image/x-icon">
-    
-    <!-- Choices JS -->
-    <script src="{{asset('admin/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
+<link rel="icon" type="image/png" href="{{asset('admin/images/favicon.png')}}" sizes="16x16">
+  <!-- remix icon font css  -->
+  <link rel="stylesheet" href="{{asset('admin/css/remixicon.css')}}">
+  <!-- BootStrap css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/bootstrap.min.css')}}">
+  <!-- Apex Chart css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/apexcharts.css')}}">
+  <!-- Data Table css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/dataTables.min.css')}}">
+  <!-- Text Editor css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/editor-katex.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/css/lib/editor.atom-one-dark.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/css/lib/editor.quill.snow.css')}}">
+  <!-- Date picker css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/flatpickr.min.css')}}">
+  <!-- Calendar css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/full-calendar.css')}}">
+  <!-- Vector Map css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/jquery-jvectormap-2.0.5.css')}}">
+  <!-- Popup css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/magnific-popup.css')}}">
+  <!-- Slick Slider css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/slick.css')}}">
+  <!-- prism css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/prism.css')}}">
+  <!-- file upload css -->
+  <link rel="stylesheet" href="{{asset('admin/css/lib/file-upload.css')}}">
 
-   
-    
-    <!-- Bootstrap Css -->
-
-    <!-- Style Css -->
-
-    <!-- Icons Css -->
-
-    <!-- Node Waves Css -->
-
-    <!-- Simplebar Css -->
-    
-    <!-- Color Picker Css -->
-
-    <!-- Choices Css -->
-
-    <!-- FlatPickr CSS -->
-
-    <!-- Auto Complete CSS -->
-
-
-<link rel="stylesheet" href="{{asset('admin/libs/gridjs/theme/mermaid.min.css')}}">
-
-<link rel="stylesheet" href="{{asset('admin/libs/sweetalert2/sweetalert2.min.css')}}">
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-<!-- Bootstrap Css -->
-<link id="style" href="{{asset('admin/libs/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
-<!-- Style Css -->
-<link href="{{asset('admin/css/styles.css')}}" rel="stylesheet">
-
-<!-- Icons Css -->
-<link href="{{asset('admin/css/icons.css')}}" rel="stylesheet">
-
-<!-- Node Waves Css -->
-<link href="{{asset('admin/libs/node-waves/waves.min.css')}}" rel="stylesheet">
-
-<!-- Simplebar Css -->
-<link href="{{asset('admin/libs/simplebar/simplebar.min.css')}}" rel="stylesheet">
-
-<!-- Color Picker Css -->
-<link rel="stylesheet" href="{{asset('admin/libs/flatpickr/flatpickr.min.css')}}">
-<link rel="stylesheet" href="{{asset('admin/libs/%40simonwep/pickr/themes/nano.min.css')}}">
-
-<!-- Choices Css -->
-<link rel="stylesheet" href="{{asset('admin/libs/choices.js/public/assets/styles/choices.min.css')}}">
-
-<!-- FlatPickr CSS -->
-<link rel="stylesheet" href="{{asset('admin/libs/flatpickr/flatpickr.min.css')}}">
-
-<!-- Auto Complete CSS -->
-<link rel="stylesheet" href="{{asset('admin/libs/%40tarekraafat/autocomplete.js/css/autoComplete.css')}}">
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-<link href="{{ asset('dash/css/jquery.toast.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('admin/css/lib/audioplayer.css')}}">
+  <!-- main css -->
+  <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">

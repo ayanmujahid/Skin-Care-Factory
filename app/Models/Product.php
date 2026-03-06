@@ -17,6 +17,8 @@ class Product extends Model
         'price',
         'discounted_price',
         'stock',
+        'slug',
+        'is_featured',
     ];
 
     // Relationship to files
@@ -45,4 +47,18 @@ class Product extends Model
     {
         return $this->belongsTo(ProductSubCategory::class);
     }
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+
+
 }

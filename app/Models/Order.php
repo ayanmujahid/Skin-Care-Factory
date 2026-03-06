@@ -9,9 +9,21 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+     protected $fillable = [
         'name',
         'email',
-        'password',
+        'phone',
+        'address',
+        'apartment',
+        'city',
+        'state',
+        'zip',
+        'notes',
+        'total',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

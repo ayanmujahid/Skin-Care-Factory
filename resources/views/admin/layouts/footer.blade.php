@@ -1,36 +1,12 @@
-<footer class="footer mt-auto py-3 text-center">
-    <div class="container">
-        <span class="text-muted"> Copyright © <span id="year"></span> <a
-                href="javascript:void(0);" class="text-dark fw-medium">Christelle store</a>.
-            Designed with <span class="bi bi-heart-fill text-danger"></span> by <a href="https://designatrix.com/" target="_blank">
-                <span class="fw-medium text-primary">Designatrix</span>
-            </a> All
-            rights
-            reserved
-        </span>
+
+  <footer class="d-footer">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-auto">
+      <p class="mb-0">© 2024 WowDash. All Rights Reserved.</p>
     </div>
+    <div class="col-auto">
+      <p class="mb-0">Made by <span class="text-primary-600">wowtheme7</span></p>
+    </div>
+  </div>
 </footer>
-<!-- Footer End -->
-        <div class="modal fade" id="header-responsive-search" tabindex="-1" aria-labelledby="header-responsive-search" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="input-group">
-                    <input type="text" class="form-control border-end-0" placeholder="Search Anything ..."
-                        aria-label="Search Anything ..." aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="button"
-                        id="button-addon2"><i class="bi bi-search"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    </div>
-
-    
-<!-- Scroll To Top -->
-<div class="scrollToTop">
-    <span class="arrow lh-1"><i class="ti ti-arrow-big-up fs-18"></i></span>
-</div>
-<div id="responsive-overlay"></div>
+</main>

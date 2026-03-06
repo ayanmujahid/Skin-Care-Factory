@@ -1,28 +1,72 @@
 @extends('layouts.main')
 @section('content')
-<!-- ================= Signup Banner ================= -->
-<section class="signup-banner" style="background: url('{{ asset('assets/images/banner-image.jpg') }}') center/cover no-repeat; padding: 100px 0; text-align: center; color: #fff;">
-    <div class="container">
-        <h1 style="font-size:48px; font-weight:700;">Create Your Account</h1>
-        <p style="font-size:18px; margin-top:10px;">Join Christelle Grocery Store and enjoy fresh groceries delivered to your doorstep.</p>
-    </div>
-</section>
-
-<!-- ================= Signup Form ================= -->
-<section class="signup-form-section" style="padding:80px 0;">
-    <div class="container" style="max-width:600px; margin:0 auto;">
-        <h2 style="font-size:32px; font-weight:700; text-align:center; margin-bottom:30px;">Sign Up</h2>
-        <form action="{{route('signUp')}}" method="POST" style="display:flex; flex-direction:column; gap:20px;">
-            @csrf
-            <input type="text" name="name" placeholder="Full Name" required style="padding:12px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
-            <input type="email" name="email" placeholder="Email Address" required style="padding:12px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
-            <input type="password" name="password" placeholder="Password" required style="padding:12px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
-            <input type="password" name="password_confirmation" placeholder="Confirm Password" required style="padding:12px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
-            <button type="submit" class="btn btn-success" style="padding:12px 30px; border-radius:8px;">Sign Up</button>
-        </form>
-        <p style="text-align:center; margin-top:20px; color:#555;">Already have an account? <a href="login.php" style="color:#3cb815; text-decoration:none;">Login here</a></p>
-    </div>
-</section>
+<!-- register page content -->
+        <div class="register-page-area">
+            <div class="container">
+                <form class="form-register" action="#">
+                    <fieldset>
+                        <legend>Your Personal Details</legend>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="f-name"><span class="require">*</span>First Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="f-name" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Last Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="l-name" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" id="email" placeholder="Enter you email address here...">
+                            </div>
+                        </div>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="number"><span class="require">*</span>Telephone</label>
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" id="number" placeholder="Telephone">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Your Password</legend>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Password:</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="pwd" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Confirm Password</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="newsletter-input">
+                        <legend>Newsletter</legend>
+                        <div class="form-group d-md-flex align-items-md-center">
+                            <label class="col-md-2 control-label">Subscribe</label>
+                            <div class="col-md-10 radio-button">
+                                    <label class="radio-inline"><input type="radio" name="optradio">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="terms">
+                        <div class="float-md-right">
+                            <span>I have read and agree to the <a href="#" class="agree"><b>Privacy Policy</b></a></span>
+                            <input type="checkbox" name="agree" value="1"> &nbsp;
+                            <input type="submit" value="Continue" class="return-customer-btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- register page content end -->
 @endsection
 @section('css')
     <style type="text/css">

@@ -21,33 +21,26 @@
     @include('layouts.footer')
     @include('layouts.scripts')
     @yield('js')
-    <script type="text/javascript">
-        (() => {
+    <script>
+(() => {
+    @if(session('notify_success'))
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session('notify_heading', 'Success!') }}',
+            text: '{{ session('notify_success') }}',
+            confirmButtonText: 'OK'
+        });
+    @elseif(session('notify_error'))
+        Swal.fire({
+            icon: 'error',
+            title: '{{ session('notify_heading', 'Error!') }}',
+            text: '{{ session('notify_error') }}',
+            confirmButtonText: 'OK'
+        });
+    @endif
+})();
+</script>
 
-            @if (session('notify_success'))
-                $.toast({
-                    heading: 'Success!',
-                    position: 'bottom-right',
-                    text: '{{ session('notify_success') }}',
-                    loaderBg: '#ff6849',
-                    icon: 'success',
-                    hideAfter: 2000,
-                    stack: 6
-                });
-            @elseif (session('notify_error'))
-                $.toast({
-                    heading: 'Error!',
-                    position: 'bottom-right',
-                    text: '{{ session('notify_error') }}',
-                    loaderBg: '#ff6849',
-                    icon: 'error',
-                    hideAfter: 2000,
-                    stack: 6
-                });
-            @endif
-
-        })()
-    </script>
 </body>
 @include('layouts.errorhandler')
 @include('admin.core.editor')
