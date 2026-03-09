@@ -29,7 +29,10 @@ class IndexController extends Controller
     public function index()
     {
         // Take 8 newest products
-        $newProducts = Product::latest()->take(8)->get();
+       $newProducts = Product::with(['mainImage','firstVariant'])
+            ->latest()
+            ->take(8)
+            ->get();
 
         // Split new products for two sliders/tabs
         $upperNewProducts = $newProducts->take(4); // first 4 products

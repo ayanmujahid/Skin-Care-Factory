@@ -53,6 +53,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function firstVariant()
+{
+    return $this->hasOne(ProductVariant::class)->orderBy('price');
+}
+
 
     public function orderItems()
     {

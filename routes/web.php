@@ -41,6 +41,7 @@ Route::get('/wishlist', [IndexController::class, 'wishlist'])->name('wishlist');
 
 
 // ---------------------------------------For Cart Setup-----------------------------------
+Route::get('/product/quick-view/{id}', [CartController::class,'quickView']);
 Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place.order');
 
 // Add product to cart
