@@ -29,7 +29,7 @@ class IndexController extends Controller
     public function index()
     {
         // Take 8 newest products
-       $newProducts = Product::with(['mainImage','firstVariant'])
+        $newProducts = Product::with(['mainImage', 'firstVariant'])
             ->latest()
             ->take(8)
             ->get();
@@ -39,7 +39,7 @@ class IndexController extends Controller
         $lowerNewProducts = $newProducts->slice(4); // remaining 4 products
 
         // Featured products
-        $featuredProducts = Product::where('is_featured', 1)->take(8)->get();
+        $featuredProducts = Product::where('is_featured', 0)->take(12)->get();
 
         return view('index', compact(
             'upperNewProducts',
@@ -64,8 +64,14 @@ class IndexController extends Controller
     public function checkout()
     {
         $cart = session('cart', []);
-        $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
-        return view('checkout', compact('cart', 'total'))->with('title', 'Checkout');
+
+        $cartTotal = array_sum(array_map(
+            fn($item) => $item['price'] * $item['quantity'],
+            $cart
+        ));
+
+        return view('checkout', compact('cart', 'cartTotal'))
+            ->with('title', 'Checkout');
     }
 
     public function contactUs()
@@ -114,7 +120,7 @@ class IndexController extends Controller
         $search_query = request('search');
         $sort_option = request('sort', 'featured');
 
-        $productsQuery = Product::query();
+        $productsQuery = Product::query()->withMin('variants', 'price');
 
         $categories = ProductCategory::withCount('products')->get();
         $totalProducts = Product::count();
@@ -142,17 +148,21 @@ class IndexController extends Controller
 
         switch ($sort_option) {
             case 'price-asc':
-                $productsQuery->orderBy('price', 'asc');
+                $productsQuery->orderBy('variants_min_price', 'asc');
                 break;
+
             case 'price-desc':
-                $productsQuery->orderBy('price', 'desc');
+                $productsQuery->orderBy('variants_min_price', 'desc');
                 break;
+
             case 'alphabetical-asc':
                 $productsQuery->orderBy('name', 'asc');
                 break;
+
             case 'alphabetical-desc':
                 $productsQuery->orderBy('name', 'desc');
                 break;
+
             default:
                 $productsQuery->orderBy('created_at', 'desc');
         }

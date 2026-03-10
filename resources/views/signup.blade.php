@@ -1,72 +1,29 @@
 @extends('layouts.main')
 @section('content')
-<!-- register page content -->
-        <div class="register-page-area">
-            <div class="container">
-                <form class="form-register" action="#">
-                    <fieldset>
-                        <legend>Your Personal Details</legend>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="f-name"><span class="require">*</span>First Name</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="f-name" placeholder="First Name">
-                            </div>
-                        </div>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Last Name</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="l-name" placeholder="Last Name">
-                            </div>
-                        </div>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
-                            <div class="col-md-10">
-                                <input type="email" class="form-control" id="email" placeholder="Enter you email address here...">
-                            </div>
-                        </div>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="number"><span class="require">*</span>Telephone</label>
-                            <div class="col-md-10">
-                                <input type="email" class="form-control" id="number" placeholder="Telephone">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Your Password</legend>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Password:</label>
-                            <div class="col-md-10">
-                                <input type="password" class="form-control" id="pwd" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Confirm Password</label>
-                            <div class="col-md-10">
-                                <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset class="newsletter-input">
-                        <legend>Newsletter</legend>
-                        <div class="form-group d-md-flex align-items-md-center">
-                            <label class="col-md-2 control-label">Subscribe</label>
-                            <div class="col-md-10 radio-button">
-                                    <label class="radio-inline"><input type="radio" name="optradio">Yes</label>
-                                    <label class="radio-inline"><input type="radio" name="optradio">No</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="terms">
-                        <div class="float-md-right">
-                            <span>I have read and agree to the <a href="#" class="agree"><b>Privacy Policy</b></a></span>
-                            <input type="checkbox" name="agree" value="1"> &nbsp;
-                            <input type="submit" value="Continue" class="return-customer-btn">
-                        </div>
-                    </div>
-                </form>
+<section class="collection-banner text-center">
+    <h2>ACCOUNT</h2>
+    <p>Home / Signup</p>
+</section>
+
+
+<section>
+    <div class="account">
+        <form>
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+
+            <button type="submit">Create Account</button>
+
+            <div class="account-links">
+                <a href="{{ route('login') }}">Already have an account?</a>
+                <a href="{{ route('index') }}">Return to Store</a>
             </div>
-        </div>
-        <!-- register page content end -->
+        </form>
+    </div>
+</section>
+
 @endsection
 @section('css')
     <style type="text/css">

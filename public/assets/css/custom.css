@@ -1861,3 +1861,151 @@ section.extra-feature-category.py-5 {
   padding: 12px;
   border-radius: 6PX;
 } */
+
+
+/* ============================= */
+/* AMIY CHECKOUT */
+/* ============================= */
+
+.amiy-checkout-wrapper {
+  background: #fff;
+}
+
+.amiy-checkout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.amiy-checkout-left {
+  width: 55%;
+  padding: 50px;
+  background: #fbf5ec;
+}
+
+.amiy-checkout-right {
+  width: 45%;
+  background: #0c0c0c;
+  color: #fff;
+  padding: 40px;
+}
+
+.amiy-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.amiy-checkout-input,
+.amiy-checkout-select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.amiy-checkout-row {
+  display: flex;
+  gap: 10px;
+}
+
+.amiy-checkout-row .amiy-checkout-input {
+  flex: 1;
+}
+
+.amiy-checkout-checkbox {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amiy-shipping-box {
+  background: #f9ead6;
+  padding: 14px;
+  border-radius: 6px;
+  color: #7a6c5b;
+}
+
+.amiy-payment-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.amiy-payment-option {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.amiy-card-fields input {
+  margin-bottom: 10px;
+}
+
+.amiy-pay-btn {
+  width: 100%;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+/* RIGHT SIDE */
+
+.amiy-product-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.amiy-product-row img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.amiy-product-info {
+  flex: 1;
+}
+
+.amiy-product-price {
+  font-weight: 600;
+}
+
+.amiy-discount-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.amiy-discount-box input {
+  flex: 1;
+}
+
+.amiy-summary {
+  margin-top: 20px;
+}
+
+.amiy-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.amiy-summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.amiy-mt-30 {
+  margin-top: 30px;
+}

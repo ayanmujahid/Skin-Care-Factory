@@ -1,456 +1,294 @@
 @extends('layouts.main')
 @section('content')
-   <div class="sn-breadcrumb-area bg-breadcrumb-1 section-padding-sm" data-white-overlay="7">
-            <div class="container">
-				<div class="sf-breadcrumb">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="shop.html">Shop</a></li>
-						<li>Full Body Shapewear</li>
-					</ul>
-				</div>
-            </div>
-        </div>
-        <!--// Bradcrumb Area -->
+    <section class="collection-banner text-center">
+        <h2>PRODUCT DETAILS</h2>
+        <p>Home / Shampoo</p>
+    </section>
 
-		<!-- Page Conttent -->
-		<main class="page-content">
+    <section class="product-view">
+        <div class="container-fluid">
+            <div class="row">
 
-            <!-- Product Page Wrapper -->
-            <div class="product-page-wrapper section-padding-lg">
-                <div class="container">
+                <!-- LEFT : FEATURED PRODUCTS -->
+                <div class="col-lg-3 ps-5">
+                    <h6 class="featured-title">Featured Products</h6>
 
-                    <!-- Product Details Inner -->
-                    <div class="row product-details">
-
-                        <!-- Product Details Left -->
-						<div class="col-lg-5 col-md-6">
-							<div class="product-details-left">
-								<div class="product-details-images slider-navigation-2">
-									<a href="img/product/large-size/product-image-1.jpg">
-										<img src="img/product/thumbnail-size/product-image-1.jpg" alt="product image">
-									</a>
-									<a href="img/product/large-size/product-image-2.jpg">
-										<img src="img/product/thumbnail-size/product-image-2.jpg" alt="product image">
-									</a>
-									<a href="img/product/large-size/product-image-3.jpg">
-										<img src="img/product/thumbnail-size/product-image-3.jpg" alt="product image">
-									</a>
-									<a href="img/product/large-size/product-image-4.jpg">
-										<img src="img/product/thumbnail-size/product-image-4.jpg" alt="product image">
-									</a>
-								</div>
-								<div class="product-details-thumbs slider-navigation-2">										
-									<img src="img/product/small-size/product-image-1.jpg" alt="product image thumb">
-									<img src="img/product/small-size/product-image-2.jpg" alt="product image thumb">
-									<img src="img/product/small-size/product-image-3.jpg" alt="product image thumb">
-									<img src="img/product/small-size/product-image-4.jpg" alt="product image thumb">
-								</div>
-							</div>
-						</div>
-                        <!--// Product Details Left -->
-
-                        <!-- Product Details Right -->
-                        <div class="col-lg-7 col-md-6">
-							<div class="product-details-right">
-								<h5 class="product-title">Full Body Shapewear</h5>
-								
-								<div class="ratting-stock-availbility">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<span class="stock-available">In stock</span>
-								</div>
-								
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. adipiscing cursus eu, suscipit id nulla.</p>
-								
-								<span class="pricebox"><del>$60.00</del> $50.00</span>
-
-								<div class="product-details-quantity">
-									<div class="quantity-select">
-										<input type="text" value="1">
-									</div>
-									<a href="#" class="sf-button sf-button-sm">
-										<span>ADD TO CART</span>
-									</a>
-								</div>
-
-								<div class="product-details-color">
-									<span>Color :</span>
-									<ul>
-										<li class="red"><span></span></li>
-										<li class="green checked"><span></span></li>
-										<li class="blue"><span></span></li>
-										<li class="purple"><span></span></li>
-									</ul>
-								</div>
-
-								<div class="product-details-size">
-									<span>Size :</span>
-									<ul>
-										<li class="checked"><span>S</span></li>
-										<li><span>M</span></li>
-										<li><span>L</span></li>
-										<li><span>XL</span></li>
-										<li><span>XXL</span></li>
-									</ul>
-								</div>
-
-								<div class="product-details-categories">
-									<span>Categories :</span>
-									<ul>
-										<li><a href="shop.html">Accessories</a></li>
-										<li><a href="shop.html">Kids</a></li>
-										<li><a href="shop.html">Women</a></li>
-									</ul>
-								</div>
-
-								<div class="product-details-tags">
-									<span>Tags :</span>
-									<ul>
-										<li><a href="shop.html">Electronic</a></li>
-										<li><a href="shop.html">Television</a></li>
-									</ul>
-								</div>
-
-								<div class="product-details-socialshare">
-									<span>Share :</span>
-									<ul>
-										<li><a href="#"><i class="ti ti-facebook"></i></a></li>
-										<li><a href="#"><i class="ti ti-twitter"></i></a></li>
-										<li><a href="#"><i class="ti ti-google"></i></a></li>
-										<li><a href="#"><i class="ti ti-linkedin"></i></a></li>
-										<li><a href="#"><i class="ti ti-instagram"></i></a></li>
-									</ul>
-								</div> 
-							</div>
+                    <div class="featured-item">
+                        <img src="assets/images/na-mp-4.webp">
+                        <div>
+                            <p>Erotic Ayurvedic Lotion</p>
+                            <span>$12.00</span>
                         </div>
-                        <!--// Product Details Right -->
-        
                     </div>
-                    <!--// Product Details Inner -->
-                    
-                    <!-- Product Details Review -->
-                    <div class="product-descripton-review">
 
-                        <ul class="nav" id="product-description-review" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="product-description-tab" data-toggle="tab" href="#product-description" role="tab" aria-controls="product-description" aria-selected="true">Description</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="product-reviews-tab" data-toggle="tab" href="#product-reviews" role="tab" aria-controls="product-reviews" aria-selected="false">Reviews (1)</a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content" id="product-description-review-content">
-                            <div class="tab-pane fade show active" id="product-description" role="tabpanel" aria-labelledby="product-description-tab">
-                                <div class="product-description">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                                    <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="product-reviews" role="tabpanel" aria-labelledby="product-reviews-tab">
-                                <div class="product-review">
-                                    <div class="commentlist">
-                                        <h6>1 REVIEW FOR AENEAN EU TRISTIQUE</h6>
-                                        <div class="single-comment">
-                                            <div class="single-comment-thumb">
-                                                <img src="img/author-image/author-image-1.png" alt="hastech logo">
-                                            </div>
-                                            <div class="single-comment-content">
-                                                <div class="single-comment-content-top">
-                                                    <h6>ADMIN – February 17, 2015</h6>
-                                                    <div class="ratting-box">
-                                                        <span class="active"><i class="ti ti-star"></i></span>
-                                                        <span class="active"><i class="ti ti-star"></i></span>
-                                                        <span class="active"><i class="ti ti-star"></i></span>
-                                                        <span class="active"><i class="ti ti-star"></i></span>
-                                                        <span><i class="ti ti-star"></i></span>
-                                                    </div>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="commentbox mt-5">
-                                        <h6>ADD A REVIEW</h6>
-                                        <form action="#" class="sf-form">
-                                            <div class="sf-form-inner">
-												<div class="single-input">
-													<label>Your Rating</label>
-													<div class="ratting-box hover-action">
-														<span class="active"><i class="ti ti-star"></i></span>
-														<span class="active"><i class="ti ti-star"></i></span>
-														<span class="active"><i class="ti ti-star"></i></span>
-														<span class="active"><i class="ti ti-star"></i></span>
-														<span><i class="ti ti-star"></i></span>
-													</div>
-												</div>
-												<div class="single-input">
-													<label for="new-review-textbox">Your Review</label>
-													<textarea id="new-review-textbox" cols="30" rows="5"></textarea>
-												</div>
-												<div class="single-input">
-													<label for="new-review-name">Name*</label>
-													<input type="text" id="new-review-name">
-												</div>
-												<div class="single-input">
-													<label for="new-review-email">Email*</label>
-													<input type="email" id="new-review-email">
-												</div>
-												<div class="single-input">
-													<button class="sf-button sf-button-dark" type="submit"><span>Submit</span></button>
-												</div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
+                    <div class="featured-item">
+                        <img src="assets/images/na-mp-5.webp">
+                        <div>
+                            <p>Skin Naturals BB Cream VitaminC</p>
+                            <span>$173.00</span>
                         </div>
-
                     </div>
-                    <!--// Product Details Review -->
+
+                    <div class="featured-item">
+                        <img src="assets/images/na-mp-2.webp">
+                        <div>
+                            <p>Natural Cold Pressed Oil And Reduces Wrinkles</p>
+                            <span>$190.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER : MAIN IMAGE -->
+                <div class="col-lg-4 text-center">
+                    <div class="main-product-box sticky-image">
+                        <img src="assets/images/na-mp-1.webp">
+                    </div>
+                </div>
+
+
+                <!-- RIGHT : PRODUCT INFO -->
+                <div class="col-lg-5 pe-5">
+
+                    <h4>Face Moisturizer With Vitamin E-Hyaluronic Acid And Ceramides</h4>
+                    <p class="price">$380.00</p>
+
+                    <p class="variant-title">Choose style: Ceramides</p>
+
+                    <div class="variant-images">
+                        <div>
+                            <img src="assets/images/na-mp-4.webp">
+                            <small>Lotion</small>
+                        </div>
+                        <div>
+                            <img src="assets/images/na-mp-3.webp">
+                            <small>VitaminC</small>
+                        </div>
+                        <div>
+                            <img src="assets/images/na-mp-2.webp">
+                            <small>Wrinkles</small>
+                        </div>
+                    </div>
+
+                    <div class="meta-row">
+                        <span>Finish Type:</span>
+                        <button>Matte</button>
+                    </div>
+
+                    <div class="meta-row">
+                        <span>Speciality:</span>
+                        <button>Natural</button>
+                    </div>
+
+                    <div class="meta-row">
+                        <span>Skin Type:</span>
+                        <button>All</button>
+                    </div>
+
+                    <p class="product-varients"><strong>Vendor:</strong> Harp</p>
+                    <p class="product-varients"><strong>Type:</strong></p>
+
+                    <p class="product-varients"><strong>Availability:</strong> <span class="stock">12 In stock!</span></p>
+
+                    <!-- QTY -->
+                    <div class="qty-box">
+                        <button>-</button>
+                        <input type="text" value="1">
+                        <button>+</button>
+                    </div>
+
+                    <button class="cart-btn">Add to Cart</button>
+                    <button class="wishlist-btn">Add to wishlist</button>
+                    <button class="buy-btn">Buy it now</button>
 
                 </div>
-                                        
+
             </div>
-			<!--// Product Page Wrapper -->
-		
-			<!-- Similliar products -->
-			<div class="similliar-products-area bg-white section-padding-bottom-lg">
-				<div class="container">
-					<h3 class="small-title">SIMILLIAR PRODUCTS</h3>
+        </div>
+    </section>
+    <section class="product-tabs py-5">
+        <div class="container-fluid">
+            <div class="row">
 
-					<div class="row products-wrapper products-slider-active slider-navigation-1">
+                <!-- EMPTY LEFT SPACE (to push right like your design) -->
+                <div class="col-lg-3"></div>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-1.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-5.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-									<span class="product-item-badge">New</span>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox">$50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                <!-- RIGHT COLUMN -->
+                <div class="col-lg-7">
+                    <div class="tabs-box">
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-2.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-6.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-									<span class="product-item-badge">New</span>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox">$50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                        <!-- TAB BUTTONS -->
+                        <div class="d-flex gap-2 mb-3">
+                            <button class="tab-btn active" data-tab="desc">Description</button>
+                            <button class="tab-btn" data-tab="ship">Shipping Information</button>
+                            <button class="tab-btn" data-tab="faq">Faq</button>
+                        </div>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-3.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-7.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox"><del>$60.00</del> $50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                        <!-- DESCRIPTION -->
+                        <div class="tab-content active" id="desc">
+                            <p>
+                                Use our lovely beauty products to make a striking appearance that leaves people wondering
+                                about your gorgeous look.
+                                Perfect, natural, feathery lashes that have the right length and volume: to give a right
+                                finishing touch to an extraordinary makeup look.
+                            </p>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-4.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-8.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-									<span class="product-item-badge">Sale</span>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox">$50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                            <ul>
+                                <li>Feathery light Korean silk fiber</li>
+                                <li>Handmade Cotton band</li>
+                                <li>Suitable for Hair lengths from 2mm to 12mm</li>
+                                <li>Band Length 36mm</li>
+                            </ul>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-9.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-13.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-									<span class="product-item-badge">Sale</span>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox"><del>$60.00</del> $50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                            <h6>What it is:</h6>
+                            <p><strong>EVERY INGREDIENT WE USE IS BENEFICIAL, HERE ARE A FEW:</strong></p>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-10.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-14.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-									<span class="product-item-badge">New</span>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox">$50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                            <div class="row text-center my-4">
+                                <div class="col-6 mb-4">
+                                    <img src="assets/images/panthanol.webp" class="ing-img">
+                                    <h5>PANTHENOL</h5>
+                                    <p>Panthenol helps to lock skin moisture.</p>
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <img src="assets/images/neem.webp" class="ing-img">
+                                    <h5>NEEM</h5>
+                                    <p>Neem fights and prevents acne scars.</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="assets/images/vitamin.webp" class="ing-img">
+                                    <h5>VITAMIN E</h5>
+                                    <p>Vitamin E protects from free radical damage.</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="assets/images/coco.webp" class="ing-img">
+                                    <h5>COCONUT</h5>
+                                    <p>Coconut refreshes the skin.</p>
+                                </div>
+                            </div>
 
-						<!-- Single product -->
-						<div class="col-12">
-							<div class="product-item">
-								<div class="product-item-topside">
-									<div class="product-item-images">
-										<img src="img/product/thumbnail-size/product-image-11.jpg" alt="product image">
-										<img src="img/product/thumbnail-size/product-image-15.jpg" alt="product image">
-									</div>
-									<ul class="product-item-actions">
-										<li class="trigger-add-to-cart"><a href="#"><i class="ti ti-shopping-cart"></i></a></li>
-										<li class="quick-view-trigger"><a href="#"><i class="ti ti-eye"></i></a></li>
-										<li class="trigger-add-to-compare"><a href="#"><i class="ti ti-reload"></i></a></li>
-										<li class="trigger-add-to-wishlist"><a href="#"><i class="ti ti-heart"></i></a></li>
-									</ul>
-								</div>
-								<div class="product-item-bottomside">
-									<div class="ratting-box">
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span class="active"><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-										<span><i class="ti ti-star"></i></span>
-									</div>
-									<h6><a href="{{route('productDetails')}}">Full Body Shapewear</a></h6>
-									<span class="pricebox"><del>$60.00</del> $50.00</span>
-								</div>
-							</div>	
-						</div>
-						<!--// Single product -->
+                            <h5>COMPLETE LIST OF INGREDIENTS:</h5>
+                            <p class="small">
+                                Centifolia Flower Water (Organic Rose Hydrosol), Fucus Vesiculosus (Kelp) Extract, Plant
+                                Cellulose (Vegan),
+                                Cocos Nucifera (Virgin Coconut) Oil, Aloe Barbadensis (Organic Aloe) Leaf Juice, Rosa
+                                Vegetable Glycerin,
+                                Tocopherol (Vitamin E), Caprifolium (Honeysuckle) Flower, Lonicera Japonica (Honeysuckle)
+                                Flower,
+                                and Mentha Piperita (Peppermint) Essential Oil.
+                            </p>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-			<!--// Similliar products -->
+                        <!-- SHIPPING -->
+                        <div class="tab-content" id="ship">
+                            <p>We ship within 2–5 business days worldwide.</p>
+                        </div>
 
-		</main>
-		<!--// Page Conttent -->
+                        <!-- FAQ -->
+                        <div class="tab-content" id="faq">
+                            <p>Contact support for any questions about this product.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section py-5">
+        <div class="container">
+
+            <!-- TITLE -->
+            <h3 class="text-center mb-4">Customer Reviews</h3>
+
+            <!-- SUMMARY ROW -->
+            <div class="row align-items-center mb-4">
+
+                <!-- LEFT -->
+                <div class="col-md-4 text-center">
+                    <div class="stars">★★★★☆</div>
+                    <p>4.00 out of 5</p>
+                    <small>Based on 1 review ✔</small>
+                </div>
+
+                <!-- MIDDLE -->
+                <div class="col-md-4">
+                    <div class="rating-row">★★★★★ <div class="bar"></div> <span>0</span></div>
+                    <div class="rating-row">★★★★☆ <div class="bar active"></div> <span>1</span></div>
+                    <div class="rating-row">★★★☆☆ <div class="bar"></div> <span>0</span></div>
+                    <div class="rating-row">★★☆☆☆ <div class="bar"></div> <span>0</span></div>
+                    <div class="rating-row">★☆☆☆☆ <div class="bar"></div> <span>0</span></div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-md-4 text-center">
+                    <button id="openReview" class="btn btn-dark px-4">Write a review</button>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- REVIEW LIST -->
+            <div class="review-item py-3">
+                <div class="stars">★★★★☆</div>
+                <strong>Jasminie</strong>
+                <span class="float-end">10/26/2022</span>
+                <p class="mt-2 fw-bold">Cursus eget nunc scelerisque viverra</p>
+                <p>
+                    Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus.
+                    Magnis dis parturient montes nascetur.
+                </p>
+            </div>
+
+            <hr>
+
+            <!-- REVIEW FORM (HIDDEN INITIALLY) -->
+            <div id="reviewForm" class="review-form mt-5" style="display:none;">
+                <h4 class="text-center mb-4">Write a review</h4>
+
+                <div class="text-center mb-3">
+                    Rating <br>
+                    ★★★★★
+                </div>
+
+                <div class="mb-3">
+                    <label>Review Title (100)</label>
+                    <input type="text" class="form-control" placeholder="Give your review a title">
+                </div>
+
+                <div class="mb-3">
+                    <label>Review content</label>
+                    <textarea class="form-control" rows="4" placeholder="Start writing here..."></textarea>
+                </div>
+
+                <div class="mb-3 text-center">
+                    <label>Picture/Video (optional)</label>
+                    <div class="upload-box">⬆</div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Display name</label>
+                    <input type="text" class="form-control" placeholder="Display name">
+                </div>
+
+                <div class="mb-3">
+                    <label>Email address</label>
+                    <input type="email" class="form-control" placeholder="Your email address">
+                </div>
+
+                <p class="small">
+                    How we use your data: We'll only contact you about the review you left,
+                    and only if necessary.
+                </p>
+
+                <div class="text-center mt-3">
+                    <button id="cancelReview" class="btn btn-outline-dark me-2">Cancel review</button>
+                    <button class="btn btn-dark">Submit Review</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
 @endsection
 @section('css')
     <style type="text/css">

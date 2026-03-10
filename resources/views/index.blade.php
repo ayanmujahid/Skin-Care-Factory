@@ -83,24 +83,7 @@
                         </div>
                         <p>Foundation</p>
                     </div>
-                    <div class="category-item">
-                        <div class="category-circle">
-                            <img src="assets/images/es-ct-2.webp" alt="">
-                        </div>
-                        <p>2</p>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-circle">
-                            <img src="assets/images/es-ct-3.webp" alt="">
-                        </div>
-                        <p>4</p>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-circle">
-                            <img src="assets/images/es-ct-4.webp" alt="">
-                        </div>
-                        <p>6</p>
-                    </div>
+                    
 
                 </div>
 
@@ -250,197 +233,34 @@
             <div class="row g-4">
 
                 <!-- Product Card -->
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-1.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Splash</span>
-                            <h6 class="popular-products-name">
-                                Moisture Filling Shampoo For Dry And Dehydrated
-                            </h6>
-                            <div class="popular-products-price">$175.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Duplicate this block for more products -->
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-2.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
+                @foreach ($featuredProducts as $featuredProduct)
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <div class="popular-products-card">
+                            <div class="popular-products-image">
+                                <img src="{{ asset('storage/' . $featuredProduct->mainImage->url) }}" class="img-fluid"
+                                    alt="">
+                            </div>
+                            <div class="popular-products-info">
+                                <span class="popular-products-brand">{{ $featuredProduct->brand }}</span>
+                                <h6 class="popular-products-name">
+                                    {{ $featuredProduct->name }}
+                                </h6>
+                                <div class="popular-products-price">$
+                                    {{ number_format(optional($featuredProduct->firstVariant)->price ?? 0, 2) }}</div>
+                                <button class="popular-products-btn quick-view-btn"
+                                    data-product-id="{{ $featuredProduct->id }}">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-3.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-4.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-5.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-1.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-2.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-3.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-4.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-5.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-1.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="popular-products-card">
-                        <div class="popular-products-image">
-                            <img src="assets/images/na-mp-2.webp" class="img-fluid" alt="">
-                        </div>
-                        <div class="popular-products-info">
-                            <span class="popular-products-brand">Harp</span>
-                            <h6 class="popular-products-name">
-                                Nature's Organic Raw Cosmetic Product
-                            </h6>
-                            <div class="popular-products-price">$156.00</div>
-                            <button class="popular-products-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Add remaining products same way -->
+                @endforeach
 
             </div>
 
             <!-- View More Button -->
             <div class="text-center mt-5">
-                <button class="popular-products-viewmore">View More</button>
+                <form action="{{ route('shop') }}" method="GET">
+                    <button type="submit" class="popular-products-viewmore">View More</button>
+                </form>
             </div>
 
         </div>
