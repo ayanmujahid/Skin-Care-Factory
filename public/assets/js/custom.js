@@ -236,3 +236,120 @@ function updateCart(id, qty) {
   });
 
 }
+
+
+
+function loadCartPage() {
+
+  $.get('/cart/data', function(res) {
+
+    let html = '';
+
+    if(res.cart.length === 0){
+      html = '<p>Your cart is empty</p>';
+    }
+
+    res.cart.forEach(item => {
+
+      let total = item.price * item.quantity;
+
+      html += `
+
+      <div class="cart-item">
+
+        <div class="remove-btn remove-item" data-id="${item.variant_id}">×</div>
+
+        <div class="cart-item-inner">
+
+          <img src="${item.image}" alt="${item.name}">
+
+          <div class="cart-details">
+
+            <h3>${item.name}</h3>
+
+            <p class="price">$${item.price}</p>
+
+            <p class="variant">${item.size ?? ''} ${item.color ?? ''}</p>
+
+            <div class="quantity-box">
+
+              <button class="qty-minus" data-id="${item.variant_id}">-</button>
+
+              <span class="qty-value">${item.quantity}</span>
+
+              <button class="qty-plus" data-id="${item.variant_id}">+</button>
+
+            </div>
+
+            <p class="total">
+              Total: <span class="bold">$${total.toFixed(2)}</span>
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      `;
+
+    });
+
+    $('#cart-page-items').html(html);
+
+    $('#summary-subtotal').text(res.cart_total.toFixed(2));
+
+  });
+
+}
+
+
+$(document).on('click', '.qty-plus', function () {
+
+  let id = $(this).data('id');
+  let qty = parseInt($(this).siblings('.qty-value').text()) + 1;
+
+  updateCart(id, qty);
+
+  loadCartPage();
+});
+
+
+$(document).on('click', '.qty-minus', function () {
+
+  let id = $(this).data('id');
+  let qty = parseInt($(this).siblings('.qty-value').text()) - 1;
+
+  if(qty < 1) qty = 1;
+
+  updateCart(id, qty);
+
+  loadCartPage();
+});
+
+
+$(document).on('click', '.remove-item', function () {
+
+  let id = $(this).data('id');
+
+  $.ajax({
+    url: '/cart/remove',
+    method: 'POST',
+    data: {
+      variant_id: id,
+      _token: $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function () {
+      loadCartPage();
+      loadCart(); // update modal cart also
+    }
+  });
+
+});
+
+$(document).ready(function () {
+
+    loadCart();       // modal cart
+    loadCartPage();   // cart page
+
+});
