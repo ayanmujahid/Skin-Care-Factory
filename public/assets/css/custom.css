@@ -1250,6 +1250,12 @@ section.extra-feature-category.py-5 {
 .product-box h6 {
   font-size: 19px;
   margin: 5px 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  /* margin: 5px 0px; */
+  overflow: hidden;
 }
 
 .product-box a {

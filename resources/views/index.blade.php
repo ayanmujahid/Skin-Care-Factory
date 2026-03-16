@@ -116,8 +116,9 @@
                                     <i class="bi bi-search"></i>
                                 </button>
 
-                                <button class="icon-btn">
-                                    <i class="bi bi-heart"></i>
+                                <button class="icon-btn wishlist-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                    <i
+                                        class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($upperNewProduct->id) ? 'text-danger' : '' }}"></i>
                                 </button>
                             </div>
                         </div>
@@ -263,7 +264,8 @@
                                     </button>
 
                                     <button class="icon-btn wishlist-btn" data-product-id="{{ $featuredProduct->id }}">
-                                        <i class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($featuredProduct->id) ? 'text-danger' : '' }}"></i>
+                                        <i
+                                            class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($featuredProduct->id) ? 'text-danger' : '' }}"></i>
                                     </button>
                                 </div>
                             </div>

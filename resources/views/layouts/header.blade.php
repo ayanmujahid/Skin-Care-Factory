@@ -37,7 +37,7 @@
 
             <div class="d-flex align-items-center gap-3">
                 @if (Auth::check())
-                    <a href="{{ route('logout') }}" class="text-dark"><i class="fa fa-logout"></i></a>
+                    <a href="{{ route('logout') }}" class="text-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 @else
                     <a href="{{ route('login') }}" class="text-dark"><i class="fa-regular fa-user"></i></a>
                 @endif

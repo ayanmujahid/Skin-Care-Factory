@@ -7,7 +7,7 @@
 
     <main class="page-content">
 
-        <div class="wishlist-page-area section-padding-lg bg-white">
+        <div class="wishlist-page-area section-padding-lg" style="background: #fbf5ec">
             <div class="container">
 
                 <h4 class="wishlist-title">Your Wishlist ({{ $wishlistCount }})</h4>
@@ -20,6 +20,7 @@
                                     <th>IMAGE</th>
                                     <th>PRODUCT</th>
                                     <th>PRICE</th>
+                                    <th>ADD TO CART</th>
                                     <th>REMOVE</th>
                                 </tr>
                             </thead>
@@ -27,17 +28,23 @@
                                 @foreach ($wishlistItems as $item)
                                     <tr id="wishlist-row-{{ $item->product_id }}">
                                         <td>
-                                            <a href="{{ route('productDetails', $item->product->id) }}">
+                                            {{-- <a href="{{ route('productDetails', $item->product->id) }}"> --}}
                                                 <img src="{{ asset('storage/' . $item->product->mainImage->url) }}"
                                                     alt="{{ $item->product->name }}" style="width:80px;">
-                                            </a>
+                                            {{-- </a> --}}
                                         </td>
                                         <td>
-                                            <a href="{{ route('productDetails', $item->product->id) }}">
+                                            {{-- <a href="{{ route('productDetails', $item->product->id) }}"> --}}
                                                 {{ $item->product->name }}
-                                            </a>
+                                            {{-- </a> --}}
                                         </td>
                                         <td>${{ number_format($item->product->firstVariant->price ?? 0, 2) }}</td>
+                                        <td>
+                                            <button class="btn btn-dark quick-view-btn"
+                                                data-product-id="{{ $item->product_id }}">
+                                                Add to Cart
+                                            </button>
+                                        </td>
                                         <td>
                                             <button class="remove-wishlist-btn btn btn-danger"
                                                 data-product-id="{{ $item->product_id }}">
@@ -61,6 +68,14 @@
 @section('css')
     <style type="text/css">
         /*in page css here*/
+        table.table.table-bordered.table-hover {
+            --bs-table-bg: #fbf5ec;
+        }
+
+        td a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 @endsection
 @section('js')

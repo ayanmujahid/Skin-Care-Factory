@@ -89,17 +89,30 @@
 
                                     <div class="product-img">
                                         <img src="{{ asset('storage/' . $product->mainImage->url) }}">
+                                        <div class="hover-icons">
+                                            <button class="icon-btn quick-view-btn"
+                                                data-product-id="{{ $product->id }}">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+
+                                            <button class="icon-btn wishlist-btn"
+                                                data-product-id="{{ $product->id }}">
+                                                <i
+                                                    class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($product->id) ? 'text-danger' : '' }}"></i>
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <small>{{ $product->category->name ?? '' }}</small>
 
                                     {{-- <a href="{{ route('productDetails', $product->slug) }}"> --}}
-                                        <h6>{{ $product->name }}</h6>
+                                    <h6>{{ $product->name }}</h6>
                                     {{-- </a> --}}
 
                                     <strong>${{ $product->firstVariant->price }}</strong>
 
-                                    <button id="cta-btn" class="shop-btn quick-view-btn" data-product-id="{{ $product->id }}">
+                                    <button id="cta-btn" class="shop-btn quick-view-btn"
+                                        data-product-id="{{ $product->id }}">
                                         Add to Cart
                                     </button>
 
