@@ -9,7 +9,7 @@
     </section>
 
     <section class="shop-products py-5">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
 
                 <!-- SIDEBAR -->
@@ -21,7 +21,7 @@
                     <div class="filter-item">Product type <span>+</span></div>
                     <div class="filter-item">Brand <span>+</span></div>
 
-                    <button class="btn-clear">Clear All</button>
+                    <button class="btn-clear" id="cta-btn">Clear All</button>
 
                     <h5 class="mt-4">Best Sellers</h5>
 
@@ -99,7 +99,7 @@
 
                                     <strong>${{ $product->firstVariant->price }}</strong>
 
-                                    <button class="shop-btn quick-view-btn" data-product-id="{{ $product->id }}">
+                                    <button id="cta-btn" class="shop-btn quick-view-btn" data-product-id="{{ $product->id }}">
                                         Add to Cart
                                     </button>
 

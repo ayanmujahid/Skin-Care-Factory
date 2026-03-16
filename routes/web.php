@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, ProductCategoryController, ProductSubCategoryController, UserController};
+use App\Http\Controllers\Backend\{AdminController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,7 @@ Route::get('/signup', [IndexController::class, 'signup'])->name('signup');
 Route::get('/terms-and-conditions', [IndexController::class, 'termsAndConditions'])->name('termsAndConditions');
 Route::get('/testimonials', [IndexController::class, 'testimonials'])->name('testimonials');
 Route::get('/wishlist', [IndexController::class, 'wishlist'])->name('wishlist');
+Route::get('/professional-signup', [IndexController::class, 'professionalSignup'])->name('professionalSignup');
 
 // ---------------------------------------For Frontend-----------------------------------
 
@@ -61,11 +64,29 @@ Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
 
 
 
+// ---------------------------------------Wishlist -----------------------------------
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/wishlist/count', function() {
+    if(Auth::check()){
+        $count = Wishlist::where('user_id', Auth::id())->count();
+        return response()->json(['count' => $count]);
+    } else {
+        return response()->json(['count' => 0]);
+    }
+});
+// ---------------------------------------Wishlist -----------------------------------
+
+
 // ---------------------------------------USER AUTH LOGIN-----------------------------------
 Route::post('/signup', [UserController::class, 'signUp'])->name('signUp');
 Route::post('/login', [UserController::class, 'loginSubmit'])->name('loginSubmit');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 // ---------------------------------------USER AUTH LOGIN-----------------------------------
+
+// ---------------------------------------PROFESSIONAL AUTH LOGIN-----------------------------------
+Route::post('professional-registration', [ProfessionalController::class, 'professionalRegistration'])->name('professionalRegistration');
+// ---------------------------------------PROFESSIONAL AUTH LOGIN-----------------------------------
 
 // ---------------------------------------Frontend Form Submit-----------------------------------
 Route::post('/contact-us', [InquiryController::class, 'contactSubmit'])->name('contactSubmit');

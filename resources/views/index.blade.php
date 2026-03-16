@@ -18,7 +18,7 @@
                         Quisque vehicula augue faucibus justo.
                     </p>
 
-                    <a href="#" class="btn btn-dark mt-3 px-4 py-2">
+                    <a href="#" id="cta-btn" class="btn btn-dark mt-3 px-4 py-2">
                         Explore More
                     </a>
 
@@ -83,7 +83,7 @@
                         </div>
                         <p>Foundation</p>
                     </div>
-                    
+
 
                 </div>
 
@@ -106,16 +106,34 @@
                 @foreach ($upperNewProducts as $upperNewProduct)
                     <!-- Product 1 -->
                     <div class="product-card">
-                        <img src="{{ asset('storage/' . $upperNewProduct->mainImage->url) }}" class="img-fluid"
-                            alt="">
+
+                        <div class="product-img">
+                            <img src="{{ asset('storage/' . $upperNewProduct->mainImage->url) }}" class="img-fluid"
+                                alt="">
+
+                            <div class="hover-icons">
+                                <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                    <i class="bi bi-search"></i>
+                                </button>
+
+                                <button class="icon-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
                         <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand }}</small>
                         <h6>{{ $upperNewProduct->name }}</h6>
+
                         <strong>
                             $ {{ number_format(optional($upperNewProduct->firstVariant)->price ?? 0, 2) }}
                         </strong>
-                        <button class="btn btn-dark w-100 mt-2 quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
+
+                        <button class="btn btn-dark w-100 mt-2 quick-view-btn" id="cta-btn"
+                            data-product-id="{{ $upperNewProduct->id }}">
                             Add to Cart
                         </button>
+
                     </div>
                 @endforeach
 
@@ -176,7 +194,7 @@
                         </div>
                     </div>
 
-                    <a href="#" class="btn btn-dark px-4 py-2">Explore Now</a>
+                    <a href="#" id="cta-btn" class="btn btn-dark px-4 py-2">Explore Now</a>
 
                 </div>
 
@@ -239,6 +257,15 @@
                             <div class="popular-products-image">
                                 <img src="{{ asset('storage/' . $featuredProduct->mainImage->url) }}" class="img-fluid"
                                     alt="">
+                                <div class="hover-icons">
+                                    <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+
+                                    <button class="icon-btn wishlist-btn" data-product-id="{{ $featuredProduct->id }}">
+                                        <i class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($featuredProduct->id) ? 'text-danger' : '' }}"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="popular-products-info">
                                 <span class="popular-products-brand">{{ $featuredProduct->brand }}</span>
@@ -247,7 +274,7 @@
                                 </h6>
                                 <div class="popular-products-price">$
                                     {{ number_format(optional($featuredProduct->firstVariant)->price ?? 0, 2) }}</div>
-                                <button class="popular-products-btn quick-view-btn"
+                                <button class="popular-products-btn quick-view-btn" id="cta-btn"
                                     data-product-id="{{ $featuredProduct->id }}">Add to Cart</button>
                             </div>
                         </div>
@@ -285,7 +312,7 @@
                         quis rutrum bibendum.
                     </p>
 
-                    <a href="#" class="essential-video-btn">Explore Now</a>
+                    <a href="#" id="cta-btn" class="essential-video-btn">Explore Now</a>
                 </div>
 
                 <!-- Right Play Button -->

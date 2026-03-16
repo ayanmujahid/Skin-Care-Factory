@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
+        'verified_status',
         'password',
     ];
 
@@ -42,4 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function professionalProfile()
+    {
+        return $this->hasOne(ProfessionalProfile::class);
+    }
+
+    public function wishlist()
+{
+    return $this->hasMany(Wishlist::class);
+}
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -197,6 +199,19 @@ class IndexController extends Controller
 
     public function wishlist()
     {
-        return view('wishlist')->with('title', 'Wishlist');
+        $user = Auth::user();
+        $wishlistItems = Wishlist::with('product')
+                            ->where('user_id', $user->id)
+                            ->get();
+
+        $wishlistCount = $wishlistItems->count();
+        return view('wishlist', compact('wishlistItems', 'wishlistCount'))->with('title', 'Wishlist');
+    }
+
+    public function professionalSignup()
+    {
+        $types = config('professional.types');
+
+        return view('professional-signup', compact('types'))->with('title', 'Professional Signup');
     }
 }

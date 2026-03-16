@@ -54,6 +54,24 @@
         })();
     </script>
 
+
+<style>
+    #cta-btn {
+    background: #000000;
+    color: #f0e1cd;
+    pointer-events: all;
+    font-weight: 800;
+    transition: all 0.5s;
+    border: 2px solid #000000;
+}
+
+#cta-btn:hover {
+    background: transparent;
+    color: #000;
+}
+
+</style>
+
 </body>
 @include('layouts.errorhandler')
 @include('admin.core.editor')

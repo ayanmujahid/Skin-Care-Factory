@@ -353,3 +353,122 @@ $(document).ready(function () {
     loadCartPage();   // cart page
 
 });
+
+
+
+
+// Wishlist toggle
+
+$(document).ready(function() {
+
+    // 1️⃣ Load wishlist count on page load
+    function loadWishlistCount() {
+        $.get('/wishlist/count', function(res) {
+            $('.wishlist-count').text(res.count);
+            $('.wishlist-title').text('Your Wishlist (' + res.count + ')');
+        });
+    }
+
+    loadWishlistCount(); // call on page load
+
+    // 2️⃣ Toggle wishlist from product card or quick-view (heart button)
+    $(document).on('click', '.wishlist-btn', function(e) {
+        e.preventDefault();
+
+        let button = $(this);
+        let productId = button.data('product-id');
+
+        $.ajax({
+            url: '/wishlist/toggle',
+            type: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                product_id: productId
+            },
+            success: function(response) {
+                if(response.status === 'not_logged_in') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops!',
+                        text: response.message,
+                    });
+                } else if(response.status === 'added') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added!',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    button.find('i').addClass('text-danger'); // mark heart red
+                    loadWishlistCount(); // update badge
+                } else if(response.status === 'removed') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Removed',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    button.find('i').removeClass('text-danger'); // remove red
+                    loadWishlistCount(); // update badge
+                }
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong. Please try again.'
+                });
+            }
+        });
+    });
+
+    // 3️⃣ Remove from wishlist page (remove button)
+    $(document).on('click', '.remove-wishlist-btn', function() {
+        let button = $(this);
+        let productId = button.data('product-id');
+
+        $.ajax({
+            url: '/wishlist/toggle',
+            type: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                product_id: productId
+            },
+            success: function(response) {
+                if(response.status === 'removed') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Removed!',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    $('#wishlist-row-' + productId).remove(); // remove row from table
+
+                    loadWishlistCount(); // update header badge & wishlist count
+
+                    // Optional: show empty message if wishlist is empty
+                    if($('.wishlist-count').text() === "0"){
+                        $('.cart-table').html('<p>Your wishlist is empty.</p>');
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message
+                    });
+                }
+            },
+            error: function(xhr){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong. Please try again.'
+                });
+            }
+        });
+    });
+
+});

@@ -57,9 +57,11 @@
     transition: left .32s cubic-bezier(.2,.9,.3,1), visibility .32s;
     visibility: hidden;
   }
-  .mobile-nav.open{ left: 0; visibility: visible; }
-    right: 0;
-    visibility: visible;
+  .mobile-nav.open{ 
+    left: 0; 
+    visibility: visible; 
+  }
+    
   }
   .mobile-nav-header{
     display:flex;
@@ -152,7 +154,10 @@
   .mobile-nav-backdrop.visible{ opacity:1; visibility: visible; }
 
   /* Improve focus states */
-  .mobile-nav a:focus, .mobile-accordion-btn:focus, .mobile-close-btn:focus{ outline: 3px solid rgba(99,102,241,0.12); outline-offset:2px; }
+  .mobile-nav a:focus, .mobile-accordion-btn:focus, .mobile-close-btn:focus{ 
+    outline: 3px solid rgba(99,102,241,0.12); 
+    outline-offset:2px; 
+  }
 
 }
 
@@ -160,3 +165,13 @@
 @media (min-width: 901px){
   .mobile-nav, .mobile-nav-backdrop, .mobile-menu-btn{ display: none !important; }
 }
+
+
+
+
+
+
+
+
+
+
