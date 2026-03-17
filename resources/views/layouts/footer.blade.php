@@ -96,10 +96,24 @@
 <div class="modal fade" id="quickViewModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                style="
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        font-size: 15px;
+        color: #fff;
+        border: none;
+        padding: 10px 10px 12px 10px;
+        z-index: 1055;
+        margin-top: 7px;
+    ">
+                X
+            </button>
             <div class="modal-body">
 
                 <div class="row">
+
 
                     <div class="col-md-6">
                         <img id="modal-main-image" class="img-fluid mb-3">

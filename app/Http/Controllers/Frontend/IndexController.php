@@ -199,15 +199,21 @@ class IndexController extends Controller
 
     public function wishlist()
     {
+        if (!Auth::check()) {
+            return redirect()->back()->with('notify_error', 'Please login first');
+        }
+
         $user = Auth::user();
         $wishlistItems = Wishlist::with('product')
-                            ->where('user_id', $user->id)
-                            ->get();
+            ->where('user_id', $user->id)
+            ->get();
 
         $wishlistCount = $wishlistItems->count();
-        return view('wishlist', compact('wishlistItems', 'wishlistCount'))->with('title', 'Wishlist');
-    }
 
+        return view('wishlist', compact('wishlistItems', 'wishlistCount'))
+            ->with('title', 'Wishlist');
+    }
+    
     public function professionalSignup()
     {
         $types = config('professional.types');
