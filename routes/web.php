@@ -126,7 +126,9 @@ Route::get('/admin/products-bulk-upload', [ProductController::class, 'bulk'])->n
 
 Route::post('/admin/products-bulk-upload-submit-json', [ProductController::class, 'importProductsJson'])->name('admin.importProductsJson');
 Route::get('/admin/products-bulk-upload-json', [ProductController::class, 'jsonbulk'])->name('admin.jsonBulkUpload');
+Route::post('/admin/professional/{id}/approve', [AdminController::class, 'approve'])->name('admin.professional.approve');
 
+Route::post('/admin/professional/{id}/reject', [AdminController::class, 'reject'])->name('admin.professional.reject');
 
 Route::prefix('admin')
     ->name('admin.')   // <--- This adds "admin." to route names
@@ -136,4 +138,5 @@ Route::prefix('admin')
         Route::resource('newsletters', NewsletterController::class);
         Route::resource('product-categories', ProductCategoryController::class)->parameters(['product-categories' => 'category']);
         Route::resource('product-subcategories', ProductSubCategoryController::class);
+        Route::resource('licenses', ProfessionalController::class);
     });

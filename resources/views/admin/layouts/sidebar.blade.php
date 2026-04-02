@@ -99,6 +99,31 @@
                     <span>Returned Orders</span>
                 </a>
             </li>
+            <li class="sidebar-menu-group-title">Professional Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:license" class="menu-icon"></iconify-icon>
+                    <span>License Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="typography.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            License List</a>
+                    </li>
+                    <li>
+                        <a href="colors.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Approved
+                            License</a>
+                    </li>
+                    <li>
+                        <a href="colors.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Pending
+                            License</a>
+                    </li>
+                    <li>
+                        <a href="colors.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Rejected
+                            License</a>
+                    </li>
+                </ul>
+            </li>
 
 
             <li class="sidebar-menu-group-title">Application</li>

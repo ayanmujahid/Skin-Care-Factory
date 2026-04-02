@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ProfessionalRejectedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use App\Models\ProfessionalRejection;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -52,5 +56,46 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
+    }
+
+
+    public function approve($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'verified_status' => 1
+        ]);
+
+        // Resolve any rejection
+        ProfessionalRejection::where('user_id', $id)
+            ->update(['is_resolved' => 1]);
+
+        return back()->with('success', 'Professional approved successfully.');
+    }
+
+    public function reject(Request $request, $id)
+    {
+        $request->validate([
+            'reason' => 'required|string'
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'verified_status' => 2
+        ]);
+
+        // Store rejection
+        ProfessionalRejection::create([
+            'user_id' => $id,
+            'reason' => $request->reason,
+            'is_resolved' => 0
+        ]);
+
+        // Send email
+        Mail::to($user->email)->send(new ProfessionalRejectedMail($user, $request->reason));
+
+        return back()->with('error', 'Professional rejected.');
     }
 }

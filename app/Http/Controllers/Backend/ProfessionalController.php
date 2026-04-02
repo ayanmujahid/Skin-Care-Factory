@@ -15,6 +15,21 @@ class ProfessionalController extends Controller
 {
     //
 
+
+    public function index()
+    {
+        $professionals = ProfessionalProfile::with('user')->paginate(10);
+        
+        return view('admin.license-management.index', compact('professionals'));
+    }
+
+    public function show($id)
+    {
+        $professional = ProfessionalProfile::with('user')->findOrFail($id);
+        
+        return view('admin.license-management.show', compact('professional'));
+    }
+
     public function professionalRegistration(Request $request)
     {
 
