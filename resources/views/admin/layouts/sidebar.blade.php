@@ -4,7 +4,7 @@
         <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
     </button>
     <div>
-        <a href="index.html" class="sidebar-logo">
+        <a href="{{route('dashboard.index')}}" class="sidebar-logo">
             <img src="{{asset('admin/images/logo.webp')}}" alt="site logo" class="light-logo">
             <img src="assets/images/logo-light.png" alt="site logo" class="dark-logo">
             <img src="assets/images/logo-icon.png" alt="site logo" class="logo-icon">
@@ -27,11 +27,11 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="typography.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{route('admin.products.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Product List</a>
                     </li>
                     <li>
-                        <a href="colors.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Add
+                        <a href="{{route('admin.products.create')}}"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Add
                             Product</a>
                     </li>
                 </ul>
@@ -43,11 +43,11 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="typography.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{route('admin.product-categories.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Catagory List</a>
                     </li>
                     <li>
-                        <a href="colors.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Add
+                        <a href="{{route('admin.product-categories.create')}}"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Add
                             Catagory</a>
                     </li>
                     <li>
