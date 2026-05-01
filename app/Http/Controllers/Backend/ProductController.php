@@ -11,6 +11,7 @@ use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Jobs\ImportProductsJob;
+use App\Models\Brand;
 
 class ProductController extends Controller
 {
@@ -66,7 +67,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = ProductCategory::orderBy('name')->get();
-        return view('admin.product-management.create', compact('categories'));
+        $brands = Brand::orderBy('name')->get();
+        return view('admin.product-management.create', compact('categories', 'brands'));
     }
 
     public function subCategories($categoryId)
@@ -91,6 +93,7 @@ class ProductController extends Controller
 
         $product = Product::create([
             'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
             'sub_category_id' => $request->sub_category_id,
             'name' => $request->name,
             'short_description' => $request->short_description,
@@ -124,8 +127,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = ProductCategory::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get();
 
-        return view('admin.product-management.edit', compact('product', 'categories'));
+        return view('admin.product-management.edit', compact('product', 'categories', 'brands'));
     }
 
     public function update(Request $request, Product $product)
@@ -133,6 +137,7 @@ class ProductController extends Controller
         $request->validate([
             'category_id' => 'required|exists:product_categories,id',
             'sub_category_id' => 'nullable|exists:product_sub_categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
 
             'name' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:500',
@@ -168,6 +173,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'discounted_price' => $request->discounted_price,
             'is_featured' => $request->is_featured,
+            'brand_id' => $request->brand_id,
         ]);
 
         // Update main image (replace)

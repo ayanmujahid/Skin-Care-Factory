@@ -71,7 +71,20 @@
                                             No sub-category exists
                                         </small>
                                     </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Brands</label>
+                                        <select name="brand_id" id="brandSelect" class="form-control" required>
+                                            <option value="">-- Select Brand --</option>
+                                            @foreach ($brands as $brand)
+                                                <option value="{{ $brand->id }}">
+                                                    {{ $brand->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                 </div>
+
 
 
                                 <div class="mb-3">
@@ -99,7 +112,7 @@
                                         <input type="number" name="discounted_price" class="form-control" step="0.01">
                                     </div>
                                 </div>
-                                 <!-- Featured -->
+                                <!-- Featured -->
                                 <div class="col-xl-6">
                                     <label class="form-label">Featured :</label>
                                     <select class="form-control" name="featured">
@@ -229,39 +242,38 @@
     </script>
 
     <script>
-document.getElementById('categorySelect').addEventListener('change', function () {
-    const categoryId = this.value;
-    const subCategorySelect = document.getElementById('subCategorySelect');
-    const noSubText = document.getElementById('noSubCategoryText');
+        document.getElementById('categorySelect').addEventListener('change', function() {
+            const categoryId = this.value;
+            const subCategorySelect = document.getElementById('subCategorySelect');
+            const noSubText = document.getElementById('noSubCategoryText');
 
-    // Reset
-    subCategorySelect.innerHTML = '<option value="">-- Select Sub Category --</option>';
-    subCategorySelect.disabled = true;
-    noSubText.classList.add('d-none');
+            // Reset
+            subCategorySelect.innerHTML = '<option value="">-- Select Sub Category --</option>';
+            subCategorySelect.disabled = true;
+            noSubText.classList.add('d-none');
 
-    if (!categoryId) return;
+            if (!categoryId) return;
 
-    fetch(`/admin/categories/${categoryId}/sub-categories`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.length === 0) {
-                noSubText.classList.remove('d-none');
-                return;
-            }
+            fetch(`/admin/categories/${categoryId}/sub-categories`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        noSubText.classList.remove('d-none');
+                        return;
+                    }
 
-            data.forEach(sub => {
-                const option = document.createElement('option');
-                option.value = sub.id;
-                option.textContent = sub.name;
-                subCategorySelect.appendChild(option);
-            });
+                    data.forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.id;
+                        option.textContent = sub.name;
+                        subCategorySelect.appendChild(option);
+                    });
 
-            subCategorySelect.disabled = false;
-        })
-        .catch(() => {
-            noSubText.classList.remove('d-none');
+                    subCategorySelect.disabled = false;
+                })
+                .catch(() => {
+                    noSubText.classList.remove('d-none');
+                });
         });
-});
-</script>
-
+    </script>
 @endsection

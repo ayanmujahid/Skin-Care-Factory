@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'phone',
@@ -20,6 +20,13 @@ class Order extends Model
         'zip',
         'notes',
         'total',
+
+        'status',
+        'payment_method',
+        'payment_intent_id',
+        'transaction_id',
+        'paid_at',
+        'is_locked',
     ];
 
     public function items()

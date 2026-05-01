@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
+use App\Http\Controllers\Backend\{AdminController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Models\Wishlist;
@@ -140,4 +140,5 @@ Route::prefix('admin')
         Route::resource('product-subcategories', ProductSubCategoryController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('licenses', ProfessionalController::class);
+        Route::resource('orders', OrderController::class);
     });

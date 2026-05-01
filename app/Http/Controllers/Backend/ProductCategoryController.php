@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use App\Traits\MyTrait;
+
 
 class ProductCategoryController extends Controller
 {
     //
+    use MyTrait;
     public function index()
     {
         $categories = ProductCategory::latest()->paginate(10);
@@ -25,9 +28,11 @@ class ProductCategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255'
         ]);
+        $slug = $this->slug_maker($request->name, ProductCategory::class);
 
         ProductCategory::create([
             'name' => $request->name,
+            'slug' => $slug,
             'featured' => $request->featured ? true : false,
         ]);
 
@@ -53,11 +58,10 @@ class ProductCategoryController extends Controller
         return redirect()->route('admin.product-categories.index')->with('success', 'Category updated successfully!');
     }
 
-   public function destroy(ProductCategory $category)
-{
-    $category->delete();
-    return redirect()->route('admin.product-categories.index')
-                     ->with('success', 'Category deleted successfully!');
-}
-
+    public function destroy(ProductCategory $category)
+    {
+        $category->delete();
+        return redirect()->route('admin.product-categories.index')
+            ->with('success', 'Category deleted successfully!');
+    }
 }

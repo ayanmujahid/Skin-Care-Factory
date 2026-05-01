@@ -31,7 +31,10 @@ return new class extends Migration
             $table->text('short_description')->nullable();
             $table->longText('long_description')->nullable();
 
-            $table->string('brand')->nullable();
+            $table->foreignId('brand_id')
+                ->nullable()
+                ->constrained('brands')
+                ->nullOnDelete();
 
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);

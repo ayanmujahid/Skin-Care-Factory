@@ -51,11 +51,11 @@
                             Catagory</a>
                     </li>
                     <li>
-                        <a href="button.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i>
+                        <a href="{{route('admin.brands.index')}}"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i>
                             Vender</a>
                     </li>
                     <li>
-                        <a href="index-3.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                        <a href="{{route('admin.product-subcategories.index')}}"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Sub-Catagory</a>
                     </li>
                     {{-- <li>
