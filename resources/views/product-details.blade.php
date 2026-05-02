@@ -118,75 +118,38 @@
 
                         <!-- TAB BUTTONS -->
                         <div class="d-flex gap-2 mb-3">
-                            <button class="tab-btn active" data-tab="desc">Description</button>
-                            <button class="tab-btn" data-tab="ship">Shipping Information</button>
-                            <button class="tab-btn" data-tab="faq">Faq</button>
+                            <button class="tab-btn active" data-tab="description">Description</button>
+                            <button class="tab-btn" data-tab="benefits">Benefits</button>
+                            <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+                            <button class="tab-btn" data-tab="howto">How to Use</button>
+                            <button class="tab-btn" data-tab="protip">Pro Tip</button>
                         </div>
 
                         <!-- DESCRIPTION -->
-                        <div class="tab-content active" id="desc">
-                            <p>
-                                Use our lovely beauty products to make a striking appearance that leaves people wondering
-                                about your gorgeous look.
-                                Perfect, natural, feathery lashes that have the right length and volume: to give a right
-                                finishing touch to an extraordinary makeup look.
-                            </p>
-
-                            <ul>
-                                <li>Feathery light Korean silk fiber</li>
-                                <li>Handmade Cotton band</li>
-                                <li>Suitable for Hair lengths from 2mm to 12mm</li>
-                                <li>Band Length 36mm</li>
-                            </ul>
-
-                            <h6>What it is:</h6>
-                            <p><strong>EVERY INGREDIENT WE USE IS BENEFICIAL, HERE ARE A FEW:</strong></p>
-
-                            <div class="row text-center my-4">
-                                <div class="col-6 mb-4">
-                                    <img src="assets/images/panthanol.webp" class="ing-img">
-                                    <h5>PANTHENOL</h5>
-                                    <p>Panthenol helps to lock skin moisture.</p>
-                                </div>
-                                <div class="col-6 mb-4">
-                                    <img src="assets/images/neem.webp" class="ing-img">
-                                    <h5>NEEM</h5>
-                                    <p>Neem fights and prevents acne scars.</p>
-                                </div>
-                                <div class="col-6">
-                                    <img src="assets/images/vitamin.webp" class="ing-img">
-                                    <h5>VITAMIN E</h5>
-                                    <p>Vitamin E protects from free radical damage.</p>
-                                </div>
-                                <div class="col-6">
-                                    <img src="assets/images/coco.webp" class="ing-img">
-                                    <h5>COCONUT</h5>
-                                    <p>Coconut refreshes the skin.</p>
-                                </div>
-                            </div>
-
-                            <h5>COMPLETE LIST OF INGREDIENTS:</h5>
-                            <p class="small">
-                                Centifolia Flower Water (Organic Rose Hydrosol), Fucus Vesiculosus (Kelp) Extract, Plant
-                                Cellulose (Vegan),
-                                Cocos Nucifera (Virgin Coconut) Oil, Aloe Barbadensis (Organic Aloe) Leaf Juice, Rosa
-                                Vegetable Glycerin,
-                                Tocopherol (Vitamin E), Caprifolium (Honeysuckle) Flower, Lonicera Japonica (Honeysuckle)
-                                Flower,
-                                and Mentha Piperita (Peppermint) Essential Oil.
-                            </p>
+                        <!-- DESCRIPTION -->
+                        <div class="tab-content active" id="description">
+                            {!! $product->description !!}
                         </div>
 
-                        <!-- SHIPPING -->
-                        <div class="tab-content" id="ship">
-                            <p>We ship within 2–5 business days worldwide.</p>
+                        <!-- BENEFITS -->
+                        <div class="tab-content" id="benefits">
+                            {!! $product->benefits !!}
                         </div>
 
-                        <!-- FAQ -->
-                        <div class="tab-content" id="faq">
-                            <p>Contact support for any questions about this product.</p>
+                        <!-- INGREDIENTS -->
+                        <div class="tab-content" id="ingredients">
+                            {!! $product->ingredients !!}
                         </div>
 
+                        <!-- HOW TO USE -->
+                        <div class="tab-content" id="howto">
+                            {!! $product->how_to_use !!}
+                        </div>
+
+                        <!-- PRO TIP -->
+                        <div class="tab-content" id="protip">
+                            {!! $product->pro_tip !!}
+                        </div>
                     </div>
                 </div>
 

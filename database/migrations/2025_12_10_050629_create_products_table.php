@@ -30,6 +30,10 @@ return new class extends Migration
 
             $table->text('short_description')->nullable();
             $table->longText('long_description')->nullable();
+            $table->text('benefits')->nullable();
+            $table->text('ingredients')->nullable();
+            $table->text('how_to_use')->nullable();
+            $table->text('pro_tip')->nullable();
 
             $table->foreignId('brand_id')
                 ->nullable()

@@ -20,6 +20,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('sku')->unique()->nullable();
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->enum('weight_unit', ['ml', 'oz'])->default('ml');
 
             $table->decimal('price', 10, 2);
             $table->decimal('compare_price', 10, 2)->nullable();

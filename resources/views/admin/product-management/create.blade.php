@@ -22,7 +22,6 @@
                             <div class="card-body">
                                 <input type="file" name="main_image" id="mainImageInput" class="form-control"
                                     accept="image/*">
-
                                 <div id="mainImagePreview" class="mt-3"></div>
                             </div>
                         </div>
@@ -33,7 +32,6 @@
                             <div class="card-body">
                                 <input type="file" name="gallery[]" id="galleryInput" class="form-control" multiple
                                     accept="image/*">
-
                                 <div id="galleryPreview" class="d-flex flex-wrap mt-3 gap-2"></div>
                             </div>
                         </div>
@@ -42,22 +40,24 @@
 
                     {{-- RIGHT --}}
                     <div class="col-md-9">
+
                         <div class="card">
                             <div class="card-body">
 
+                                {{-- BASIC INFO --}}
                                 <div class="mb-3">
                                     <label>Product Name</label>
                                     <input type="text" name="name" class="form-control" required>
                                 </div>
+
                                 <div class="row">
+
                                     <div class="col-md-6 mb-3">
                                         <label>Category</label>
                                         <select name="category_id" id="categorySelect" class="form-control" required>
                                             <option value="">-- Select Category --</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">
-                                                    {{ $category->name }}
-                                                </option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -67,55 +67,108 @@
                                         <select name="sub_category_id" id="subCategorySelect" class="form-control" disabled>
                                             <option value="">-- Select Sub Category --</option>
                                         </select>
-                                        <small id="noSubCategoryText" class="text-muted d-none">
-                                            No sub-category exists
-                                        </small>
                                     </div>
+
                                     <div class="col-md-6 mb-3">
-                                        <label>Brands</label>
-                                        <select name="brand_id" id="brandSelect" class="form-control" required>
+                                        <label>Brand</label>
+                                        <select name="brand_id" class="form-control" required>
                                             <option value="">-- Select Brand --</option>
                                             @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}">
-                                                    {{ $brand->name }}
-                                                </option>
+                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                 </div>
 
-
-
+                                {{-- DESCRIPTION --}}
                                 <div class="mb-3">
                                     <label>Short Description</label>
-                                    <textarea name="short_description" class="form-control" maxlength="500"></textarea>
+                                    <textarea name="short_description" class="form-control"></textarea>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label>Long Description</label>
-                                    <textarea name="long_description" class="form-control" rows="4"></textarea>
+                                    <label>Description</label>
+                                    <textarea name="long_description" id="description" class="form-control"></textarea>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label>Price</label>
-                                        <input type="number" name="price" class="form-control" step="0.01" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label>Stock</label>
-                                        <input type="number" name="stock" class="form-control" step="0.01">
+                                <div class="mb-3">
+                                    <label>Benefits</label>
+                                    <textarea name="benefits" id="benefits" class="form-control"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>Ingredients</label>
+                                    <textarea name="ingredients" id="ingredients" class="form-control"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>How to Use</label>
+                                    <textarea name="how_to_use" id="how_to_use" class="form-control"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>Pro Tip</label>
+                                    <textarea name="pro_tip" id="pro_tip" class="form-control"></textarea>
+                                </div>
+
+                                {{-- VARIANTS --}}
+                                <hr>
+                                <h5>Product Variants</h5>
+
+                                <div id="variants-wrapper">
+
+                                    <div class="variant-box border p-3 mb-3">
+
+                                        <div class="row">
+
+                                            <div class="col-md-4 mb-2">
+                                                <label>Price</label>
+                                                <input type="number" name="variants[0][price]" class="form-control"
+                                                    step="0.01" required>
+                                            </div>
+
+                                            <div class="col-md-4 mb-2">
+                                                <label>Compare Price</label>
+                                                <input type="number" name="variants[0][compare_price]" class="form-control"
+                                                    step="0.01">
+                                            </div>
+
+                                            <div class="col-md-4 mb-2">
+                                                <label>Stock</label>
+                                                <input type="number" name="variants[0][stock]" class="form-control">
+                                            </div>
+
+                                        </div>
+
+                                        <hr>
+
+                                        <h6>Attributes</h6>
+
+                                        <div class="row mb-2">
+                                            <div class="col-md-5">
+                                                <input type="text" name="variants[0][attributes][0][name]"
+                                                    class="form-control" placeholder="Attribute (Size, Pack, Color)">
+                                            </div>
+
+                                            <div class="col-md-5">
+                                                <input type="text" name="variants[0][attributes][0][value]"
+                                                    class="form-control" placeholder="Value (1 OZ, Pack of 4)">
+                                            </div>
+                                        </div>
+
                                     </div>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label>Discounted Price</label>
-                                        <input type="number" name="discounted_price" class="form-control" step="0.01">
-                                    </div>
                                 </div>
-                                <!-- Featured -->
-                                <div class="col-xl-6">
-                                    <label class="form-label">Featured :</label>
-                                    <select class="form-control" name="featured">
+
+                                <button type="button" class="btn btn-sm btn-primary" id="add-variant">
+                                    + Add Variant
+                                </button>
+
+                                {{-- FEATURED --}}
+                                <div class="mt-3">
+                                    <label>Featured</label>
+                                    <select name="is_featured" class="form-control">
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
@@ -123,14 +176,13 @@
 
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
                 <div class="text-end mt-3">
-                    <button type="submit" class="btn btn-primary">
-                        Add Product
-                    </button>
+                    <button class="btn btn-success">Save Product</button>
                 </div>
 
             </form>
@@ -242,12 +294,12 @@
     </script>
 
     <script>
+        // CATEGORY → SUBCATEGORY
         document.getElementById('categorySelect').addEventListener('change', function() {
             const categoryId = this.value;
             const subCategorySelect = document.getElementById('subCategorySelect');
             const noSubText = document.getElementById('noSubCategoryText');
 
-            // Reset
             subCategorySelect.innerHTML = '<option value="">-- Select Sub Category --</option>';
             subCategorySelect.disabled = true;
             noSubText.classList.add('d-none');
@@ -270,10 +322,95 @@
                     });
 
                     subCategorySelect.disabled = false;
-                })
-                .catch(() => {
-                    noSubText.classList.remove('d-none');
                 });
         });
+    </script>
+
+    <script>
+        // ATTRIBUTES
+        let attrIndex = 1;
+
+        document.getElementById('add-attribute').addEventListener('click', function() {
+            const wrapper = document.getElementById('attributes-wrapper');
+
+            const row = document.createElement('div');
+            row.classList.add('row', 'mb-2', 'attribute-row');
+
+            row.innerHTML = `
+        <div class="col-md-5">
+            <input type="text" name="attributes[${attrIndex}][name]" class="form-control" placeholder="Attribute">
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="attributes[${attrIndex}][value]" class="form-control" placeholder="Value">
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-danger remove-attribute">X</button>
+        </div>
+    `;
+
+            wrapper.appendChild(row);
+            attrIndex++;
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-attribute')) {
+                e.target.closest('.attribute-row').remove();
+            }
+        });
+    </script>
+    <script>
+        let variantIndex = 1;
+
+        document.getElementById('add-variant').addEventListener('click', function() {
+
+            let html = `
+    <div class="variant-box border p-3 mb-3">
+
+        <div class="row">
+
+            <div class="col-md-4 mb-2">
+                <label>Price</label>
+                <input type="number" name="variants[${variantIndex}][price]" class="form-control" step="0.01" required>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <label>Compare Price</label>
+                <input type="number" name="variants[${variantIndex}][compare_price]" class="form-control" step="0.01">
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <label>Stock</label>
+                <input type="number" name="variants[${variantIndex}][stock]" class="form-control">
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h6>Attributes</h6>
+
+        <div class="row mb-2">
+            <div class="col-md-5">
+                <input type="text" name="variants[${variantIndex}][attributes][0][name]" class="form-control" placeholder="Attribute">
+            </div>
+
+            <div class="col-md-5">
+                <input type="text" name="variants[${variantIndex}][attributes][0][value]" class="form-control" placeholder="Value">
+            </div>
+        </div>
+
+    </div>`;
+
+            document.getElementById('variants-wrapper').insertAdjacentHTML('beforeend', html);
+
+            variantIndex++;
+        });
+    </script>
+    <script>
+        CKEDITOR.replace('description');
+        CKEDITOR.replace('benefits');
+        CKEDITOR.replace('ingredients');
+        CKEDITOR.replace('how_to_use');
+        CKEDITOR.replace('pro_tip');
     </script>
 @endsection

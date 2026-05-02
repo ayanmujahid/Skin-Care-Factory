@@ -20,6 +20,10 @@ class Product extends Model
         'stock',
         'slug',
         'is_featured',
+        'pro_tip',
+        'how_to_use',
+        'ingredients',
+        'benefits',
     ];
 
     // Relationship to files

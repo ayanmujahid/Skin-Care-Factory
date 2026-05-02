@@ -15,7 +15,9 @@ class ProductVariant extends Model
         'price',
         'compare_price',
         'stock',
-        'is_active'
+        'is_active',
+        'weight_unit',
+        'weight',
     ];
 
 

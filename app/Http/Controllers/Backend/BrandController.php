@@ -34,8 +34,8 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'brand_logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
+            // 'name' => 'required|string|max:255',
+            // 'brand_logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
         $slug = $this->slug_maker($request->name, Brand::class);
 

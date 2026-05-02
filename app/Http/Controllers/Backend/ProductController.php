@@ -7,14 +7,22 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\ProductVariant;
+use App\Models\VariantAttributeValue;
 use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Jobs\ImportProductsJob;
 use App\Models\Brand;
+use App\Models\AttributeValue;
+use App\Models\Attribute;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Traits\MyTrait;
 
 class ProductController extends Controller
 {
+    use MyTrait;
+
     //
     protected $fileRepo;
 
@@ -80,44 +88,132 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'short_description' => 'nullable|string|max:500',
-            'long_description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'discounted_price' => 'nullable|numeric',
-            'main_image' => 'nullable|image',
-            'gallery.*' => 'nullable|image',
-        ]);
-        $slug = $this->slug_maker($request->input('name'), Product::class);
+        Log::info('=== PRODUCT STORE START ===', $request->all());
 
-        $product = Product::create([
-            'category_id' => $request->category_id,
-            'brand_id' => $request->brand_id,
-            'sub_category_id' => $request->sub_category_id,
-            'name' => $request->name,
-            'short_description' => $request->short_description,
-            'long_description' => $request->long_description,
-            'price' => $request->price,
-            'stock' => $request->stock,
-            'is_featured' => $request->is_featured,
-            'discounted_price' => $request->discounted_price,
-            'slug' => $slug,
+        DB::beginTransaction();
 
+        try {
 
-        ]);
+            // ---------------- VALIDATION ----------------
+            Log::info('Validating request...');
 
-        // Handle files
-        if ($request->hasFile('main_image')) {
-            $this->fileRepo->upload($request->file('main_image'), $product, 'main_image');
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'category_id' => 'required',
+                'brand_id' => 'required',
+                'variants' => 'required|array|min:1',
+                'variants.*.price' => 'required|numeric|min:0',
+            ]);
+
+            Log::info('Validation passed');
+
+            // ---------------- SLUG ----------------
+            $slug = $this->slug_maker($request->name, Product::class);
+            Log::info('Slug generated', ['slug' => $slug]);
+
+            // ---------------- PRODUCT ----------------
+            $product = Product::create([
+                'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
+                'sub_category_id' => $request->sub_category_id,
+                'name' => $request->name,
+                'short_description' => $request->short_description,
+                'long_description' => $request->long_description,
+                'benefits' => $request->benefits,
+                'ingredients' => $request->ingredients,
+                'how_to_use' => $request->how_to_use,
+                'pro_tip' => $request->pro_tip,
+                'is_featured' => $request->is_featured ?? 0,
+                'slug' => $slug,
+            ]);
+
+            Log::info('Product created', ['product_id' => $product->id]);
+
+            // ---------------- VARIANTS ----------------
+            foreach ($request->variants as $index => $variantData) {
+
+                Log::info("Processing variant #{$index}", $variantData);
+
+                $sku = $slug . '-' . uniqid();
+
+                $variant = ProductVariant::create([
+                    'product_id' => $product->id,
+                    'sku' => $sku,
+                    'price' => $variantData['price'],
+                    'compare_price' => $variantData['compare_price'] ?? null,
+                    'stock' => $variantData['stock'] ?? 0,
+                    'is_active' => 1,
+                ]);
+
+                Log::info('Variant created', ['variant_id' => $variant->id]);
+
+                // ---------------- ATTRIBUTES ----------------
+                if (!empty($variantData['attributes'])) {
+
+                    foreach ($variantData['attributes'] as $attrIndex => $attr) {
+
+                        Log::info("Variant attribute #{$attrIndex}", $attr);
+
+                        if (empty($attr['name']) || empty($attr['value'])) {
+                            Log::warning('Skipped empty attribute', $attr);
+                            continue;
+                        }
+
+                        $attribute = Attribute::firstOrCreate([
+                            'name' => $attr['name']
+                        ]);
+
+                        $attributeValue = AttributeValue::firstOrCreate([
+                            'attribute_id' => $attribute->id,
+                            'value' => $attr['value']
+                        ]);
+
+                        VariantAttributeValue::create([
+                            'product_variant_id' => $variant->id,
+                            'attribute_value_id' => $attributeValue->id
+                        ]);
+                    }
+                }
+            }
+
+            // ---------------- IMAGES ----------------
+            if ($request->hasFile('main_image')) {
+                Log::info('Uploading main image');
+                $this->fileRepo->upload($request->file('main_image'), $product, 'main_image');
+            } else {
+                Log::warning('Main image not found');
+            }
+
+            if ($request->hasFile('gallery')) {
+                Log::info('Uploading gallery images');
+                $this->fileRepo->uploadMultiple($request->file('gallery'), $product, 'gallery');
+            } else {
+                Log::warning('Gallery images not found');
+            }
+
+            DB::commit();
+
+            Log::info('=== PRODUCT STORE SUCCESS ===', ['product_id' => $product->id]);
+
+            return redirect()
+                ->route('admin.products.index')
+                ->with('success', 'Product created successfully');
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            Log::error('=== PRODUCT STORE FAILED ===', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+            ]);
+
+            return back()
+                ->withInput()
+                ->with('error', $e->getMessage());
         }
-
-        if ($request->hasFile('gallery')) {
-            $this->fileRepo->uploadMultiple($request->file('gallery'), $product, 'gallery');
-        }
-
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
+
 
     public function show(Product $product)
     {
