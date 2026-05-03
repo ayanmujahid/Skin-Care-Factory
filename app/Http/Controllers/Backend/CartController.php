@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\SharedCart;
 
 
 class CartController extends Controller
@@ -128,4 +129,32 @@ class CartController extends Controller
 
         return response()->json($product);
     }
+
+
+    public function sharedCart($token)
+{
+    $cart = SharedCart::with('items.product')
+        ->where('token', $token)
+        ->where('status', 'active')
+        ->firstOrFail();
+
+    // 🔥 Calculate subtotal
+    $subtotal = 0;
+
+    foreach ($cart->items as $item) {
+        $subtotal += $item->product->price * $item->quantity;
+    }
+
+    // 🔥 Apply discount
+    $discountAmount = ($subtotal * $cart->discount_percent) / 100;
+
+    $total = $subtotal - $discountAmount;
+
+    return view('cart.share-cart', compact(
+        'cart',
+        'subtotal',
+        'discountAmount',
+        'total'
+    ));
+}
 }

@@ -42,32 +42,49 @@ class UserController extends Controller
             'password' => 'required|max:50',
         ]);
 
-        // Attempt to find user first
         $user = \App\Models\User::where('email', $request->email)->first();
 
         if (!$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
             return back()->with('notify_error', 'Invalid credentials, please try again.');
         }
 
-        // Handle Customer Login
+        /*
+    |------------------------------------------
+    | CUSTOMER LOGIN
+    |------------------------------------------
+    */
         if ($user->role_id == 0) {
+
             Auth::login($user);
-            return redirect()->route('index')->with('notify_success', 'You are logged in as Customer!');
+
+            return redirect()->route('index')
+                ->with('notify_success', 'You are logged in as Customer!');
         }
 
-        // Handle Professional Login
+        /*
+    |------------------------------------------
+    | PROFESSIONAL LOGIN
+    |------------------------------------------
+    */
         if ($user->role_id == 1) {
+
             if ($user->verified_status == 1) {
+
                 Auth::login($user);
-                return redirect()->route('index')->with('notify_success', 'You are logged in as Professional!');
-            } elseif ($user->verified_status == 0) {
+
+                return redirect()->route('professional.shop')
+                    ->with('notify_success', 'You are logged in as Professional!');
+            }
+
+            if ($user->verified_status == 0) {
                 return back()->with('notify_error', 'Your application is still pending.');
-            } elseif ($user->verified_status == 2) {
+            }
+
+            if ($user->verified_status == 2) {
                 return back()->with('notify_error', 'Admin has rejected your application. Check your inbox for the reason.');
             }
         }
 
-        // Fallback
         return back()->with('notify_error', 'Login not allowed.');
     }
 

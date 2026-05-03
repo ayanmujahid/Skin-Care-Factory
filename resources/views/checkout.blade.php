@@ -134,6 +134,13 @@
                         <span>Calculated at next step</span>
                     </div>
 
+                    @if ($isShared)
+                        <div class="amiy-summary-row">
+                            <span>Discount</span>
+                            <span>- ${{ number_format($discount, 2) }}</span>
+                        </div>
+                    @endif
+
                     <div class="amiy-summary-total">
                         <span>Total</span>
                         <span>${{ number_format($cartTotal, 2) }}</span>

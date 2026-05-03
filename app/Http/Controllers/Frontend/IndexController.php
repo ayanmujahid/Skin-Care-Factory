@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SharedCart;
 
 class IndexController extends Controller
 {
@@ -65,6 +66,45 @@ class IndexController extends Controller
 
     public function checkout()
     {
+        // 🔥 CASE 1: Shared Cart
+        if (session()->has('shared_cart_id')) {
+
+            $sharedCart = SharedCart::with('items.product')
+                ->findOrFail(session('shared_cart_id'));
+
+            $cart = [];
+
+            $subtotal = 0;
+
+            foreach ($sharedCart->items as $item) {
+
+                $price = $item->product->price;
+                $qty = $item->quantity;
+
+                $subtotal += $price * $qty;
+
+                $cart[] = [
+                    'name' => $item->product->name,
+                    'price' => $price,
+                    'quantity' => $qty,
+                    'image' => $item->product->image ?? '',
+                    'color' => '-',
+                    'size' => '-',
+                ];
+            }
+
+            $discount = ($subtotal * $sharedCart->discount_percent) / 100;
+            $total = $subtotal - $discount;
+
+            return view('checkout', [
+                'cart' => $cart,
+                'cartTotal' => $total,
+                'discount' => $discount,
+                'isShared' => true
+            ]);
+        }
+
+        // 🔥 CASE 2: Normal Cart
         $cart = session('cart', []);
 
         $cartTotal = array_sum(array_map(
@@ -72,8 +112,12 @@ class IndexController extends Controller
             $cart
         ));
 
-        return view('checkout', compact('cart', 'cartTotal'))
-            ->with('title', 'Checkout');
+        return view('checkout', [
+            'cart' => $cart,
+            'cartTotal' => $cartTotal,
+            'discount' => 0,
+            'isShared' => false
+        ]);
     }
 
     public function contactUs()
@@ -213,7 +257,7 @@ class IndexController extends Controller
         return view('wishlist', compact('wishlistItems', 'wishlistCount'))
             ->with('title', 'Wishlist');
     }
-    
+
     public function professionalSignup()
     {
         $types = config('professional.types');

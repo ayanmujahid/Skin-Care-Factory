@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('address');
+            $table->foreignId('professional_id')->nullable();
+            $table->foreignId('shared_cart_id')->nullable();
+            $table->boolean('is_shared_cart')->default(false);
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });

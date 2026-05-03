@@ -3,6 +3,8 @@
 use App\Http\Controllers\Backend\{AdminController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Professionals\ProfessionalCartController;
+use App\Http\Controllers\Professionals\ProfessionalIndexController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/about-us', [IndexController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/cart', [IndexController::class, 'cart'])->name('cart');
-Route::get('/checkout', [IndexController::class, 'checkout'])->name('checkout');
 Route::get('/contact-us', [IndexController::class, 'contactUs'])->name('contactUs');
 Route::get('/login', [IndexController::class, 'login'])->name('login');
 Route::get('/privacy-policy', [IndexController::class, 'privacyPolicy'])->name('privacyPolicy');
@@ -44,7 +45,7 @@ Route::get('/professional-signup', [IndexController::class, 'professionalSignup'
 
 
 // ---------------------------------------For Cart Setup-----------------------------------
-Route::get('/product/quick-view/{id}', [CartController::class,'quickView']);
+Route::get('/product/quick-view/{id}', [CartController::class, 'quickView']);
 Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place.order');
 
 // Add product to cart
@@ -60,15 +61,27 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 // Get cart data (for dropdown)
 Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
+Route::get('/cart/share/{token}', [CartController::class, 'sharedCart']);
 // ---------------------------------------For Cart Setup-----------------------------------
+
+
+// ---------------------------------------For Checkout Setup-----------------------------------
+
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [IndexController::class, 'checkout']);
+});
+// ---------------------------------------For Checkout Setup-----------------------------------
+
+
+
 
 
 
 // ---------------------------------------Wishlist -----------------------------------
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
-Route::get('/wishlist/count', function() {
-    if(Auth::check()){
+Route::get('/wishlist/count', function () {
+    if (Auth::check()) {
         $count = Wishlist::where('user_id', Auth::id())->count();
         return response()->json(['count' => $count]);
     } else {
@@ -104,6 +117,26 @@ Route::post('/language', function (Illuminate\Http\Request $request) {
 })->name('language.change');
 
 // ---------------------------------------Language-----------------------------------
+
+
+
+
+// ---------------------------------------Professional ROUTES-----------------------------------
+Route::middleware(['auth', 'is.professional'])->group(function () {
+
+    Route::get('/professional/shop', [ProfessionalIndexController::class, 'shop'])->name('professional.shop');
+    Route::get('/professional/cart', [ProfessionalCartController::class, 'index']);
+
+    Route::post('/professional/apply-points', [ProfessionalCartController::class, 'applyPoints']);
+
+    Route::post('/professional/remove-points', [ProfessionalCartController::class, 'removePoints']);
+
+    Route::post('/professional/generate-link', [ProfessionalCartController::class, 'generateLink']);
+    Route::post('/professional/cart/add', [ProfessionalCartController::class, 'add']);
+    Route::get('/professional/cart/data/{token}', [ProfessionalCartController::class, 'show']);
+});
+// ---------------------------------------Professional ROUTES-----------------------------------
+
 
 
 

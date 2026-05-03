@@ -48,9 +48,9 @@ class ProfessionalController extends Controller
             'license_state' => 'nullable|string|max:100',
             'license_expiration' => 'nullable|date',
 
-            'license_upload' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'license_upload' => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:2048',
 
-            'student_id_upload' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'student_id_upload' => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:2048',
 
         ]);
 

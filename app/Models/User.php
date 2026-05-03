@@ -51,7 +51,16 @@ class User extends Authenticatable
     }
 
     public function wishlist()
-{
-    return $this->hasMany(Wishlist::class);
-}
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+    public function sharedCarts()
+    {
+        return $this->hasMany(SharedCart::class, 'professional_id');
+    }
+
+    public function pointsTransactions()
+    {
+        return $this->hasMany(PointsTransaction::class, 'professional_id');
+    }
 }
