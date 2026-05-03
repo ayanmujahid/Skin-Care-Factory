@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 # Ignore database config
 *.zip
+*.sql
