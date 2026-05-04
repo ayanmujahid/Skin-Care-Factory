@@ -641,13 +641,13 @@ $(document).on('click', '.remove-item', function () {
 // point system integration
 function loadPoints() {
   $.get('/points/balance', function (res) {
-    $('#my-points').text(res.points);
+    $('#available-points').text(res.points);
   });
 }
 
 loadPoints();
 
-$(document).on('click', '#apply-points', function () {
+$(document).on('click', '.apply-points-btn', function () {
 
   let points = $('#use-points').val();
 
@@ -661,7 +661,7 @@ $(document).on('click', '#apply-points', function () {
 
 });
 
-$(document).on('click', '#remove-points', function () {
+$(document).on('click', '.remove-points-btn', function () {
 
   $.post('/professional/remove-points', {
     _token: $('meta[name="csrf-token"]').attr('content')

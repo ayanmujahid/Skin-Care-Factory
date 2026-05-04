@@ -24,11 +24,11 @@ class ProfessionalCartController extends Controller
     }
 
     public function pointsBalance()
-{
-    return response()->json([
-        'points' => PointsHelper::balance(auth()->id())
-    ]);
-}
+    {
+        return response()->json([
+            'points' => PointsHelper::balance(auth()->id())
+        ]);
+    }
 
     // ✅ Apply Points (Voucher)
     public function applyPoints(Request $request)
@@ -113,16 +113,17 @@ class ProfessionalCartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $cart = SharedCart::where('professional_id', auth()->id())
-            ->where('status', 'active')
-            ->first();
+        $user = auth()->user();
 
-        if ($cart && $cart->is_locked) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Cart is locked after link generation'
-            ], 403);
-        }
+        $cart = SharedCart::firstOrCreate(
+            [
+                'professional_id' => $user->id,
+                'status' => 'active'
+            ],
+            [
+                'token' => Str::uuid()
+            ]
+        );
 
         $item = SharedCartItem::where('shared_cart_id', $cart->id)
             ->where('variant_id', $request->variant_id)
@@ -138,7 +139,9 @@ class ProfessionalCartController extends Controller
             ]);
         }
 
-        return response()->json(['status' => 'success']);
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
     public function show($token)
     {
@@ -269,87 +272,101 @@ class ProfessionalCartController extends Controller
     }
 
     public function shared_checkout($token)
-{
-    $cart = SharedCart::with('items.variant.product.mainImage')
-        ->where('token', $token)
-        ->where('status', 'active') // optional safety
-        ->firstOrFail();
+    {
+        // Load cart safely (no unexpected 404 crash)
+        $cart = SharedCart::with('items.variant.product.mainImage')
+            ->where('token', $token)
+            ->whereIn('status', ['active', 'locked']) // allow both states
+            ->first();
 
-    $subtotal = 0;
-    $items = [];
+        // If cart not found
+        if (!$cart) {
+            return abort(404, 'Shared cart not found or expired.');
+        }
 
-    foreach ($cart->items as $item) {
+        $subtotal = 0;
+        $items = [];
 
-        $variant = $item->variant;
-        $product = $variant->product;
+        foreach ($cart->items as $item) {
 
-        $price = $variant->discounted_price ?? $variant->price;
+            $variant = $item->variant;
 
-        $subtotal += $price * $item->quantity;
+            // Safety check (prevents crash if relation missing)
+            if (!$variant || !$variant->product) {
+                continue;
+            }
 
-        $items[] = [
-            'name' => $product->name,
-            'image' => $product->mainImage
-                ? asset('storage/' . $product->mainImage->url)
-                : '',
-            'price' => $price,
-            'quantity' => $item->quantity,
-            'color' => $variant->color,
-            'size' => $variant->size,
-        ];
+            $product = $variant->product;
+
+            $price = $variant->discounted_price ?? $variant->price;
+
+            $subtotal += $price * $item->quantity;
+
+            $items[] = [
+                'name' => $product->name,
+                'image' => $product->mainImage
+                    ? asset('storage/' . $product->mainImage->url)
+                    : null,
+                'price' => $price,
+                'quantity' => $item->quantity,
+                'color' => $variant->color ?? null,
+                'size' => $variant->size ?? null,
+            ];
+        }
+
+        // Discount calculation (safe float handling)
+        $discount = ($subtotal * ($cart->discount_percent ?? 0)) / 100;
+        $total = max(0, $subtotal - $discount);
+
+        return view('cart.share-checkout', [
+            'cart' => $items,
+            'cartTotal' => $total,
+            'discount' => $discount,
+            'subtotal' => $subtotal,
+            'isShared' => true,
+            'token' => $token,
+        ]);
     }
 
-    $discount = ($subtotal * $cart->discount_percent) / 100;
-    $total = $subtotal - $discount;
-
-    return view('cart.share-checkout', [
-        'cart' => $items,
-        'cartTotal' => $total,
-        'discount' => $discount,
-        'isShared' => true,
-        'token' => $token // 🔥 IMPORTANT for order
-    ]);
-}
-
-public function shareCart($token)
-{
+    public function shareCart($token)
+    {
 
 
 
-    $cart = SharedCart::with('items.variant.product.mainImage')
-        ->where('token', $token)
-        ->firstOrFail();
+        $cart = SharedCart::with('items.variant.product.mainImage')
+            ->where('token', $token)
+            ->firstOrFail();
 
-    $subtotal = 0;
+        $subtotal = 0;
 
-    $items = $cart->items->map(function ($item) use (&$subtotal) {
+        $items = $cart->items->map(function ($item) use (&$subtotal) {
 
-        $price = $item->variant->discounted_price ?? $item->variant->price;
-        $line = $price * $item->quantity;
+            $price = $item->variant->discounted_price ?? $item->variant->price;
+            $line = $price * $item->quantity;
 
-        $subtotal += $line;
+            $subtotal += $line;
 
-        return [
-            'name' => $item->variant->product->name,
-            'image' => $item->variant->product->mainImage
-                ? asset('storage/' . $item->variant->product->mainImage->url)
-                : '',
-            'price' => $price,
-            'quantity' => $item->quantity,
-            'color' => $item->variant->color ?? null,
-            'size' => $item->variant->size ?? null,
-        ];
-    });
+            return [
+                'name' => $item->variant->product->name,
+                'image' => $item->variant->product->mainImage
+                    ? asset('storage/' . $item->variant->product->mainImage->url)
+                    : '',
+                'price' => $price,
+                'quantity' => $item->quantity,
+                'color' => $item->variant->color ?? null,
+                'size' => $item->variant->size ?? null,
+            ];
+        });
 
-    $discount = ($subtotal * $cart->discount_percent) / 100;
-    $total = $subtotal - $discount;
+        $discount = ($subtotal * $cart->discount_percent) / 100;
+        $total = $subtotal - $discount;
 
-    return view('cart.share-cart', [
-        'cart' => $items,
-        'subtotal' => $subtotal,
-        'discount' => $discount,
-        'total' => $total,
-        'cartModel' => $cart
-    ]);
-}
+        return view('cart.share-cart', [
+            'cart' => $items,
+            'subtotal' => $subtotal,
+            'discount' => $discount,
+            'total' => $total,
+            'cartModel' => $cart
+        ]);
+    }
 }

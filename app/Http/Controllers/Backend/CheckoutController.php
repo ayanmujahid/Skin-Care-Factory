@@ -166,10 +166,10 @@ class CheckoutController extends Controller
     | EMAIL NOTIFICATION
     |------------------------------------------
     */
-        Mail::to([
-            'robert0307a@gmail.com',
-            'erinn@skincarefactory.com'
-        ])->send(new OrderPlacedMail($order));
+        // Mail::to([
+        //     'robert0307a@gmail.com',
+        //     'erinn@skincarefactory.com'
+        // ])->send(new OrderPlacedMail($order));
 
         /*
     |------------------------------------------

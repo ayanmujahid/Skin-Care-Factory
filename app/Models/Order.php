@@ -27,6 +27,9 @@ class Order extends Model
         'transaction_id',
         'paid_at',
         'is_locked',
+        'professional_id',
+        'shared_cart_id',
+        'is_shared_cart',
     ];
 
     public function items()
