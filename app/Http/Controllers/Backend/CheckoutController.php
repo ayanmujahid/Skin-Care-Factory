@@ -16,11 +16,11 @@ use App\Models\PointsTransaction;
 class CheckoutController extends Controller
 {
     //
-    public function placeOrder(Request $request)
+    public function placeOrder(Request $request, $token = null)
     {
         /*
     |------------------------------------------
-    | Validate
+    | Validate customer data
     |------------------------------------------
     */
         $request->validate([
@@ -33,55 +33,57 @@ class CheckoutController extends Controller
             'zip'     => 'required',
         ]);
 
-        /*
-    |------------------------------------------
-    | Detect Cart Type
-    |------------------------------------------
-    */
-        $isShared = session()->has('shared_cart_id');
-
         $cartItems = [];
         $total = 0;
+        $sharedCart = null;
+        $isShared = false;
 
         /*
     |------------------------------------------
-    | CASE 1: Shared Cart
+    | CASE 1: SHARED CART (DB via token)
     |------------------------------------------
     */
-        if ($isShared) {
+        if ($token) {
 
-            $sharedCart = SharedCart::with('items.product')
-                ->findOrFail(session('shared_cart_id'));
+            $sharedCart = SharedCart::with('items.variant.product.mainImage')
+                ->where('token', $token)
+                ->firstOrFail();
+
+            $isShared = true;
 
             foreach ($sharedCart->items as $item) {
 
-                $price = $item->product->price;
+                $variant = $item->variant;
+                $product = $variant->product;
+
+                $price = $variant->discounted_price ?? $variant->price;
                 $qty = $item->quantity;
 
                 $total += $price * $qty;
 
                 $cartItems[] = [
-                    'variant_id' => $item->product->default_variant_id ?? null, // adjust if needed
+                    'variant_id' => $variant->id,
                     'quantity'   => $qty,
                     'price'      => $price,
                 ];
             }
 
-            // 🔥 Apply discount
+            // Apply discount from shared cart
             $discount = ($total * $sharedCart->discount_percent) / 100;
             $total = $total - $discount;
         }
 
         /*
     |------------------------------------------
-    | CASE 2: Normal Cart
+    | CASE 2: NORMAL CART (session)
     |------------------------------------------
     */ else {
 
             $cart = session('cart');
 
             if (!$cart || count($cart) == 0) {
-                return redirect()->route('cart')->with('error', 'Cart is empty');
+                return redirect()->route('cart')
+                    ->with('error', 'Cart is empty');
             }
 
             foreach ($cart as $item) {
@@ -98,7 +100,7 @@ class CheckoutController extends Controller
 
         /*
     |------------------------------------------
-    | Create Order
+    | CREATE ORDER
     |------------------------------------------
     */
         $order = Order::create([
@@ -113,7 +115,6 @@ class CheckoutController extends Controller
             'notes'   => $request->notes,
             'total'   => $total,
 
-            // 🔥 IMPORTANT
             'professional_id' => $isShared ? $sharedCart->professional_id : null,
             'shared_cart_id'  => $isShared ? $sharedCart->id : null,
             'is_shared_cart'  => $isShared ? 1 : 0,
@@ -121,7 +122,7 @@ class CheckoutController extends Controller
 
         /*
     |------------------------------------------
-    | Create Order Items + Reduce Stock
+    | ORDER ITEMS + STOCK UPDATE
     |------------------------------------------
     */
         foreach ($cartItems as $item) {
@@ -133,21 +134,19 @@ class CheckoutController extends Controller
                 'price'              => $item['price'],
             ]);
 
-            if ($item['variant_id']) {
-                ProductVariant::where('id', $item['variant_id'])
-                    ->decrement('stock', $item['quantity']);
-            }
+            ProductVariant::where('id', $item['variant_id'])
+                ->decrement('stock', $item['quantity']);
         }
 
         /*
     |------------------------------------------
-    | Points Logic (ONLY for shared cart)
+    | PROFESSIONAL POINTS (ONLY shared cart)
     |------------------------------------------
     */
         if ($isShared) {
 
-            // Example logic: 100$ = 50 points
-            $points = floor($order->total * 0.5);
+            $earnRate = config('points.earn_rate', 0.5);
+            $points = floor($order->total * $earnRate);
 
             PointsTransaction::create([
                 'professional_id' => $sharedCart->professional_id,
@@ -156,13 +155,15 @@ class CheckoutController extends Controller
                 'reference' => 'order_' . $order->id
             ]);
 
-            // Optional: mark cart as used
-            $sharedCart->update(['status' => 'used']);
+            // mark cart as used
+            $sharedCart->update([
+                'status' => 'used'
+            ]);
         }
 
         /*
     |------------------------------------------
-    | Send Email
+    | EMAIL NOTIFICATION
     |------------------------------------------
     */
         Mail::to([
@@ -172,11 +173,10 @@ class CheckoutController extends Controller
 
         /*
     |------------------------------------------
-    | Cleanup Session
+    | CLEANUP
     |------------------------------------------
     */
         session()->forget('cart');
-        session()->forget('shared_cart_id');
 
         return redirect()->route('shop')
             ->with('notify_success', 'Order placed successfully!');

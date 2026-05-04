@@ -10,7 +10,7 @@ class SharedCartItem extends Model
     use HasFactory;
     protected $fillable = [
         'shared_cart_id',
-        'product_id',
+        'variant_id',
         'quantity'
     ];
 
@@ -19,8 +19,8 @@ class SharedCartItem extends Model
         return $this->belongsTo(SharedCart::class, 'shared_cart_id');
     }
 
-    public function product()
+    public function variant()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductVariant::class, 'variant_id');
     }
 }

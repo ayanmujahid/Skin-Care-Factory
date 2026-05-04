@@ -24,6 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shared_cart_items');
+        Schema::create('shared_cart_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shared_cart_id')->constrained();
+            $table->foreignId('product_id')->constrained();
+            $table->integer('quantity');
+        });
     }
 };

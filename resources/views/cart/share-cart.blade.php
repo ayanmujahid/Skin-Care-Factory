@@ -1,53 +1,60 @@
 @extends('layouts.main')
 
 @section('content')
+    <section class="collection-banner text-center">
+        <h2>SHARED CART</h2>
+        <p>Home / Shared Cart</p>
+    </section>
 
-<section class="collection-banner text-center">
-    <h2>SHARED CART</h2>
-    <p>Home / Shared Cart</p>
-</section>
+    <section class="cart-section">
+        <div class="cart-container">
 
-<section class="cart-section">
-    <div class="cart-container">
+            <!-- LEFT -->
+            <div class="cart-products">
+                <h2>Products</h2>
 
-        <!-- LEFT SIDE -->
-        <div class="cart-products">
-            <h2>Products</h2>
+                @foreach ($cart as $item)
+                    <div class="cart-item">
+                        <img src="{{ $item['image'] }}" width="60">
 
-            @foreach($cart->items as $item)
-                <div class="cart-item">
-                    <p><strong>{{ $item->product->name }}</strong></p>
-                    <p>Qty: {{ $item->quantity }}</p>
-                    <p>Price: ${{ $item->product->price }}</p>
-                </div>
-            @endforeach
+                        <div>
+                            <strong>{{ $item['name'] }}</strong><br>
+                            <small>{{ $item['color'] }} {{ $item['size'] }}</small><br>
+                            Qty: {{ $item['quantity'] }}<br>
+                            ${{ number_format($item['price'], 2) }}
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="order-summary">
+
+                <h2>Order Summary</h2>
+
+                <p>Subtotal: ${{ number_format($subtotal, 2) }}</p>
+
+                <p>Discount ({{ $cartModel->discount_percent }}%):
+                    - ${{ number_format($discount, 2) }}
+                </p>
+
+                <h3>Total: ${{ number_format($total, 2) }}</h3>
+
+                <p class="shipping-text">
+                    Shipping, taxes, and discounts will be calculated at checkout.
+                </p>
+
+                @if ($cartModel->status === 'used')
+                    <button disabled>Already Purchased</button>
+                @else
+                    <a href="{{ route('share.checkout', $cartModel->token) }}" class="checkout-btn">
+                        Checkout
+                    </a>
+                @endif
+
+            </div>
 
         </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="order-summary">
-
-            <h2>Order Summary</h2>
-
-            <p>Subtotal : ${{ $subtotal }}</p>
-
-            <p>Discount ({{ $cart->discount_percent }}%) :
-                - ${{ $discountAmount }}
-            </p>
-
-            <p><strong>Total : ${{ $total }}</strong></p>
-
-            <p class="shipping-text">
-                Shipping, taxes, and discounts will be calculated at checkout.
-            </p>
-
-            <a href="{{ route('checkout') }}" class="checkout-btn">
-                Checkout
-            </a>
-
-        </div>
-
-    </div>
-</section>
-
+    </section>
 @endsection

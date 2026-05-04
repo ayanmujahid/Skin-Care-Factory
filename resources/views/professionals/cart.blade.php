@@ -35,7 +35,7 @@
 
                 <button class="note-btn">Add a note to your order</button>
 
-                <p class="shipping-text">
+                {{-- <p class="shipping-text">
                     Shipping, taxes, and discounts will be calculated at checkout.
                 </p>
 
@@ -46,9 +46,38 @@
                 </button>
 
                 <input type="text" placeholder="Enter Discount Code" class="discount-input">
-                <button class="apply-btn">Apply</button>
+                <button class="apply-btn">Apply</button> --}}
+
+
+                <div class="professional-actions">
+
+                    <button class="btn btn-primary" id="generate-link-btn">
+                        Generate Share Link
+                    </button>
+
+                    <div class="points-box">
+
+                        <p>
+                            Available Points: <strong id="available-points">0</strong>
+                        </p>
+
+                        <input type="number" id="use-points" placeholder="Enter points">
+
+                        <button class="apply-points-btn">Apply Points</button>
+                        <button class="remove-points-btn">Remove</button>
+
+                        <p>
+                            Discount: <strong id="discount-percent">0%</strong>
+                        </p>
+
+                    </div>
+
+                </div>
 
             </div>
+
+
+
 
         </div>
     </section>

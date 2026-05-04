@@ -23,6 +23,13 @@ class ProfessionalCartController extends Controller
         ], compact('points'));
     }
 
+    public function pointsBalance()
+{
+    return response()->json([
+        'points' => PointsHelper::balance(auth()->id())
+    ]);
+}
+
     // ✅ Apply Points (Voucher)
     public function applyPoints(Request $request)
     {
@@ -41,6 +48,7 @@ class ProfessionalCartController extends Controller
         return back()->with('success', 'Points applied');
     }
 
+
     // ✅ Remove Points
     public function removePoints()
     {
@@ -52,95 +60,296 @@ class ProfessionalCartController extends Controller
     // ✅ Generate Link
     public function generateLink(Request $request)
     {
-        $cartItems = $request->cart_items;
+        $cart = SharedCart::with('items.variant')
+            ->where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->first();
 
-        if (!$cartItems || count($cartItems) == 0) {
-            return back()->with('error', 'Cart is empty');
+        if (!$cart || $cart->items->count() == 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart is empty'
+            ]);
         }
 
         $pointsUsed = session('points_used', 0);
 
-        // 🔥 Discount Logic (future scalable)
         $discountPercent = min(($pointsUsed / 1000) * 5, 20);
 
-        $cart = SharedCart::create([
-            'professional_id' => auth()->id(),
-            'token' => Str::uuid(),
+        // calculate total (optional but useful for lock snapshot)
+        $total = 0;
+
+        foreach ($cart->items as $item) {
+            $price = $item->variant->discounted_price ?? $item->variant->price;
+            $total += $price * $item->quantity;
+        }
+
+        $cart->update([
             'discount_percent' => $discountPercent,
             'points_used' => $pointsUsed,
-            'status' => 'active'
+            'status' => 'locked',
+            'locked_at' => now()
         ]);
 
-        foreach ($cartItems as $item) {
-            SharedCartItem::create([
-                'shared_cart_id' => $cart->id,
-                'product_id' => $item['product_id'],
-                'quantity' => $item['qty']
-            ]);
-        }
+        $link = url('/shared-cart/' . $cart->token);
 
-        // 🔥 Deduct points ONLY here
-        if ($pointsUsed > 0) {
-            PointsTransaction::create([
-                'professional_id' => auth()->id(),
-                'points' => -$pointsUsed,
-                'type' => 'spend',
-                'reference' => 'cart_' . $cart->id
-            ]);
-        }
+        $cart->update([
+            'share_link' => $link
+        ]);
 
         session()->forget('points_used');
 
-        return back()->with([
-            'success' => 'Link generated',
-            'link' => url('/cart/share/' . $cart->token)
+        return response()->json([
+            'status' => 'success',
+            'link' => $link,
+            'cart_id' => $cart->id
         ]);
     }
 
     public function add(Request $request)
-{
-    $request->validate([
-        'product_id' => 'required|integer',
-        'quantity' => 'required|integer|min:1'
-    ]);
+    {
+        $request->validate([
+            'variant_id' => 'required|integer',
+            'quantity' => 'required|integer|min:1'
+        ]);
 
-    $user = auth()->user();
+        $cart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->first();
 
-    $cart = SharedCart::firstOrCreate(
-        [
-            'professional_id' => $user->id,
-            'status' => 'active'
-        ],
-        [
-            'token' => Str::uuid()
-        ]
-    );
+        if ($cart && $cart->is_locked) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart is locked after link generation'
+            ], 403);
+        }
 
-    $item = SharedCartItem::where('shared_cart_id', $cart->id)
-        ->where('product_id', $request->product_id)
-        ->first();
+        $item = SharedCartItem::where('shared_cart_id', $cart->id)
+            ->where('variant_id', $request->variant_id)
+            ->first();
 
-    if ($item) {
-        $item->increment('quantity', $request->quantity);
-    } else {
-        SharedCartItem::create([
-            'shared_cart_id' => $cart->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity
+        if ($item) {
+            $item->increment('quantity', $request->quantity);
+        } else {
+            SharedCartItem::create([
+                'shared_cart_id' => $cart->id,
+                'variant_id' => $request->variant_id,
+                'quantity' => $request->quantity
+            ]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+    public function show($token)
+    {
+        $cart = SharedCart::with('items.product')
+            ->where('token', $token)
+            ->firstOrFail();
+
+        return response()->json($cart);
+    }
+
+
+
+    public function current()
+    {
+        $cart = SharedCart::with([
+            'items.variant.product.mainImage'
+        ])
+            ->where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->first();
+
+        if (!$cart) {
+            return response()->json([
+                'items' => [],
+                'cart_total' => 0
+            ]);
+        }
+
+        $items = $cart->items->map(function ($item) {
+
+            $variant = $item->variant;
+            $product = $variant->product;
+
+            $price = $variant->discounted_price ?? $variant->price;
+
+            return [
+                'variant_id' => $variant->id,
+                'quantity' => $item->quantity,
+                'price' => $price,
+
+                'product' => [
+                    'name' => $product->name,
+                    'price' => $price,
+                    'main_image' => $product->mainImage
+                        ? $product->mainImage->url
+                        : null
+                ]
+            ];
+        });
+
+        return response()->json([
+            'items' => $items,
+            'cart_total' => $items->sum(fn($i) => $i['price'] * $i['quantity'])
         ]);
     }
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Added to professional cart'
+    public function data()
+    {
+        $cart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->with([
+                'items.variant.product.mainImage'
+            ])
+            ->first();
+
+        if (!$cart) {
+            return response()->json([
+                'cart' => [],
+                'cart_count' => 0,
+                'cart_total' => 0
+            ]);
+        }
+
+        $items = $cart->items->map(function ($item) {
+            $variant = $item->variant;
+            $product = $variant->product;
+
+            return [
+                'variant_id' => $variant->id,
+                'name' => $product->name,
+                'price' => floatval($variant->discounted_price ?? $variant->price),
+                'quantity' => $item->quantity,
+                'image' => $product->mainImage
+                    ? asset('storage/' . $product->mainImage->url)
+                    : ''
+            ];
+        });
+
+        return response()->json([
+            'cart' => $items,
+            'cart_count' => $items->sum('quantity'),
+            'cart_total' => $items->sum(fn($i) => $i['price'] * $i['quantity'])
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'variant_id' => 'required|integer',
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $cart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        $item = SharedCartItem::where('shared_cart_id', $cart->id)
+            ->where('variant_id', $request->variant_id)
+            ->firstOrFail();
+
+        $item->quantity = $request->quantity;
+        $item->save();
+
+        return response()->json(['status' => 'updated']);
+    }
+
+    public function remove(Request $request)
+    {
+        $cart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        SharedCartItem::where('shared_cart_id', $cart->id)
+            ->where('variant_id', $request->variant_id)
+            ->delete();
+
+        return response()->json(['status' => 'removed']);
+    }
+
+    public function shared_checkout($token)
+{
+    $cart = SharedCart::with('items.variant.product.mainImage')
+        ->where('token', $token)
+        ->where('status', 'active') // optional safety
+        ->firstOrFail();
+
+    $subtotal = 0;
+    $items = [];
+
+    foreach ($cart->items as $item) {
+
+        $variant = $item->variant;
+        $product = $variant->product;
+
+        $price = $variant->discounted_price ?? $variant->price;
+
+        $subtotal += $price * $item->quantity;
+
+        $items[] = [
+            'name' => $product->name,
+            'image' => $product->mainImage
+                ? asset('storage/' . $product->mainImage->url)
+                : '',
+            'price' => $price,
+            'quantity' => $item->quantity,
+            'color' => $variant->color,
+            'size' => $variant->size,
+        ];
+    }
+
+    $discount = ($subtotal * $cart->discount_percent) / 100;
+    $total = $subtotal - $discount;
+
+    return view('cart.share-checkout', [
+        'cart' => $items,
+        'cartTotal' => $total,
+        'discount' => $discount,
+        'isShared' => true,
+        'token' => $token // 🔥 IMPORTANT for order
     ]);
 }
-public function show($token)
+
+public function shareCart($token)
 {
-    $cart = SharedCart::with('items.product')
+
+
+
+    $cart = SharedCart::with('items.variant.product.mainImage')
         ->where('token', $token)
         ->firstOrFail();
 
-    return response()->json($cart);
+    $subtotal = 0;
+
+    $items = $cart->items->map(function ($item) use (&$subtotal) {
+
+        $price = $item->variant->discounted_price ?? $item->variant->price;
+        $line = $price * $item->quantity;
+
+        $subtotal += $line;
+
+        return [
+            'name' => $item->variant->product->name,
+            'image' => $item->variant->product->mainImage
+                ? asset('storage/' . $item->variant->product->mainImage->url)
+                : '',
+            'price' => $price,
+            'quantity' => $item->quantity,
+            'color' => $item->variant->color ?? null,
+            'size' => $item->variant->size ?? null,
+        ];
+    });
+
+    $discount = ($subtotal * $cart->discount_percent) / 100;
+    $total = $subtotal - $discount;
+
+    return view('cart.share-cart', [
+        'cart' => $items,
+        'subtotal' => $subtotal,
+        'discount' => $discount,
+        'total' => $total,
+        'cartModel' => $cart
+    ]);
 }
 }

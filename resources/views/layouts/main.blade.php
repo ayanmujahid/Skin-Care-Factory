@@ -53,9 +53,11 @@
 
         })();
     </script>
-    <script>
-        window.CART_MODE = @json($cartMode ?? 'normal');
-    </script>
+    @if (isset($cartMode))
+        <script>
+            window.CART_MODE = "{{ $cartMode }}";
+        </script>
+    @endif
 
 
     <style>

@@ -14,7 +14,12 @@ class SharedCart extends Model
         'discount_percent',
         'points_used',
         'status',
-        'expires_at'
+        'expires_at',
+        'share_link',
+        'locked_at',
+        'is_locked',
+        'is_paid',
+        'paid_at'
     ];
 
     public function items()

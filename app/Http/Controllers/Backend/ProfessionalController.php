@@ -72,10 +72,10 @@ class ProfessionalController extends Controller
 
         ]);
         // Send email to professional
-        Mail::to($user->email)->send(new ProfessionalSignupUserMail($user));
+        // Mail::to($user->email)->send(new ProfessionalSignupUserMail($user));
 
         // Send email to admin
-        Mail::to(config('mail.admin_email'))->send(new ProfessionalSignupAdminMail($user));
+        // Mail::to(config('mail.admin_email'))->send(new ProfessionalSignupAdminMail($user));
 
         /*
         |-------------------------------------

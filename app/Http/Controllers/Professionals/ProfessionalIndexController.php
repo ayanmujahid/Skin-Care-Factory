@@ -91,4 +91,43 @@ class ProfessionalIndexController extends Controller
             'slug'
         ))->with('title', 'Shop');
     }
+
+
+    public function shared_checkout()
+{
+    $cart = SharedCart::with('items.variant.product.mainImage')
+        ->where('id', session('shared_cart_id'))
+        ->firstOrFail();
+
+    $subtotal = 0;
+
+    $items = [];
+
+    foreach ($cart->items as $item) {
+
+        $price = $item->variant->discounted_price ?? $item->variant->price;
+
+        $subtotal += $price * $item->quantity;
+
+        $items[] = [
+            'name' => $item->variant->product->name,
+            'image' => $item->variant->product->mainImage
+                ? asset('storage/' . $item->variant->product->mainImage->url)
+                : '',
+            'price' => $price,
+            'quantity' => $item->quantity,
+            'color' => $item->variant->color,
+            'size' => $item->variant->size,
+        ];
+    }
+
+    $discount = ($subtotal * $cart->discount_percent) / 100;
+
+    return view('cart.share-checkout', [
+        'cart' => $items,
+        'cartTotal' => $subtotal,
+        'discount' => $discount,
+        'isShared' => true
+    ]);
+}
 }

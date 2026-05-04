@@ -46,7 +46,7 @@ Route::get('/professional-signup', [IndexController::class, 'professionalSignup'
 
 // ---------------------------------------For Cart Setup-----------------------------------
 Route::get('/product/quick-view/{id}', [CartController::class, 'quickView']);
-Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place.order');
+Route::post('/place-order/{token?}', [CheckoutController::class, 'placeOrder'])->name('place.order');
 
 // Add product to cart
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -61,7 +61,7 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 // Get cart data (for dropdown)
 Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
-Route::get('/cart/share/{token}', [CartController::class, 'sharedCart']);
+// Route::get('/cart/share/{token}', [CartController::class, 'sharedCart']);
 // ---------------------------------------For Cart Setup-----------------------------------
 
 
@@ -126,14 +126,23 @@ Route::middleware(['auth', 'is.professional'])->group(function () {
 
     Route::get('/professional/shop', [ProfessionalIndexController::class, 'shop'])->name('professional.shop');
     Route::get('/professional/cart', [ProfessionalCartController::class, 'index']);
-
+    Route::get('/professional/cart/current', [ProfessionalCartController::class, 'current']);
+    Route::get('/professional/cart/data', [ProfessionalCartController::class, 'data']);
     Route::post('/professional/apply-points', [ProfessionalCartController::class, 'applyPoints']);
+    Route::get('/points/balance', [ProfessionalCartController::class, 'pointsBalance']);
 
     Route::post('/professional/remove-points', [ProfessionalCartController::class, 'removePoints']);
 
     Route::post('/professional/generate-link', [ProfessionalCartController::class, 'generateLink']);
     Route::post('/professional/cart/add', [ProfessionalCartController::class, 'add']);
     Route::get('/professional/cart/data/{token}', [ProfessionalCartController::class, 'show']);
+    Route::post('/professional/cart/update', [ProfessionalCartController::class, 'update']);
+    Route::post('/professional/cart/remove', [ProfessionalCartController::class, 'remove']);
+    Route::get('/shared-cart/{token}', [ProfessionalCartController::class, 'shareCart']);
+    Route::get('/shared-checkout/{token}', [ProfessionalCartController::class, 'shared_checkout'])
+    ->name('share.checkout');
+   
+
 });
 // ---------------------------------------Professional ROUTES-----------------------------------
 

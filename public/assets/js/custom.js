@@ -83,28 +83,44 @@ $(document).on('change', 'input[name=variant]', function () {
 
 $(document).on('click', '#add-to-cart-btn', function () {
 
-  let variantId = $('input[name=variant]:checked').val();
+  let productId = $('input[name=variant]:checked').val();
   let qty = $('#qty').val();
 
-  $.ajax({
-    url: '/cart/add',
-    method: 'POST',
-    data: {
-      variant_id: variantId,
+  let url = (window.CART_MODE === 'professional')
+    ? '/professional/cart/add'
+    : '/cart/add';
+
+  let payload = (window.CART_MODE === 'professional')
+    ? {
+      variant_id: productId,
       quantity: qty,
       _token: $('meta[name="csrf-token"]').attr('content')
-    },
+    }
+    : {
+      variant_id: productId,
+      quantity: qty,
+      _token: $('meta[name="csrf-token"]').attr('content')
+    };
+
+  $.ajax({
+    url: url,
+    method: 'POST',
+    data: payload,
 
     success: function (res) {
 
       Swirl.fire({
         icon: 'success',
-        title: 'Product added to cart'
+        title: res.message || 'Added to cart'
       });
 
       $('#quickViewModal').modal('hide');
 
-      loadCart();
+      if (window.CART_MODE === 'professional') {
+        loadProfessionalCart();   // 🔥 IMPORTANT
+      } else {
+        loadCart();
+      }
 
       $('.cart-modal').addClass('open');
       $('.cart-modal-overlay').addClass('open');
@@ -117,7 +133,6 @@ $(document).on('click', '#add-to-cart-btn', function () {
   });
 
 });
-
 
 
 
@@ -174,6 +189,53 @@ function loadCart() {
 
     $('.cart-count').text(res.cart_count);
 
+    $('#cart-total').text(res.cart_total.toFixed(2));
+
+  });
+
+}
+
+function loadProfessionalCart() {
+
+  $.get('/professional/cart/current', function (res) {
+
+    let html = '';
+
+    if (!res.items || res.items.length === 0) {
+      html = '<p class="text-center">Cart is empty</p>';
+    } else {
+
+      res.items.forEach(item => {
+
+        html += `
+        <div class="cart-item d-flex gap-3 mb-3 position-relative">
+
+          <img src="${item.product.main_image ? '/storage/' + item.product.main_image : '/images/no-image.png'}" width="60">
+
+          <div class="flex-grow-1">
+            <strong>${item.product.name}</strong>
+            <p class="mb-1">$${item.product.price}</p>
+
+            <div class="qty d-flex align-items-center gap-2">
+
+              <button class="qty-minus" data-id="${item.variant_id}">-</button>
+
+              <span class="qty-value">${item.quantity}</span>
+
+              <button class="qty-plus" data-id="${item.variant_id}">+</button>
+
+            </div>
+          </div>
+
+          <button class="remove-item" data-id="${item.variant_id}">&times;</button>
+
+        </div>
+        `;
+      });
+    }
+
+    $('#cart-items').html(html);
+    $('.cart-count').text(res.items.length);
     $('#cart-total').text(res.cart_total.toFixed(2));
 
   });
@@ -241,68 +303,114 @@ function updateCart(id, qty) {
 
 function loadCartPage() {
 
-  $.get('/cart/data', function (res) {
+  if (window.CART_MODE === 'professional') {
 
-    let html = '';
+    $.get('/professional/cart/current', function (res) {
+      console.log("PAGE CART RESPONSE:", res);
 
-    if (res.cart.length === 0) {
-      html = '<p>Your cart is empty</p>';
-    }
+      let html = '';
+      let total = 0;
 
-    res.cart.forEach(item => {
+      if (!res.items || res.items.length === 0) {
+        $('#cart-page-items').html('<p>Your cart is empty</p>');
+        $('#summary-subtotal').text('0');
+        return;
+      }
 
-      let total = item.price * item.quantity;
+      res.items.forEach(item => {
 
-      html += `
+        let price = parseFloat(item.product.price || 0);
+        let itemTotal = price * item.quantity;
 
-      <div class="cart-item">
+        total += itemTotal;
 
-        <div class="remove-btn remove-item" data-id="${item.variant_id}">×</div>
+        html += `
+  <div class="cart-item">
 
-        <div class="cart-item-inner">
+    <div class="cart-item-inner">
 
-          <img src="${item.image}" alt="${item.name}">
+      <img src="${item.product.main_image ? '/storage/' + item.product.main_image : '/images/no-image.png'}">
 
-          <div class="cart-details">
+      <div class="cart-details">
 
-            <h3>${item.name}</h3>
+        <h3>${item.product.name}</h3>
+        <p class="price">$${price}</p>
 
-            <p class="price">$${item.price}</p>
-
-            <p class="variant">${item.size ?? ''} ${item.color ?? ''}</p>
-
-            <div class="quantity-box">
-
-              <button class="qty-minus" data-id="${item.variant_id}">-</button>
-
-              <span class="qty-value">${item.quantity}</span>
-
-              <button class="qty-plus" data-id="${item.variant_id}">+</button>
-
-            </div>
-
-            <p class="total">
-              Total: <span class="bold">$${total.toFixed(2)}</span>
-            </p>
-
-          </div>
-
+        <div class="quantity-box">
+          <button class="qty-minus" data-id="${item.variant_id}">-</button>
+          <span class="qty-value">${item.quantity}</span>
+          <button class="qty-plus" data-id="${item.variant_id}">+</button>
         </div>
+
+        <p class="total">
+          Total: <span class="bold">$${itemTotal.toFixed(2)}</span>
+        </p>
 
       </div>
 
-      `;
+    </div>
+
+  </div>
+  `;
+      });
+
+      $('#cart-page-items').html(html);
+      $('#summary-subtotal').text(total.toFixed(2));
 
     });
 
-    $('#cart-page-items').html(html);
+  } else {
 
-    $('#summary-subtotal').text(res.cart_total.toFixed(2));
+    // NORMAL CART (unchanged)
+    $.get('/cart/data', function (res) {
 
-  });
+      let html = '';
 
+      if (res.cart.length === 0) {
+        html = '<p>Your cart is empty</p>';
+      }
+
+      res.cart.forEach(item => {
+
+        let total = item.price * item.quantity;
+
+        html += `
+        <div class="cart-item">
+
+          <div class="remove-btn remove-item" data-id="${item.variant_id}">×</div>
+
+          <div class="cart-item-inner">
+
+            <img src="${item.image}">
+
+            <div class="cart-details">
+
+              <h3>${item.name}</h3>
+              <p>$${item.price}</p>
+
+              <div class="quantity-box">
+
+                <button class="qty-minus" data-id="${item.variant_id}">-</button>
+                <span class="qty-value">${item.quantity}</span>
+                <button class="qty-plus" data-id="${item.variant_id}">+</button>
+
+              </div>
+
+              <p>Total: $${total.toFixed(2)}</p>
+
+            </div>
+
+          </div>
+
+        </div>`;
+      });
+
+      $('#cart-page-items').html(html);
+      $('#summary-subtotal').text(res.cart_total.toFixed(2));
+
+    });
+  }
 }
-
 
 $(document).on('click', '.qty-plus', function () {
 
@@ -349,8 +457,14 @@ $(document).on('click', '.remove-item', function () {
 
 $(document).ready(function () {
 
-  loadCart();       // modal cart
-  loadCartPage();   // cart page
+  if (window.CART_MODE === 'professional') {
+    loadProfessionalCart();
+    loadCartPage();
+
+  } else {
+    loadCart();
+    loadCartPage();
+  }
 
 });
 
@@ -469,6 +583,116 @@ $(document).ready(function () {
         });
       }
     });
+  });
+
+});
+
+
+
+// professional updating cart
+
+$(document).on('click', '.qty-plus', function () {
+
+  let id = $(this).data('id');
+  let qty = parseInt($(this).siblings('.qty-value').text()) + 1;
+
+  $.post('/professional/cart/update', {
+    variant_id: id,
+    quantity: qty,
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function () {
+    loadProfessionalCart();
+  });
+
+});
+
+$(document).on('click', '.qty-minus', function () {
+
+  let id = $(this).data('id');
+  let qty = parseInt($(this).siblings('.qty-value').text()) - 1;
+
+  if (qty < 1) qty = 1;
+
+  $.post('/professional/cart/update', {
+    variant_id: id,
+    quantity: qty,
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function () {
+    loadProfessionalCart();
+  });
+
+});
+
+$(document).on('click', '.remove-item', function () {
+
+  let id = $(this).data('id');
+
+  $.post('/professional/cart/remove', {
+    variant_id: id,
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function () {
+    loadProfessionalCart();
+  });
+
+});
+
+
+
+// point system integration
+function loadPoints() {
+  $.get('/points/balance', function (res) {
+    $('#my-points').text(res.points);
+  });
+}
+
+loadPoints();
+
+$(document).on('click', '#apply-points', function () {
+
+  let points = $('#use-points').val();
+
+  $.post('/professional/apply-points', {
+    points: points,
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function () {
+    loadCartPage(); // recalculates discount
+    loadPoints();
+  });
+
+});
+
+$(document).on('click', '#remove-points', function () {
+
+  $.post('/professional/remove-points', {
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function () {
+    loadCartPage();
+    loadPoints();
+  });
+
+});
+
+$(document).on('click', '#generate-link-btn', function () {
+
+  $.post('/professional/generate-link', {
+    _token: $('meta[name="csrf-token"]').attr('content')
+  }, function (res) {
+
+    if (res.status === 'error') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: res.message
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Link Generated',
+      html: `<a href="${res.link}" target="_blank">${res.link}</a>`
+    });
+
   });
 
 });
