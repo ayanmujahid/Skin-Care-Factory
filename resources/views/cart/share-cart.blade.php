@@ -35,11 +35,30 @@
 
                 <p>Subtotal: ${{ number_format($subtotal, 2) }}</p>
 
-                <p>Discount ({{ $cartModel->discount_percent }}%):
+                {{-- 💡 POINTS USED --}}
+                @if ($cartModel->points_used > 0)
+                    <p>
+                        Points Used: {{ $cartModel->points_used }}
+                    </p>
+                @endif
+
+                {{-- 💡 DISCOUNT --}}
+                <p>
+                    Discount ({{ $cartModel->discount_percent }}%):
                     - ${{ number_format($discount, 2) }}
                 </p>
 
-                <h3>Total: ${{ number_format($total, 2) }}</h3>
+                {{-- 💡 TOTAL SAVINGS --}}
+                <p>
+                    You Saved:
+                    <strong>
+                        ${{ number_format($discount, 2) }}
+                    </strong>
+                </p>
+
+                <h3>
+                    Total: ${{ number_format($total, 2) }}
+                </h3>
 
                 <p class="shipping-text">
                     Shipping, taxes, and discounts will be calculated at checkout.

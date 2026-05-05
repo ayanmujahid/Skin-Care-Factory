@@ -306,14 +306,18 @@ function loadCartPage() {
   if (window.CART_MODE === 'professional') {
 
     $.get('/professional/cart/current', function (res) {
+
       console.log("PAGE CART RESPONSE:", res);
 
       let html = '';
       let total = 0;
 
+      let discountPercent = parseFloat(res.discount_percent || 0);
+
       if (!res.items || res.items.length === 0) {
         $('#cart-page-items').html('<p>Your cart is empty</p>');
         $('#summary-subtotal').text('0');
+        $('#summary-saving').text('0');
         return;
       }
 
@@ -325,37 +329,42 @@ function loadCartPage() {
         total += itemTotal;
 
         html += `
-  <div class="cart-item">
+      <div class="cart-item">
+        <div class="cart-item-inner">
 
-    <div class="cart-item-inner">
+          <img src="${item.product.main_image ? '/storage/' + item.product.main_image : '/images/no-image.png'}">
 
-      <img src="${item.product.main_image ? '/storage/' + item.product.main_image : '/images/no-image.png'}">
+          <div class="cart-details">
 
-      <div class="cart-details">
+            <h3>${item.product.name}</h3>
+            <p class="price">$${price}</p>
 
-        <h3>${item.product.name}</h3>
-        <p class="price">$${price}</p>
+            <div class="quantity-box">
+              <button class="qty-minus" data-id="${item.variant_id}">-</button>
+              <span class="qty-value">${item.quantity}</span>
+              <button class="qty-plus" data-id="${item.variant_id}">+</button>
+            </div>
 
-        <div class="quantity-box">
-          <button class="qty-minus" data-id="${item.variant_id}">-</button>
-          <span class="qty-value">${item.quantity}</span>
-          <button class="qty-plus" data-id="${item.variant_id}">+</button>
+            <p class="total">
+              Total: <span class="bold">$${itemTotal.toFixed(2)}</span>
+            </p>
+
+          </div>
+
         </div>
-
-        <p class="total">
-          Total: <span class="bold">$${itemTotal.toFixed(2)}</span>
-        </p>
-
       </div>
-
-    </div>
-
-  </div>
-  `;
+    `;
       });
 
+      // 💡 APPLY DISCOUNT HERE
+      let discountAmount = (total * discountPercent) / 100;
+      let finalTotal = total - discountAmount;
+
       $('#cart-page-items').html(html);
+
       $('#summary-subtotal').text(total.toFixed(2));
+      $('#summary-saving').text(discountAmount.toFixed(2));
+      $('#discount-percent').text(discountPercent + '%');
 
     });
 
@@ -651,12 +660,33 @@ $(document).on('click', '.apply-points-btn', function () {
 
   let points = $('#use-points').val();
 
-  $.post('/professional/apply-points', {
-    points: points,
-    _token: $('meta[name="csrf-token"]').attr('content')
-  }, function () {
-    loadCartPage(); // recalculates discount
-    loadPoints();
+  $.ajax({
+    url: '/professional/apply-points',
+    type: 'POST',
+    data: {
+      points: points,
+      _token: $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function (res) {
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: res.message
+      });
+
+      loadCartPage();
+      loadPoints();
+    },
+    error: function (xhr) {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: xhr.responseJSON.message
+      });
+
+    }
   });
 
 });
@@ -694,5 +724,21 @@ $(document).on('click', '#generate-link-btn', function () {
     });
 
   });
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  if (window.CART_MODE === 'professional') {
+
+    document.getElementById('checkout-action').innerHTML =
+      '<a href="/professional/cart" class="btn btn-dark w-100 mt-2">Go to Cart</a>';
+
+  } else {
+
+    document.getElementById('checkout-action').innerHTML =
+      '<a href="/checkout" class="btn btn-dark w-100 mt-2">Checkout</a>';
+
+  }
 
 });

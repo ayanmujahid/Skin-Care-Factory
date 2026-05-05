@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlacedMail;
 use App\Models\SharedCart;
 use App\Models\PointsTransaction;
+use App\Models\User;
+
 
 class CheckoutController extends Controller
 {
@@ -20,7 +22,7 @@ class CheckoutController extends Controller
     {
         /*
     |------------------------------------------
-    | Validate customer data
+    | VALIDATION
     |------------------------------------------
     */
         $request->validate([
@@ -40,7 +42,7 @@ class CheckoutController extends Controller
 
         /*
     |------------------------------------------
-    | CASE 1: SHARED CART (DB via token)
+    | SHARED CART
     |------------------------------------------
     */
         if ($token) {
@@ -54,7 +56,6 @@ class CheckoutController extends Controller
             foreach ($sharedCart->items as $item) {
 
                 $variant = $item->variant;
-                $product = $variant->product;
 
                 $price = $variant->discounted_price ?? $variant->price;
                 $qty = $item->quantity;
@@ -68,14 +69,21 @@ class CheckoutController extends Controller
                 ];
             }
 
-            // Apply discount from shared cart
-            $discount = ($total * $sharedCart->discount_percent) / 100;
-            $total = $total - $discount;
+            /*
+        |------------------------------------------
+        | DISCOUNT CALCULATION (POINTS + CART)
+        |------------------------------------------
+        */
+
+            $discountPercent = $sharedCart->discount_percent ?? 0;
+            $discountAmount = ($total * $discountPercent) / 100;
+
+            $finalTotal = $total - $discountAmount;
         }
 
         /*
     |------------------------------------------
-    | CASE 2: NORMAL CART (session)
+    | NORMAL CART
     |------------------------------------------
     */ else {
 
@@ -96,6 +104,8 @@ class CheckoutController extends Controller
                     'price'      => $item['price'],
                 ];
             }
+
+            $finalTotal = $total;
         }
 
         /*
@@ -104,6 +114,7 @@ class CheckoutController extends Controller
     |------------------------------------------
     */
         $order = Order::create([
+            'user_id' => auth()->id(),
             'name'    => $request->name,
             'email'   => $request->email,
             'phone'   => $request->phone,
@@ -113,7 +124,8 @@ class CheckoutController extends Controller
             'state'   => $request->state,
             'zip'     => $request->zip,
             'notes'   => $request->notes,
-            'total'   => $total,
+
+            'total'   => $finalTotal,
 
             'professional_id' => $isShared ? $sharedCart->professional_id : null,
             'shared_cart_id'  => $isShared ? $sharedCart->id : null,
@@ -140,40 +152,51 @@ class CheckoutController extends Controller
 
         /*
     |------------------------------------------
-    | PROFESSIONAL POINTS (ONLY shared cart)
+    | POINTS SYSTEM (ONLY SHARED CART)
     |------------------------------------------
     */
         if ($isShared) {
 
+            // 🟢 REWARD POINTS
             $earnRate = config('points.earn_rate', 0.5);
-            $points = floor($order->total * $earnRate);
+            $earnPoints = floor($finalTotal * $earnRate);
 
             PointsTransaction::create([
                 'professional_id' => $sharedCart->professional_id,
-                'points' => $points,
+                'points' => $earnPoints,
                 'type' => 'earn',
                 'reference' => 'order_' . $order->id
             ]);
 
-            // mark cart as used
+            // 🔴 REDEEM USED POINTS
+            if ($sharedCart->points_used > 0) {
+
+                PointsTransaction::create([
+                    'professional_id' => $sharedCart->professional_id,
+                    'points' => $sharedCart->points_used,
+                    'type' => 'redeem',
+                    'reference' => 'order_' . $order->id
+                ]);
+
+                User::where('id', $sharedCart->professional_id)
+                    ->decrement('points', $sharedCart->points_used);
+            }
+
+            /*
+        |------------------------------------------
+        | RESET SHARED CART
+        |------------------------------------------
+        */
             $sharedCart->update([
-                'status' => 'used'
+                'status' => 'used',
+                'points_used' => 0,
+                'discount_percent' => 0
             ]);
         }
 
         /*
     |------------------------------------------
-    | EMAIL NOTIFICATION
-    |------------------------------------------
-    */
-        // Mail::to([
-        //     'robert0307a@gmail.com',
-        //     'erinn@skincarefactory.com'
-        // ])->send(new OrderPlacedMail($order));
-
-        /*
-    |------------------------------------------
-    | CLEANUP
+    | CLEANUP SESSION
     |------------------------------------------
     */
         session()->forget('cart');

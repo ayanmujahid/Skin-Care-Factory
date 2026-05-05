@@ -140,9 +140,7 @@ Route::middleware(['auth', 'is.professional'])->group(function () {
     Route::post('/professional/cart/remove', [ProfessionalCartController::class, 'remove']);
     Route::get('/shared-cart/{token}', [ProfessionalCartController::class, 'shareCart']);
     Route::get('/shared-checkout/{token}', [ProfessionalCartController::class, 'shared_checkout'])
-    ->name('share.checkout');
-   
-
+        ->name('share.checkout');
 });
 // ---------------------------------------Professional ROUTES-----------------------------------
 
@@ -153,34 +151,91 @@ Route::middleware(['auth', 'is.professional'])->group(function () {
 // ---------------------------------------ADMIN ROUTES-----------------------------------
 Route::get('/admin/login', [DashboardController::class, 'login'])->name('dashboard.login');
 Route::get('/admin/register', [DashboardController::class, 'register'])->name('dashboard.register');
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::post('/admin/signup', [AdminController::class, 'registerSubmit'])->name('admin.register.submit');
 Route::post('/admin/login/submit',    [AdminController::class, 'loginSubmit'])->name('admin.login.submit');
-Route::get(
-    '/admin/categories/{category}/sub-categories',
-    [ProductController::class, 'subCategories']
-)->name('admin.categories.subcategories');
+Route::get('/admin/logout',    [AdminController::class, 'logout'])->name('admin.logout');
 
-
-Route::post('/admin/products-bulk-upload-submit', [ProductController::class, 'importProductsCsv'])->name('admin.importProductsCsv');
-Route::get('/admin/products-bulk-upload', [ProductController::class, 'bulk'])->name('admin.bulkUpload');
-
-Route::post('/admin/products-bulk-upload-submit-json', [ProductController::class, 'importProductsJson'])->name('admin.importProductsJson');
-Route::get('/admin/products-bulk-upload-json', [ProductController::class, 'jsonbulk'])->name('admin.jsonBulkUpload');
-Route::post('/admin/professional/{id}/approve', [AdminController::class, 'approve'])->name('admin.professional.approve');
-
-Route::post('/admin/professional/{id}/reject', [AdminController::class, 'reject'])->name('admin.professional.reject');
 
 Route::prefix('admin')
-    ->name('admin.')   // <--- This adds "admin." to route names
+    ->name('admin.')
+    ->middleware('auth:admin')
     ->group(function () {
+
+        /*
+        |---------------------------------
+        | Dashboard
+        |---------------------------------
+        */
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard.index');
+
+        /*
+        |---------------------------------
+        | Categories / Subcategories
+        |---------------------------------
+        */
+        Route::get('/categories/{category}/sub-categories', [ProductController::class, 'subCategories'])
+            ->name('categories.subcategories');
+
+        /*
+        |---------------------------------
+        | Bulk Upload (CSV / JSON)
+        |---------------------------------
+        */
+        Route::get('/products-bulk-upload', [ProductController::class, 'bulk'])
+            ->name('bulkUpload');
+
+        Route::post('/products-bulk-upload-submit', [ProductController::class, 'importProductsCsv'])
+            ->name('importProductsCsv');
+
+        Route::get('/products-bulk-upload-json', [ProductController::class, 'jsonbulk'])
+            ->name('jsonBulkUpload');
+
+        Route::post('/products-bulk-upload-submit-json', [ProductController::class, 'importProductsJson'])
+            ->name('importProductsJson');
+
+        /*
+        |---------------------------------
+        | Professional Approvals
+        |---------------------------------
+        */
+        Route::post('/professional/{id}/approve', [AdminController::class, 'approve'])
+            ->name('professional.approve');
+
+        Route::post('/professional/{id}/reject', [AdminController::class, 'reject'])
+            ->name('professional.reject');
+
+        /*
+        |---------------------------------
+        | Resource Routes
+        |---------------------------------
+        */
         Route::resource('inquiries', InquiryController::class);
+
         Route::resource('products', ProductController::class);
+
         Route::resource('newsletters', NewsletterController::class);
-        Route::resource('product-categories', ProductCategoryController::class)->parameters(['product-categories' => 'category']);
+
+        Route::resource('product-categories', ProductCategoryController::class)
+            ->parameters(['product-categories' => 'category']);
+
         Route::resource('product-subcategories', ProductSubCategoryController::class);
+
         Route::resource('brands', BrandController::class);
+
         Route::resource('licenses', ProfessionalController::class);
+
+        Route::get('/licenses/status/{status?}', [ProfessionalController::class, 'listByStatus'])
+            ->name('licenses.status');
+
+        /*
+        |---------------------------------
+        | Orders
+        |---------------------------------
+        */
+        Route::get('/orders/status/{status}', [OrderController::class, 'ordersByStatus'])
+            ->name('orders.status');
+
         Route::resource('orders', OrderController::class);
     });

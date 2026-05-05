@@ -25,7 +25,7 @@ class AdminController extends Controller
 
         Admin::create($request->all());
 
-        return redirect()->route('dashboard.login')->with('success', 'Admin registered successfully');
+        return redirect()->route('dashboard.login')->with('notify_success', 'Admin registered successfully');
     }
 
     // 🟢 Admin Login Form Logic
@@ -40,7 +40,7 @@ class AdminController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard.index');
+            return redirect()->route('admin.dashboard.index');
         }
 
         return back()->withErrors([
@@ -55,7 +55,7 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('dashboard.login')->with('notify_success', 'Admin registered successfully');
     }
 
 

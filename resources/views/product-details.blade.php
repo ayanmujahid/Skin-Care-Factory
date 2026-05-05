@@ -11,37 +11,22 @@
 
                 <!-- LEFT : FEATURED PRODUCTS -->
                 <div class="col-lg-3 ps-5">
-                    <h6 class="featured-title">Featured Products</h6>
+                    <h6 class="featured-title">Gallery</h6>
 
-                    <div class="featured-item">
-                        <img src="assets/images/na-mp-4.webp">
-                        <div>
-                            <p>Erotic Ayurvedic Lotion</p>
-                            <span>$12.00</span>
+                    @forelse($product->gallery as $image)
+                        <div class="featured-item">
+                            <img src="{{ asset('storage/' . $image->url) }}" alt="Product Image" class="gallery-img"
+                                style="cursor:pointer;">
                         </div>
-                    </div>
-
-                    <div class="featured-item">
-                        <img src="assets/images/na-mp-5.webp">
-                        <div>
-                            <p>Skin Naturals BB Cream VitaminC</p>
-                            <span>$173.00</span>
-                        </div>
-                    </div>
-
-                    <div class="featured-item">
-                        <img src="assets/images/na-mp-2.webp">
-                        <div>
-                            <p>Natural Cold Pressed Oil And Reduces Wrinkles</p>
-                            <span>$190.00</span>
-                        </div>
-                    </div>
+                    @empty
+                        <p>No gallery images available</p>
+                    @endforelse
                 </div>
 
                 <!-- CENTER : MAIN IMAGE -->
                 <div class="col-lg-4 text-center">
                     <div class="main-product-box sticky-image">
-                        <img src="assets/images/na-mp-1.webp">
+                        <img id="mainProductImage" src="{{ asset('storage/' . $product->mainImage->url) }}" alt="">
                     </div>
                 </div>
 
@@ -49,56 +34,65 @@
                 <!-- RIGHT : PRODUCT INFO -->
                 <div class="col-lg-5 pe-5">
 
-                    <h4>Face Moisturizer With Vitamin E-Hyaluronic Acid And Ceramides</h4>
-                    <p class="price">$380.00</p>
+                    <h4>{{ $product->name }}</h4>
+                    <p class="price">
+                        $<span id="product-price">
+                            {{ $product->variants->first()->price ?? $product->price }}
+                        </span>
+                    </p>
 
-                    <p class="variant-title">Choose style: Ceramides</p>
+                    <p class="variant-title">{{ $product->short_description }}</p>
 
-                    <div class="variant-images">
-                        <div>
-                            <img src="assets/images/na-mp-4.webp">
-                            <small>Lotion</small>
-                        </div>
-                        <div>
-                            <img src="assets/images/na-mp-3.webp">
-                            <small>VitaminC</small>
-                        </div>
-                        <div>
-                            <img src="assets/images/na-mp-2.webp">
-                            <small>Wrinkles</small>
-                        </div>
+                    @php
+                        $groupedAttributes = [];
+
+                        foreach ($product->variants as $variant) {
+                            foreach ($variant->attributes as $attr) {
+                                $groupedAttributes[$attr->name][] = $attr->value;
+                            }
+                        }
+
+                        // remove duplicate values
+                        foreach ($groupedAttributes as $name => $values) {
+                            $groupedAttributes[$name] = array_unique($values);
+                        }
+                    @endphp
+                    <p class="variant-title">Choose Variant</p>
+
+                    <div id="variant-options">
+                        @foreach ($product->variants as $v)
+                            <div class="form-check mb-2">
+                                <input class="form-check-input variant-radio" type="radio" name="variant"
+                                    value="{{ $v->id }}" data-price="{{ $v->price }}"
+                                    data-stock="{{ $v->stock ?? 0 }}">
+
+                                <label class="form-check-label">
+                                    {{ $v->sku ?? 'Variant' }} - ${{ $v->price }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
 
-                    <div class="meta-row">
-                        <span>Finish Type:</span>
-                        <button>Matte</button>
-                    </div>
+                    <p class="product-varients"><strong>Vendor:</strong> {{ $product->brand->name ?? 'N/A' }}</p>
+                    {{-- <p class="product-varients"><strong>Type:</strong></p> --}}
 
-                    <div class="meta-row">
-                        <span>Speciality:</span>
-                        <button>Natural</button>
-                    </div>
-
-                    <div class="meta-row">
-                        <span>Skin Type:</span>
-                        <button>All</button>
-                    </div>
-
-                    <p class="product-varients"><strong>Vendor:</strong> Harp</p>
-                    <p class="product-varients"><strong>Type:</strong></p>
-
-                    <p class="product-varients"><strong>Availability:</strong> <span class="stock">12 In stock!</span></p>
+                    <p class="product-varients"><strong>Availability:</strong> <span
+                            class="stock">{{ $product->total_stock ?? 0 }}</span></p>
 
                     <!-- QTY -->
                     <div class="qty-box">
-                        <button>-</button>
-                        <input type="text" value="1">
-                        <button>+</button>
+                        <button type="button" id="qty-minus">-</button>
+                        <input type="text" id="qty" value="1">
+                        <button type="button" id="qty-plus">+</button>
                     </div>
 
-                    <button class="cart-btn">Add to Cart</button>
-                    <button class="wishlist-btn">Add to wishlist</button>
-                    <button class="buy-btn">Buy it now</button>
+                    <button class="cart-btn" id="add-to-cart-btn">
+                        Add to Cart
+                    </button>
+                    <button
+                        class="wishlist-btn {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($upperNewProduct->id) ? 'text-danger' : '' }}"
+                        data-product-id="{{ $product->id }}">Add to wishlist</button>
+                    {{-- <button class="buy-btn">Buy it now</button> --}}
 
                 </div>
 
@@ -128,7 +122,7 @@
                         <!-- DESCRIPTION -->
                         <!-- DESCRIPTION -->
                         <div class="tab-content active" id="description">
-                            {!! $product->description !!}
+                            {!! $product->long_description !!}
                         </div>
 
                         <!-- BENEFITS -->
@@ -256,6 +250,10 @@
 @section('css')
     <style type="text/css">
         /*in page css here*/
+        .variant-btn.active {
+            background: black;
+            color: #fff;
+        }
     </style>
 @endsection
 @section('js')
@@ -312,5 +310,89 @@
                 });
             });
         });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainImage = document.getElementById("mainProductImage");
+
+            document.querySelectorAll(".gallery-img").forEach(img => {
+                img.addEventListener("click", function() {
+                    mainImage.src = this.src;
+                });
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.variant-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+
+                let attr = this.dataset.attribute;
+
+                // remove active only from same group
+                document.querySelectorAll(`.variant-btn[data-attribute="${attr}"]`)
+                    .forEach(b => b.classList.remove('active'));
+
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('change', '.variant-radio', function () {
+
+    let price = $(this).data('price');
+    $('#product-price').text(price);
+
+    $('#qty').val(1);
+});
+
+
+$(document).on('click', '#qty-plus', function () {
+    let qty = parseInt($('#qty').val()) + 1;
+    $('#qty').val(qty);
+});
+
+$(document).on('click', '#qty-minus', function () {
+    let qty = parseInt($('#qty').val()) - 1;
+    if (qty < 1) qty = 1;
+    $('#qty').val(qty);
+});
+
+
+$(document).on('click', '#add-to-cart-btn', function () {
+
+    let variantId = $('input[name="variant"]:checked').val();
+    let qty = $('#qty').val();
+
+    if (!variantId) {
+        Swal.fire('Please select a variant');
+        return;
+    }
+
+    $.ajax({
+        url: '/cart/add',
+        method: 'POST',
+        data: {
+            variant_id: variantId,
+            quantity: qty,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+
+        success: function (res) {
+
+            Swal.fire({
+                icon: 'success',
+                title: res.message || 'Added to cart'
+            });
+
+            loadCart(); // reuse your existing cart refresh
+        },
+
+        error: function () {
+            Swal.fire('Something went wrong');
+        }
+    });
+
+});
     </script>
 @endsection

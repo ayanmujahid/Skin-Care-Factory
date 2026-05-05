@@ -19,4 +19,5 @@ class PointsTransaction extends Model
     {
         return $this->belongsTo(User::class, 'professional_id');
     }
+    
 }

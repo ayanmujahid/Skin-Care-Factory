@@ -8,9 +8,7 @@
 
             <h1 class="mb-3">Edit Product</h1>
 
-            <form action="{{ route('admin.products.update', $product->id) }}"
-                  method="POST"
-                  enctype="multipart/form-data">
+            <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -23,14 +21,10 @@
                         <div class="card mb-3">
                             <div class="card-header">Main Image</div>
                             <div class="card-body">
-                                <input type="file"
-                                       name="main_image"
-                                       id="mainImageInput"
-                                       class="form-control"
-                                       accept="image/*">
+                                <input type="file" name="main_image" id="mainImageInput" class="form-control">
 
                                 <div id="mainImagePreview" class="mt-3">
-                                    @if($product->mainImage)
+                                    @if ($product->mainImage)
                                         <div class="preview-box">
                                             <img src="{{ asset('storage/' . $product->mainImage->url) }}">
                                         </div>
@@ -43,18 +37,12 @@
                         <div class="card">
                             <div class="card-header">Gallery Images</div>
                             <div class="card-body">
-                                <input type="file"
-                                       name="gallery[]"
-                                       id="galleryInput"
-                                       class="form-control"
-                                       multiple
-                                       accept="image/*">
+                                <input type="file" name="gallery[]" id="galleryInput" class="form-control" multiple>
 
-                                <div id="galleryPreview"
-                                     class="d-flex flex-wrap mt-3 gap-2">
-                                    @foreach($product->gallery ?? [] as $image)
+                                <div id="galleryPreview" class="d-flex flex-wrap mt-3 gap-2">
+                                    @foreach ($product->gallery as $img)
                                         <div class="preview-box">
-                                            <img src="{{ asset('storage/' . $image->url) }}">
+                                            <img src="{{ asset('storage/' . $img->url) }}">
                                         </div>
                                     @endforeach
                                 </div>
@@ -68,90 +56,115 @@
                         <div class="card">
                             <div class="card-body">
 
+                                {{-- NAME --}}
                                 <div class="mb-3">
                                     <label>Product Name</label>
-                                    <input type="text"
-                                           name="name"
-                                           class="form-control"
-                                           value="{{ old('name', $product->name) }}"
-                                           required>
+                                    <input type="text" name="name" class="form-control"
+                                        value="{{ old('name', $product->name) }}" required>
                                 </div>
 
-                                {{-- CATEGORY / SUB CATEGORY --}}
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+
+                                    {{-- CATEGORY --}}
+                                    <div class="col-md-4 mb-3">
                                         <label>Category</label>
-                                        <select name="category_id"
-                                                id="categorySelect"
-                                                class="form-control"
-                                                required>
-                                            <option value="">-- Select Category --</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ $product->category_id == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
+                                        <select name="category_id" id="categorySelect" class="form-control">
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}"
+                                                    {{ $product->category_id == $cat->id ? 'selected' : '' }}>
+                                                    {{ $cat->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    <div class="col-md-6 mb-3">
+                                    {{-- SUB CATEGORY --}}
+                                    <div class="col-md-4 mb-3">
                                         <label>Sub Category</label>
-                                        <select name="sub_category_id"
-                                                id="subCategorySelect"
-                                                class="form-control"
-                                                {{ $product->sub_category_id ? '' : 'disabled' }}>
-                                            <option value="">-- Select Sub Category --</option>
+                                        <select name="sub_category_id" id="subCategorySelect" class="form-control">
                                         </select>
-                                        <small id="noSubCategoryText"
-                                               class="text-muted d-none">
-                                            No sub-category exists
-                                        </small>
                                     </div>
+
+                                    {{-- BRAND --}}
+                                    <div class="col-md-4 mb-3">
+                                        <label>Brand</label>
+                                        <select name="brand_id" class="form-control">
+                                            @foreach ($brands as $brand)
+                                                <option value="{{ $brand->id }}"
+                                                    {{ $product->brand_id == $brand->id ? 'selected' : '' }}>
+                                                    {{ $brand->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                 </div>
 
-                                <div class="mb-3">
-                                    <label>Short Description</label>
-                                    <textarea name="short_description"
-                                              class="form-control"
-                                              maxlength="500">{{ old('short_description', $product->short_description) }}</textarea>
+                                {{-- TEXT FIELDS --}}
+                                <textarea name="short_description" class="form-control mb-2">{{ $product->short_description }}</textarea>
+                                <textarea name="long_description" id="description" class="form-control mb-2">{{ $product->long_description }}</textarea>
+                                <textarea name="benefits" id="benefits" class="form-control mb-2">{{ $product->benefits }}</textarea>
+                                <textarea name="ingredients" id="ingredients" class="form-control mb-2">{{ $product->ingredients }}</textarea>
+                                <textarea name="how_to_use" id="how_to_use" class="form-control mb-2">{{ $product->how_to_use }}</textarea>
+                                <textarea name="pro_tip" id="pro_tip" class="form-control mb-2">{{ $product->pro_tip }}</textarea>
+
+                                <hr>
+
+                                <h5>Variants</h5>
+
+                                <div id="variants-wrapper">
+
+                                    @foreach ($product->variants as $i => $variant)
+                                        <div class="variant-box border p-3 mb-3">
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="number" name="variants[{{ $i }}][price]"
+                                                        value="{{ $variant->price }}" class="form-control">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number"
+                                                        name="variants[{{ $i }}][compare_price]"
+                                                        value="{{ $variant->compare_price }}" class="form-control">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" name="variants[{{ $i }}][stock]"
+                                                        value="{{ $variant->stock }}" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            {{-- ATTRIBUTES --}}
+                                            @foreach ($variant->attributes as $j => $attr)
+                                                <div class="row mb-2">
+                                                    <div class="col-md-5">
+                                                        <input type="text"
+                                                            name="variants[{{ $i }}][attributes][{{ $j }}][name]"
+                                                            value="{{ $attr->name }}" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text"
+                                                            name="variants[{{ $i }}][attributes][{{ $j }}][value]"
+                                                            value="{{ $attr->value }}" class="form-control">
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+                                    @endforeach
+
                                 </div>
 
-                                <div class="mb-3">
-                                    <label>Long Description</label>
-                                    <textarea name="long_description"
-                                              class="form-control"
-                                              rows="4">{{ old('long_description', $product->long_description) }}</textarea>
-                                </div>
+                                <button type="button" id="add-variant" class="btn btn-primary btn-sm">+ Add
+                                    Variant</button>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label>Price</label>
-                                        <input type="number"
-                                               name="price"
-                                               class="form-control"
-                                               step="0.01"
-                                               value="{{ old('price', $product->price) }}"
-                                               required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label>Stock</label>
-                                        <input type="number"
-                                               name="stock"
-                                               class="form-control"
-                                               step="0.01"
-                                               value="{{ old('stock', $product->stock) }}">
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label>Discounted Price</label>
-                                        <input type="number"
-                                               name="discounted_price"
-                                               class="form-control"
-                                               step="0.01"
-                                               value="{{ old('discounted_price', $product->discounted_price) }}">
-                                    </div>
+                                {{-- FEATURED --}}
+                                <div class="mt-3">
+                                    <select name="is_featured" class="form-control">
+                                        <option value="0" {{ $product->is_featured ? '' : 'selected' }}>No</option>
+                                        <option value="1" {{ $product->is_featured ? 'selected' : '' }}>Yes</option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -160,14 +173,9 @@
 
                 </div>
 
-                <div class="text-end mt-3">
-                    <button type="submit" class="btn btn-primary">
-                        Update Product
-                    </button>
-                </div>
+                <button class="btn btn-success mt-3">Update Product</button>
 
             </form>
-
         </div>
     </div>
 @endsection
@@ -204,41 +212,48 @@
     </style>
 @endsection
 @section('js')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const categoryId = document.getElementById('categorySelect').value;
-    const selectedSubCategory = "{{ $product->sub_category_id }}";
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryId = document.getElementById('categorySelect').value;
+            const selectedSubCategory = "{{ $product->sub_category_id }}";
 
-    if (!categoryId) return;
+            if (!categoryId) return;
 
-    fetch(`/admin/categories/${categoryId}/sub-categories`)
-        .then(res => res.json())
-        .then(data => {
-            const subSelect = document.getElementById('subCategorySelect');
-            const noSubText = document.getElementById('noSubCategoryText');
+            fetch(`/admin/categories/${categoryId}/sub-categories`)
+                .then(res => res.json())
+                .then(data => {
+                    const subSelect = document.getElementById('subCategorySelect');
+                    const noSubText = document.getElementById('noSubCategoryText');
 
-            subSelect.innerHTML = '<option value="">-- Select Sub Category --</option>';
+                    subSelect.innerHTML = '<option value="">-- Select Sub Category --</option>';
 
-            if (data.length === 0) {
-                noSubText.classList.remove('d-none');
-                subSelect.disabled = true;
-                return;
-            }
+                    if (data.length === 0) {
+                        noSubText.classList.remove('d-none');
+                        subSelect.disabled = true;
+                        return;
+                    }
 
-            data.forEach(sub => {
-                const option = document.createElement('option');
-                option.value = sub.id;
-                option.textContent = sub.name;
+                    data.forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.id;
+                        option.textContent = sub.name;
 
-                if (sub.id == selectedSubCategory) {
-                    option.selected = true;
-                }
+                        if (sub.id == selectedSubCategory) {
+                            option.selected = true;
+                        }
 
-                subSelect.appendChild(option);
-            });
+                        subSelect.appendChild(option);
+                    });
 
-            subSelect.disabled = false;
+                    subSelect.disabled = false;
+                });
         });
-});
-</script>
+    </script>
+    <script>
+        CKEDITOR.replace('description');
+        CKEDITOR.replace('benefits');
+        CKEDITOR.replace('ingredients');
+        CKEDITOR.replace('how_to_use');
+        CKEDITOR.replace('pro_tip');
+    </script>
 @endsection

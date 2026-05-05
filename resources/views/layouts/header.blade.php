@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg bg-light px-4">
             <!-- <a class="navbar-brand fw-bold" href="#">AMIY</a> -->
             <a class="navbar-brand fw-bold" href="{{ route('index') }}"><img class="logo-header"
-                    src="assets/images/logo.webp" alt=""></a>
+                    src="{{asset('assets/images/logo.webp')}}" alt=""></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -77,9 +77,7 @@
             <div class="cart-footer">
                 <strong>Total: $<span id="cart-total">0</span></strong>
 
-                <a href="/checkout" class="btn btn-dark w-100 mt-2">
-                    Checkout
-                </a>
+               <div id="checkout-action"></div>
 
             </div>
 

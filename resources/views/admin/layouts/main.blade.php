@@ -23,32 +23,36 @@
     @include('admin.layouts.footer')
     @include('admin.layouts.scripts')
     @yield('js')
-    <script type="text/javascript">
+    <script>
         (() => {
 
+            // Global SweetAlert Toast Configuration
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+
+            // Make it globally available
+            window.Swirl = Toast;
+
             @if (session('notify_success'))
-                $.toast({
-                    heading: 'Success!',
-                    position: 'bottom-right',
-                    text: '{{ session('notify_success') }}',
-                    loaderBg: '#ff6849',
+                Swirl.fire({
                     icon: 'success',
-                    hideAfter: 2000,
-                    stack: 6
+                    title: '{{ session('notify_heading', 'Success!') }}',
+                    text: '{{ session('notify_success') }}'
                 });
             @elseif (session('notify_error'))
-                $.toast({
-                    heading: 'Error!',
-                    position: 'bottom-right',
-                    text: '{{ session('notify_error') }}',
-                    loaderBg: '#ff6849',
+                Swirl.fire({
                     icon: 'error',
-                    hideAfter: 2000,
-                    stack: 6
+                    title: '{{ session('notify_heading', 'Error!') }}',
+                    text: '{{ session('notify_error') }}'
                 });
             @endif
 
-        })()
+        })();
     </script>
 </body>
 <div id="preloader" style="display:none;">

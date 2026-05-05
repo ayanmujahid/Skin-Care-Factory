@@ -17,16 +17,29 @@ class ProfessionalController extends Controller
 
 
     public function index()
-    {
-        $professionals = ProfessionalProfile::with('user')->paginate(10);
-        
-        return view('admin.license-management.index', compact('professionals'));
+{
+    return $this->listByStatus(null);
+}
+
+public function listByStatus($status)
+{
+    $query = ProfessionalProfile::with('user');
+
+    if ($status !== null) {
+        $query->whereHas('user', fn($q) =>
+            $q->where('verified_status', $status)
+        );
     }
+
+    $professionals = $query->latest()->paginate(10);
+
+    return view('admin.license-management.index', compact('professionals', 'status'));
+}
 
     public function show($id)
     {
         $professional = ProfessionalProfile::with('user')->findOrFail($id);
-        
+
         return view('admin.license-management.show', compact('professional'));
     }
 

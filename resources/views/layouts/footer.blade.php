@@ -3,7 +3,7 @@
         <div class="row g-4">
 
             <div class="col-lg-4">
-                <div class="brand-logo"><img src="assets/images/logo.webp" alt=""></div>
+                <div class="brand-logo"><img src="{{asset('assets/images/logo.webp')}}" alt=""></div>
                 <div class="tagline-main">Emails that people love</div>
                 <p class="tagline-sub">
                     ed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam.

@@ -6,7 +6,19 @@
     <div class="dashboard-main-body">
 
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-            <h6 class="fw-semibold mb-0">License List</h6>
+            <h6 class="fw-semibold mb-0">
+                License List
+
+                @if (request('status') !== null)
+                    @if (request('status') == 0)
+                        <span class="badge bg-warning ms-2">Pending</span>
+                    @elseif(request('status') == 1)
+                        <span class="badge bg-success ms-2">Approved</span>
+                    @elseif(request('status') == 2)
+                        <span class="badge bg-danger ms-2">Rejected</span>
+                    @endif
+                @endif
+            </h6>
             <ul class="d-flex align-items-center gap-2">
                 <li class="fw-medium">
                     <a href="index.html" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -45,43 +57,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($professionals as $professional)
-                                <tr>
 
-                                    <td>
-                                        <div class="form-check style-check d-flex align-items-center">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">
-                                                {{ $loop->iteration }}
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0)"
-                                            class="text-primary-600">#{{ $professional->license_number }}</a></td>
+                            @forelse($professionals as $professional)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+
+                                    <td>#{{ $professional->license_number }}</td>
+
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('storage/' . $professional->license_upload) }}"
-                                                alt="Image" class="flex-shrink-0 me-12 radius-8" style="width:100px">
-                                            <h6 class="text-md mb-0 fw-medium flex-grow-1">{{ $professional->user->name }}
-                                            </h6>
+                                                style="width:70px" class="me-2 radius-8">
+
+                                            <span>{{ $professional->user->name }}</span>
                                         </div>
                                     </td>
+
                                     <td>{{ $professional->professional_type }}</td>
+
                                     <td>{{ $professional->created_at->format('d M Y') }}</td>
+
                                     <td>
-                                        @if ($professional->user->verified_status == 0)
-                                            <span
-                                                class="bg-warning-focus text-warning-main px-24 py-4 rounded-pill fw-medium text-sm">Pending</span>
-                                        @elseif($professional->user->verified_status == 1)
-                                            <span
-                                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Approved</span>
-                                        @elseif($professional->user->verified_status == 2)
-                                            <span
-                                                class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Rejected</span>
+                                        @php $status = $professional->user->verified_status; @endphp
+
+                                        @if ($status == 0)
+                                            <span class="badge bg-warning">Pending</span>
+                                        @elseif ($status == 1)
+                                            <span class="badge bg-success">Approved</span>
+                                        @elseif ($status == 2)
+                                            <span class="badge bg-danger">Rejected</span>
                                         @endif
                                     </td>
+
                                     <td>
-                                        <a href="{{route('admin.licenses.show', $professional->id)}}"
+                                        <a href="{{ route('admin.licenses.show', $professional->id) }}"
                                             class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                             <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                         </a>
@@ -94,9 +103,18 @@
                                             <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
                                         </a>
                                     </td>
-
                                 </tr>
-                            @endforeach
+
+                            @empty
+
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+
+                                        <h5>No {{ request('status') !== null ? 'Matching' : '' }} Licenses Found</h5>
+
+                                    </td>
+                                </tr>
+                            @endforelse
 
                         </tbody>
                     </table>

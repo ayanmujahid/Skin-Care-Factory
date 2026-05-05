@@ -1339,7 +1339,7 @@ section.extra-feature-category.py-5 {
 /* MAIN IMAGE */
 .main-product-box {
   background: #fff;
-  padding: 30px;
+  /* padding: 30px; */
 }
 
 .main-product-box img {

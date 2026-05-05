@@ -13,7 +13,7 @@
             <div class="row">
 
                 <!-- SIDEBAR -->
-                <div class="col-lg-3 shop-sidebar">
+                {{-- <div class="col-lg-3 shop-sidebar">
 
                     <div class="filter-item">Category <span>+</span></div>
                     <div class="filter-item">Availability <span>+</span></div>
@@ -31,7 +31,7 @@
                         <img src="assets/images/na-mp-2.webp">
                     </div>
 
-                </div>
+                </div> --}}
 
 
                 <!-- PRODUCTS -->

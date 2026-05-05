@@ -31,6 +31,8 @@
   <script src="{{asset('admin/js/app.js')}}"></script>
 
 <script src="{{asset('admin/js/homeOneChart.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script src="{{ asset('dash/js/jquery.toast.js') }}"></script>
 <script type="text/javascript">

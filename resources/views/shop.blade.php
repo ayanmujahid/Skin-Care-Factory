@@ -106,7 +106,9 @@
                                     <small>{{ $product->category->name ?? '' }}</small>
 
                                     {{-- <a href="{{ route('productDetails', $product->slug) }}"> --}}
-                                    <h6>{{ $product->name }}</h6>
+                                    <a class="text-dark text-decoration-none" href="{{ route('productDetails', $product->slug) }}">
+                                        <h6>{{ $product->name }}</h6>
+                                    </a>
                                     {{-- </a> --}}
 
                                     <strong>${{ $product->firstVariant->price }}</strong>

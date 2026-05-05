@@ -37,24 +37,53 @@ class ProfessionalCartController extends Controller
             'points' => 'required|integer|min:1'
         ]);
 
+        $sharedCart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
+
         $available = PointsHelper::balance(auth()->id());
 
         if ($request->points > $available) {
-            return back()->with('error', 'Not enough points');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Not enough points'
+            ], 422);
         }
 
-        session(['points_used' => $request->points]);
+        $points = $request->points;
 
-        return back()->with('success', 'Points applied');
+        // 🔥 discount logic (10% cap)
+        $discountPercent = min(($points / 1000) * 10, 10);
+
+        // 💾 update DB
+        $sharedCart->update([
+            'points_used' => $points,
+            'discount_percent' => $discountPercent
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'points' => $points,
+            'discount_percent' => $discountPercent
+        ]);
     }
 
 
     // ✅ Remove Points
     public function removePoints()
     {
-        session()->forget('points_used');
+        $sharedCart = SharedCart::where('professional_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
 
-        return back()->with('success', 'Points removed');
+        $sharedCart->update([
+            'points_used' => 0,
+            'discount_percent' => 0
+        ]);
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
     // ✅ Generate Link

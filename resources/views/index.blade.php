@@ -44,42 +44,42 @@
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-1.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-1.webp')}}" alt="">
                         </div>
                         <p>Serum Set</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-2.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-2.webp')}}" alt="">
                         </div>
                         <p>Face Cream</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-3.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-3.webp')}}" alt="">
                         </div>
                         <p>Hair Oil</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-4.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-4.webp')}}" alt="">
                         </div>
                         <p>Face Wash</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-5.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-5.webp')}}" alt="">
                         </div>
                         <p>Lip Shade</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="assets/images/es-ct-1.webp" alt="">
+                            <img src="{{asset('assets/images/es-ct-1.webp')}}" alt="">
                         </div>
                         <p>Foundation</p>
                     </div>
@@ -123,8 +123,8 @@
                             </div>
                         </div>
 
-                        <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand }}</small>
-                        <h6>{{ $upperNewProduct->name }}</h6>
+                        <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand->name ?? '' }}</small>
+                       <a class="text-dark text-decoration-none" href="{{ route('productDetails', $upperNewProduct->slug) }}"> <h6>{{ $upperNewProduct->name }}</h6> </a>
 
                         <strong>
                             $ {{ number_format(optional($upperNewProduct->firstVariant)->price ?? 0, 2) }}
@@ -270,7 +270,7 @@
                                 </div>
                             </div>
                             <div class="popular-products-info">
-                                <span class="popular-products-brand">{{ $featuredProduct->brand }}</span>
+                                <span class="popular-products-brand">{{ $featuredProduct->brand->name }}</span>
                                 <h6 class="popular-products-name">
                                     {{ $featuredProduct->name }}
                                 </h6>

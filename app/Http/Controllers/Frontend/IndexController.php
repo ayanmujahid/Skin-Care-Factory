@@ -137,7 +137,15 @@ class IndexController extends Controller
 
     public function productDetails($slug)
     {
-        $product = Product::with(['mainImage', 'gallery'])
+        $product = Product::with([
+            'mainImage',
+            'gallery',
+            'variants.attributes', // ✅ REQUIRED
+            'brand',
+            'category'
+        ])
+            ->withSum('variants as total_stock', 'stock')
+            ->withMin('variants as min_price', 'price')
             ->where('slug', $slug)
             ->firstOrFail();
 
@@ -146,7 +154,8 @@ class IndexController extends Controller
             ->limit(12)
             ->get();
 
-        return view('product-details', compact('product', 'relatedProduct'))->with('title', $product->name);
+        return view('product-details', compact('product', 'relatedProduct'))
+            ->with('title', $product->name);
     }
 
 
