@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
+use App\Http\Controllers\Backend\{AdminController, ReviewController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\ReviewFrontendController;
+use App\Http\Controllers\Frontend\ProductImportController;
 use App\Http\Controllers\Professionals\ProfessionalCartController;
 use App\Http\Controllers\Professionals\ProfessionalIndexController;
 use App\Models\Wishlist;
@@ -26,20 +28,30 @@ use Illuminate\Support\Facades\Auth;
 // ---------------------------------------For Frontend-----------------------------------
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
 Route::get('/about-us', [IndexController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/cart', [IndexController::class, 'cart'])->name('cart');
 Route::get('/contact-us', [IndexController::class, 'contactUs'])->name('contactUs');
+Route::get('/brands', [IndexController::class, 'brands'])->name('brands');
+Route::get('/faqs', [IndexController::class, 'faqs'])->name('faqs');
+Route::get('/education', [IndexController::class, 'education'])->name('education');
+Route::get('/resources', [IndexController::class, 'resources'])->name('resources');
 Route::get('/login', [IndexController::class, 'login'])->name('login');
 Route::get('/privacy-policy', [IndexController::class, 'privacyPolicy'])->name('privacyPolicy');
 Route::get('/product-details/{slug?}', [IndexController::class, 'productDetails'])->name('productDetails');
 Route::get('/return-policy', [IndexController::class, 'returnPolicy'])->name('returnPolicy');
 Route::get('/shipping-policy', [IndexController::class, 'shippingPolicy'])->name('shippingPolicy');
+Route::get('/shop/filter/ajax', [IndexController::class, 'filterAjax'])
+    ->name('shop.filter.ajax');
 Route::get('/shop/{slug?}/{subSlug?}', [IndexController::class, 'shop'])->name('shop');
 Route::get('/signup', [IndexController::class, 'signup'])->name('signup');
 Route::get('/terms-and-conditions', [IndexController::class, 'termsAndConditions'])->name('termsAndConditions');
 Route::get('/testimonials', [IndexController::class, 'testimonials'])->name('testimonials');
 Route::get('/wishlist', [IndexController::class, 'wishlist'])->name('wishlist');
 Route::get('/professional-signup', [IndexController::class, 'professionalSignup'])->name('professionalSignup');
+Route::get('/product-search', [IndexController::class, 'search'])
+    ->name('product.search');
+
 
 // ---------------------------------------For Frontend-----------------------------------
 
@@ -73,6 +85,24 @@ Route::middleware('auth')->group(function () {
 // ---------------------------------------For Checkout Setup-----------------------------------
 
 
+// ---------------------------------------For Review Setup-----------------------------------
+
+
+
+// ---------------------------------------For Review Setup-----------------------------------
+
+
+// ---------------------------------------For Import Setup-----------------------------------
+Route::get(
+    '/admin/products/import',
+    [ProductImportController::class,'index']
+);
+
+Route::post(
+    '/admin/products/import',
+    [ProductImportController::class,'import']
+);
+// ---------------------------------------For Import Setup-----------------------------------
 
 
 
@@ -213,6 +243,15 @@ Route::prefix('admin')
         */
         Route::resource('inquiries', InquiryController::class);
 
+
+        Route::resource('reviews', ReviewController::class);
+
+        Route::post('reviews/{review}/approve', [ReviewController::class, 'approve'])
+            ->name('reviews.approve');
+
+        Route::post('reviews/{review}/reject', [ReviewController::class, 'reject'])
+            ->name('reviews.reject');
+
         Route::resource('products', ProductController::class);
 
         Route::resource('newsletters', NewsletterController::class);
@@ -238,4 +277,5 @@ Route::prefix('admin')
             ->name('orders.status');
 
         Route::resource('orders', OrderController::class);
+        Route::resource('admins', AdminController::class);
     });

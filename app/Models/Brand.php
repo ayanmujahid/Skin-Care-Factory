@@ -19,4 +19,8 @@ class Brand extends Model
     {
         return $this->morphMany(File::class, 'fileable');
     }
+    public function file()
+    {
+        return $this->morphOne(File::class, 'fileable');
+    }
 }

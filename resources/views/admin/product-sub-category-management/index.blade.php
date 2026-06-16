@@ -1,154 +1,162 @@
 @extends('admin.layouts.main')
+
 @section('content')
 @include('admin.layouts.sidebar')
 
-<!-- Start::app-content -->
-<div class="main-content app-content">
-    <div class="container-fluid page-container main-body-container">
+<div class="dashboard-main-body">
 
-        <!-- Start::page-header -->
-        <div class="page-header-breadcrumb mb-3">
-            <div class="d-flex align-center justify-content-between flex-wrap">
-                <h1 class="page-title fw-medium fs-18 mb-0">Product Subcategories</h1>
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Subcategories List</li>
-                </ol>
-            </div>
-        </div>
-        <!-- End::page-header -->
+    {{-- HEADER --}}
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+        <h6 class="fw-semibold mb-0">Subcategories List</h6>
 
-        <!-- Start::row-1 -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card custom-card">
-                    <div class="card-body p-3">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+                <a href="javascript:void(0);" class="d-flex align-items-center gap-1 hover-text-primary">
+                    <iconify-icon icon="solar:home-smile-angle-outline"
+                        class="icon text-lg"></iconify-icon>
+                    Dashboard
+                </a>
+            </li>
 
-                            <!-- Filter Box -->
-                            <div class="d-flex flex-wrap gap-1 project-list-main">
-                                <select class="form-control">
-                                    <option value="">Sort By</option>
-                                    <option value="Newest">Newest</option>
-                                    <option value="A - Z">A - Z</option>
-                                </select>
-                            </div>
+            <li>-</li>
 
-                            <!-- Search -->
-                            <div class="d-flex custom-project-list" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search Subcategory" aria-label="Search">
-                                <button class="btn btn-light" type="submit">Search</button>
-                            </div>
+            <li class="fw-medium">
+                Product Subcategories
+            </li>
+        </ul>
 
-                            <!-- Add New -->
-                            <a href="{{ route('admin.product-subcategories.create') }}" class="btn btn-primary">
-                                <i class="ri-add-line me-1"></i> Add Subcategory
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End::row-1 -->
-
-        <!-- Start::row-2 -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card custom-card overflow-hidden">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Parent Category</th>
-                                        <th>Name</th>
-                                        <th>Featured</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @foreach ($subcategories as $subcategory)
-                                        <tr>
-                                            <td>{{ $subcategory->id }}</td>
-                                            <td>{{ $subcategory->category->name ?? 'N/A' }}</td>
-                                            <td>{{ $subcategory->name }}</td>
-                                            <td>
-                                                @if($subcategory->featured)
-                                                    <span class="badge bg-success">Yes</span>
-                                                @else
-                                                    <span class="badge bg-secondary">No</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $subcategory->created_at->format('d M, Y') }}</td>
-
-                                            <td>
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-light" 
-                                                       data-bs-toggle="dropdown">
-                                                        <i class="fe fe-more-vertical"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-
-                                                        <li>
-                                                            <a class="dropdown-item" 
-                                                               href="{{ route('admin.product-subcategories.edit', $subcategory->id) }}">
-                                                                <i class="ti ti-edit me-1"></i>Edit
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <form action="{{ route('admin.product-subcategories.destroy', $subcategory->id) }}" 
-                                                                  method="POST"
-                                                                  onsubmit="return confirm('Are you sure?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item text-danger">
-                                                                    <i class="ti ti-trash me-1"></i>Delete
-                                                                </button>
-                                                            </form>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="mt-3">
-                    {{ $subcategories->links('pagination::bootstrap-5') }}
-                </div>
-
-            </div>
-        </div>
-        <!-- End::row-2 -->
+        <a href="{{ route('admin.product-subcategories.create') }}"
+            class="btn btn-primary">
+            + Add Subcategory
+        </a>
     </div>
+
+    {{-- TABLE --}}
+    <div class="card basic-data-table">
+
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                All Subcategories
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table bordered-table mb-0" id="dataTable" data-page-length="10">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Parent Category</th>
+                        <th>Subcategory</th>
+                        <th>Featured</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach ($subcategories as $subcategory)
+
+                        <tr>
+
+                            {{-- ID --}}
+                            <td>
+                                {{ $subcategory->id }}
+                            </td>
+
+                            {{-- PARENT CATEGORY --}}
+                            <td>
+                                <h6 class="text-md mb-0 fw-medium">
+                                    {{ $subcategory->category->name ?? 'N/A' }}
+                                </h6>
+                            </td>
+
+                            {{-- SUBCATEGORY NAME --}}
+                            <td>
+                                <h6 class="text-md mb-0 fw-medium">
+                                    {{ $subcategory->name }}
+                                </h6>
+                            </td>
+
+                            {{-- FEATURED --}}
+                            <td>
+                                @if ($subcategory->featured)
+                                    <span class="bg-success-focus text-success-main px-12 py-2 rounded-pill text-sm">
+                                        Yes
+                                    </span>
+                                @else
+                                    <span class="bg-secondary text-white px-12 py-2 rounded-pill text-sm">
+                                        No
+                                    </span>
+                                @endif
+                            </td>
+
+                            {{-- CREATED DATE --}}
+                            <td>
+                                {{ $subcategory->created_at->format('d M, Y') }}
+                            </td>
+
+                            {{-- ACTIONS --}}
+                            <td>
+
+                                {{-- EDIT --}}
+                                <a href="{{ route('admin.product-subcategories.edit', $subcategory->id) }}"
+                                    class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+
+                                    <iconify-icon icon="lucide:edit"></iconify-icon>
+                                </a>
+
+                                {{-- DELETE --}}
+                                <form action="{{ route('admin.product-subcategories.destroy', $subcategory->id) }}"
+                                    method="POST"
+                                    style="display:inline-block;"
+                                    onsubmit="return confirm('Are you sure?');">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center border-0">
+
+                                        <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+    {{-- PAGINATION --}}
+    <div class="mt-3">
+        {{ $subcategories->links('pagination::bootstrap-5') }}
+    </div>
+
 </div>
-<!-- End::app-content -->
 
 @endsection
 
 @section('css')
 <style>
-    /* page-specific CSS if needed */
+/* Optional page-specific CSS */
 </style>
 @endsection
 
 @section('js')
 <script>
 (() => {
-    /* page-specific JS if needed */
+    /* Optional page-specific JS */
 })();
 </script>
 @endsection

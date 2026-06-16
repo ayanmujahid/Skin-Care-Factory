@@ -9,7 +9,7 @@
         <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
             <div class="max-w-464-px mx-auto w-100">
                 <div>
-                    <a href="index.html" class="mb-40 max-w-290-px">
+                    <a href="{{route('dashboard.login')}}" class="mb-40 max-w-290-px">
                         <img src="{{ asset('admin/images/logo.webp') }}" alt="Image">
                     </a>
                     <h4 class="mb-12">Sign In to your Account</h4>

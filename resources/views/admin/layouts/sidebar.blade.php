@@ -141,9 +141,32 @@
                     </li>
                 </ul>
             </li>
+            <li class="sidebar-menu-group-title">Admin Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:license" class="menu-icon"></iconify-icon>
+                    <span>Admin Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.admins.index') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Admin List
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.admins.create') }}">
+                            <i class="ri-circle-fill circle-icon text-success-main w-auto"></i>
+                            Add Admin
+                        </a>
+                    </li>
 
 
-            
+                </ul>
+            </li>
+
+
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="icon-park-outline:setting-two" class="menu-icon"></iconify-icon>
@@ -155,13 +178,11 @@
                             Company</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i
-                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
+                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
                             Notification</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i
-                                class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Notification Alert</a>
                     </li>
                     <li>
@@ -169,11 +190,13 @@
                             Theme</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                        <a href="javascript:void(0)"><i
+                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
                             Currencies</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                        <a href="javascript:void(0)"><i
+                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
                             Languages</a>
                     </li>
                     <li>

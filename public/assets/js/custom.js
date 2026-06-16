@@ -3,6 +3,7 @@ $(document).on('click', '.quick-view-btn', function () {
   let productId = $(this).data('product-id');
 
   $.get('/product/quick-view/' + productId, function (product) {
+    console.log(product);
 
     $('#modal-product-name').text(product.name);
 
@@ -36,19 +37,38 @@ $(document).on('click', '.quick-view-btn', function () {
 
     product.variants.forEach(v => {
 
+      let variantLabel = '';
+
+      if (v.attributes && v.attributes.length > 0) {
+
+        variantLabel = v.attributes.map(attr => {
+
+          return `${attr.attribute.name}: ${attr.value}`;
+
+        }).join(', ');
+
+      } else {
+
+        variantLabel = v.sku;
+
+      }
+
       variants += `
-            <div class="form-check">
-            <input class="form-check-input"
-            type="radio"
-            name="variant"
-            value="${v.id}"
-            data-price="${v.price}">
+        <div class="form-check">
+
+            <input
+                class="form-check-input"
+                type="radio"
+                name="variant"
+                value="${v.id}"
+                data-price="${v.price}">
 
             <label class="form-check-label">
-            ${v.sku} - $${v.price}
+                ${variantLabel} - $${v.price}
             </label>
-            </div>
-            `;
+
+        </div>
+    `;
 
     });
 
@@ -122,8 +142,8 @@ $(document).on('click', '#add-to-cart-btn', function () {
         loadCart();
       }
 
-      $('.cart-modal').addClass('open');
-      $('.cart-modal-overlay').addClass('open');
+      $('.cart-modal').addClass('active');
+      $('.cart-modal-overlay').addClass('active');
     },
 
     error: function () {
@@ -356,6 +376,18 @@ function loadCartPage() {
     `;
       });
 
+      if (res.status === 'locked') {
+
+        $('.apply-points-btn').prop('disabled', true);
+
+        $('.remove-points-btn').prop('disabled', true);
+
+        $('#use-points').prop('disabled', true);
+
+        $('#generate-link-btn').prop('disabled', true)
+          .text('Cart Locked');
+      }
+
       // 💡 APPLY DISCOUNT HERE
       let discountAmount = (total * discountPercent) / 100;
       let finalTotal = total - discountAmount;
@@ -363,7 +395,11 @@ function loadCartPage() {
       $('#cart-page-items').html(html);
 
       $('#summary-subtotal').text(total.toFixed(2));
+
       $('#summary-saving').text(discountAmount.toFixed(2));
+
+      $('#summary-final-total').text(finalTotal.toFixed(2));
+
       $('#discount-percent').text(discountPercent + '%');
 
     });

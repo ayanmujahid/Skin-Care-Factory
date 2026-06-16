@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Professionals;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -25,9 +26,33 @@ class ProfessionalIndexController extends Controller
         View()->share('categories', $categories);
     }
 
+    public function index()
+    {
+        // Take 8 newest products
+        $newProducts = Product::with(['mainImage', 'firstVariant'])
+            ->latest()
+            ->take(8)
+            ->get();
+
+        // Split new products for two sliders/tabs
+        $upperNewProducts = $newProducts->take(4); // first 4 products
+        $lowerNewProducts = $newProducts->slice(4); // remaining 4 products
+
+        // Featured products
+        $featuredProducts = Product::where('is_featured', 0)->take(12)->get();
+
+        return view('professionals.index', compact(
+            'upperNewProducts',
+            'lowerNewProducts',
+            'featuredProducts'
+        ))->with('title', 'Professional Home');
+    }
+
     public function shop($slug = null, $subSlug = null)
     {
         $subcats = ProductSubCategory::get();
+        $brands = Brand::get();
+
         $search_query = request('search');
         $sort_option = request('sort', 'featured');
 
@@ -87,6 +112,7 @@ class ProfessionalIndexController extends Controller
             'categories',
             'categoryName',
             'subcats',
+            'brands',
             'totalProducts',
             'slug'
         ))->with('title', 'Shop');

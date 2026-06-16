@@ -18,6 +18,7 @@ class ProductVariant extends Model
         'is_active',
         'weight_unit',
         'weight',
+        'discounted_price',
     ];
 
 

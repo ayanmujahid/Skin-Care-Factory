@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -16,12 +17,14 @@ class IndexController extends Controller
     public function __construct()
     {
         $categories = ProductCategory::with('subcategories')->get();
+        $brands = Brand::get();
 
 
         $product = Product::latest()->first(); // ✅ single product
 
         view()->share('product', $product);
         View()->share('categories', $categories);
+        View()->share('brands', $brands);
     }
     //
 
@@ -38,7 +41,7 @@ class IndexController extends Controller
             ->get();
 
         // Split new products for two sliders/tabs
-        $upperNewProducts = $newProducts->take(4); // first 4 products
+        $upperNewProducts = $newProducts->take(5); // first 4 products
         $lowerNewProducts = $newProducts->slice(4); // remaining 4 products
 
         // Featured products
@@ -54,6 +57,23 @@ class IndexController extends Controller
     public function aboutUs()
     {
         return view('about-us')->with('title', 'About Us');
+    }
+    public function faqs()
+    {
+        return view('faqs')->with('title', 'FAQs');
+    }
+    public function education()
+    {
+        return view('education')->with('title', 'Education');
+    }
+    public function resources()
+    {
+        return view('resources')->with('title', 'Resources');
+    }
+
+    public function blogs()
+    {
+        return view('blogs')->with('title', 'Blogs');
     }
 
     public function cart()
@@ -124,6 +144,11 @@ class IndexController extends Controller
     {
         return view('contact-us')->with('title', 'Contact Us');
     }
+    public function brands()
+    {
+        $brands = Brand::get();
+        return view('brands', compact('brands'))->with('title', 'Brands');
+    }
 
     public function login()
     {
@@ -140,7 +165,7 @@ class IndexController extends Controller
         $product = Product::with([
             'mainImage',
             'gallery',
-            'variants.attributes', // ✅ REQUIRED
+            'variants.attributes.attribute',
             'brand',
             'category'
         ])
@@ -169,39 +194,103 @@ class IndexController extends Controller
         return view('shipping-policy')->with('title', 'Shipping Policy');
     }
 
-    public function shop($slug = null, $subSlug = null)
+    public function shop($slug = null, $subSlug = null, $brandSlug = null)
     {
         $subcats = ProductSubCategory::get();
+        $brands = Brand::get();
+
         $search_query = request('search');
+
         $sort_option = request('sort', 'featured');
+
+        // Brand from query string
+        $brandSlug = request('brand');
 
         $productsQuery = Product::query()->withMin('variants', 'price');
 
         $categories = ProductCategory::withCount('products')->get();
+
         $totalProducts = Product::count();
 
         $categoryName = 'New Arrival';
 
+        /*
+    |--------------------------------------------------------------------------
+    | CATEGORY FILTER
+    |--------------------------------------------------------------------------
+    */
+
         if ($slug) {
+
             $category = ProductCategory::where('slug', $slug)->first();
 
             if ($category) {
+
                 $categoryName = $category->name;
+
                 $productsQuery->where('category_id', $category->id);
 
                 if ($subSlug) {
+
                     $productsQuery->whereHas('subcategory', function ($query) use ($subSlug) {
+
                         $query->where('slug', $subSlug);
                     });
                 }
             }
         }
 
-        if ($search_query) {
-            $productsQuery->where('name', 'like', "%$search_query%");
+        /*
+    |--------------------------------------------------------------------------
+    | BRAND FILTER
+    |--------------------------------------------------------------------------
+    */
+
+        if ($brandSlug) {
+
+            $brand = Brand::where('slug', $brandSlug)->first();
+
+            if ($brand) {
+
+                $categoryName = $brand->name;
+
+                $productsQuery->where('brand_id', $brand->id);
+            }
         }
 
+        /*
+    |--------------------------------------------------------------------------
+    | SEARCH
+    |--------------------------------------------------------------------------
+    */
+
+        if ($search_query) {
+
+            $search = strtolower(trim($search_query));
+
+            $searchNoSpace = str_replace(' ', '', $search);
+
+            $pattern = implode('.*', str_split($searchNoSpace));
+
+            $productsQuery->where(function ($query) use ($search, $pattern) {
+
+                $query->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+
+                    ->orWhereRaw(
+                        "LOWER(REPLACE(name, ' ', '')) REGEXP ?",
+                        [$pattern]
+                    );
+            });
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | SORTING
+    |--------------------------------------------------------------------------
+    */
+
         switch ($sort_option) {
+
             case 'price-asc':
                 $productsQuery->orderBy('variants_min_price', 'asc');
                 break;
@@ -222,7 +311,7 @@ class IndexController extends Controller
                 $productsQuery->orderBy('created_at', 'desc');
         }
 
-        $products = $productsQuery->get();
+        $products = $productsQuery->paginate(12);
 
         return view('shop', compact(
             'products',
@@ -230,10 +319,71 @@ class IndexController extends Controller
             'categoryName',
             'subcats',
             'totalProducts',
-            'slug'
+            'slug',
+            'brandSlug',
+            'brands'
         ))->with('title', 'Shop');
     }
 
+
+    public function filterAjax(Request $request)
+    {
+        $products = Product::with([
+            'mainImage',
+            'category',
+            'firstVariant'
+        ]);
+
+        // CATEGORY FILTER
+        if ($request->categories) {
+
+            $products->whereIn('category_id', $request->categories);
+        }
+
+        // BRAND FILTER
+        if ($request->brands) {
+
+            $products->whereIn('brand_id', $request->brands);
+        }
+
+        // SORTING
+        switch ($request->sort) {
+
+            case 'price-asc':
+
+                $products->withMin('variants', 'price')
+                    ->orderBy('variants_min_price', 'asc');
+
+                break;
+
+            case 'price-desc':
+
+                $products->withMin('variants', 'price')
+                    ->orderBy('variants_min_price', 'desc');
+
+                break;
+
+            case 'alphabetical-asc':
+
+                $products->orderBy('name', 'asc');
+
+                break;
+
+            case 'alphabetical-desc':
+
+                $products->orderBy('name', 'desc');
+
+                break;
+
+            default:
+
+                $products->latest();
+        }
+
+        $products = $products->get();
+
+        return view('partials.shop-products', compact('products'))->render();
+    }
 
     public function signup()
     {
@@ -272,5 +422,31 @@ class IndexController extends Controller
         $types = config('professional.types');
 
         return view('professional-signup', compact('types'))->with('title', 'Professional Signup');
+    }
+
+    public function search(Request $request)
+    {
+        $query = strtolower(trim($request->get('query')));
+
+        $queryNoSpace = str_replace(' ', '', $query);
+
+        $pattern = implode('.*', str_split($queryNoSpace));
+
+        $products = Product::where(function ($q) use ($query, $pattern) {
+
+            $q->whereRaw('LOWER(name) LIKE ?', ["%{$query}%"])
+                ->orWhereRaw(
+                    "LOWER(REPLACE(name, ' ', '')) REGEXP ?",
+                    [$pattern]
+                );
+        })
+            ->take(8)
+            ->get();
+
+        $html = view('partials.search-products', compact('products'))->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
     }
 }

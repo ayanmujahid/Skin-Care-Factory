@@ -10,6 +10,7 @@ use App\Models\SharedCartItem;
 use Illuminate\Support\Facades\DB;
 use App\Models\PointsTransaction;
 use App\Helpers\PointsHelper;
+use App\Helpers\PointsDiscountHelper;
 
 class ProfessionalCartController extends Controller
 {
@@ -38,8 +39,16 @@ class ProfessionalCartController extends Controller
         ]);
 
         $sharedCart = SharedCart::where('professional_id', auth()->id())
-            ->where('status', 'active')
+            ->whereIn('status', ['active', 'locked'])
             ->firstOrFail();
+
+        if ($sharedCart->status === 'locked') {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart is locked'
+            ], 403);
+        }
 
         $available = PointsHelper::balance(auth()->id());
 
@@ -53,13 +62,15 @@ class ProfessionalCartController extends Controller
         $points = $request->points;
 
         // 🔥 discount logic (10% cap)
-        $discountPercent = min(($points / 1000) * 10, 10);
+        $discountPercent = PointsDiscountHelper::calculateDiscountPercent($points);
 
         // 💾 update DB
         $sharedCart->update([
             'points_used' => $points,
             'discount_percent' => $discountPercent
         ]);
+
+
 
         return response()->json([
             'status' => 'success',
@@ -75,6 +86,14 @@ class ProfessionalCartController extends Controller
         $sharedCart = SharedCart::where('professional_id', auth()->id())
             ->where('status', 'active')
             ->firstOrFail();
+
+        if ($sharedCart->status === 'locked') {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cart is locked'
+            ], 403);
+        }
 
         $sharedCart->update([
             'points_used' => 0,
@@ -95,23 +114,39 @@ class ProfessionalCartController extends Controller
             ->first();
 
         if (!$cart || $cart->items->count() == 0) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Cart is empty'
             ]);
         }
 
-        $pointsUsed = session('points_used', 0);
+        $pointsUsed = $cart->points_used;
 
-        $discountPercent = min(($pointsUsed / 1000) * 5, 20);
+        $discountPercent =
+            PointsDiscountHelper::calculateDiscountPercent($pointsUsed);
 
-        // calculate total (optional but useful for lock snapshot)
         $total = 0;
 
         foreach ($cart->items as $item) {
-            $price = $item->variant->discounted_price ?? $item->variant->price;
+
+            $price = $item->variant->discounted_price
+                ?? $item->variant->price;
+
             $total += $price * $item->quantity;
         }
+
+        $discountAmount =
+            PointsDiscountHelper::calculateDiscountAmount(
+                $total,
+                $pointsUsed
+            );
+
+        $finalTotal =
+            PointsDiscountHelper::calculateFinalTotal(
+                $total,
+                $pointsUsed
+            );
 
         $cart->update([
             'discount_percent' => $discountPercent,
@@ -126,12 +161,12 @@ class ProfessionalCartController extends Controller
             'share_link' => $link
         ]);
 
-        session()->forget('points_used');
-
         return response()->json([
             'status' => 'success',
             'link' => $link,
-            'cart_id' => $cart->id
+            'cart_id' => $cart->id,
+            'discount_amount' => $discountAmount,
+            'final_total' => $finalTotal
         ]);
     }
 
@@ -189,41 +224,89 @@ class ProfessionalCartController extends Controller
             'items.variant.product.mainImage'
         ])
             ->where('professional_id', auth()->id())
-            ->where('status', 'active')
+            ->whereIn('status', ['active', 'locked'])
             ->first();
 
         if (!$cart) {
+
             return response()->json([
                 'items' => [],
-                'cart_total' => 0
+                'cart_total' => 0,
+                'subtotal' => 0,
+                'discount_percent' => 0,
+                'discount_amount' => 0,
+                'final_total' => 0,
+                'status' => 'active'
             ]);
         }
 
         $items = $cart->items->map(function ($item) {
 
             $variant = $item->variant;
+
+            if (!$variant) {
+                return null;
+            }
+
             $product = $variant->product;
 
-            $price = $variant->discounted_price ?? $variant->price;
+            $price = $variant->discounted_price
+                ?? $variant->price;
 
             return [
                 'variant_id' => $variant->id,
+
                 'quantity' => $item->quantity,
+
                 'price' => $price,
 
                 'product' => [
                     'name' => $product->name,
+
                     'price' => $price,
+
                     'main_image' => $product->mainImage
                         ? $product->mainImage->url
                         : null
                 ]
             ];
+        })->filter()->values();
+
+        /*
+    |--------------------------------------------------------------------------
+    | TOTALS
+    |--------------------------------------------------------------------------
+    */
+
+        $subtotal = $items->sum(function ($i) {
+            return $i['price'] * $i['quantity'];
         });
 
+        $discountPercent = $cart->discount_percent ?? 0;
+
+        $discountAmount =
+            ($subtotal * $discountPercent) / 100;
+
+        $finalTotal =
+            max($subtotal - $discountAmount, 0);
+
         return response()->json([
+
             'items' => $items,
-            'cart_total' => $items->sum(fn($i) => $i['price'] * $i['quantity'])
+
+            'subtotal' => round($subtotal, 2),
+
+            'discount_percent' => round($discountPercent, 2),
+
+            'discount_amount' => round($discountAmount, 2),
+
+            'final_total' => round($finalTotal, 2),
+
+            'cart_total' => round($finalTotal, 2),
+
+            'points_used' => $cart->points_used,
+
+            'status' => $cart->status,
         ]);
     }
 

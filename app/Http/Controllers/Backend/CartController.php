@@ -119,12 +119,13 @@ class CartController extends Controller
 
     public function quickView($id)
     {
+        
         $product = Product::with([
             'mainImage',
             'gallery',
             'category',
             'subCategory',
-            'variants.attributes'
+            'variants.attributes.attribute'
         ])->findOrFail($id);
 
         return response()->json($product);
@@ -132,29 +133,29 @@ class CartController extends Controller
 
 
     public function sharedCart($token)
-{
-    $cart = SharedCart::with('items.product')
-        ->where('token', $token)
-        ->where('status', 'active')
-        ->firstOrFail();
+    {
+        $cart = SharedCart::with('items.product')
+            ->where('token', $token)
+            ->where('status', 'active')
+            ->firstOrFail();
 
-    // 🔥 Calculate subtotal
-    $subtotal = 0;
+        // 🔥 Calculate subtotal
+        $subtotal = 0;
 
-    foreach ($cart->items as $item) {
-        $subtotal += $item->product->price * $item->quantity;
+        foreach ($cart->items as $item) {
+            $subtotal += $item->product->price * $item->quantity;
+        }
+
+        // 🔥 Apply discount
+        $discountAmount = ($subtotal * $cart->discount_percent) / 100;
+
+        $total = $subtotal - $discountAmount;
+
+        return view('cart.share-cart', compact(
+            'cart',
+            'subtotal',
+            'discountAmount',
+            'total'
+        ));
     }
-
-    // 🔥 Apply discount
-    $discountAmount = ($subtotal * $cart->discount_percent) / 100;
-
-    $total = $subtotal - $discountAmount;
-
-    return view('cart.share-cart', compact(
-        'cart',
-        'subtotal',
-        'discountAmount',
-        'total'
-    ));
-}
 }

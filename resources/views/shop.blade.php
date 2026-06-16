@@ -15,20 +15,62 @@
                 <!-- SIDEBAR -->
                 <div class="col-lg-3 shop-sidebar">
 
-                    <div class="filter-item">Category <span>+</span></div>
-                    <div class="filter-item">Availability <span>+</span></div>
-                    <div class="filter-item">Price <span>+</span></div>
-                    <div class="filter-item">Product type <span>+</span></div>
-                    <div class="filter-item">Brand <span>+</span></div>
+                    <!-- CATEGORY -->
+                    <div class="filter-box mb-3">
 
-                    <button class="btn-clear" id="cta-btn">Clear All</button>
+                        <div class="filter-item toggle-filter">
+                            Category
+                            <span class="toggle-icon">+</span>
+                        </div>
 
-                    <h5 class="mt-4">Best Sellers</h5>
+                        <div class="filter-content">
 
-                    <div class="best-slider">
-                        <img src="assets/images/na-mp-4.webp">
-                        <img src="assets/images/na-mp-5.webp">
-                        <img src="assets/images/na-mp-2.webp">
+                            @foreach ($categories as $category)
+                                <div class="form-check mb-2">
+
+                                    <input class="form-check-input filter-checkbox" type="checkbox"
+                                        value="{{ $category->id }}" data-type="category" id="category{{ $category->id }}">
+
+                                    <label class="form-check-label" for="category{{ $category->id }}">
+
+                                        {{ $category->name }}
+
+                                    </label>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                    <!-- BRAND -->
+                    <div class="filter-box mb-3">
+
+                        <div class="filter-item toggle-filter">
+                            Brand
+                            <span class="toggle-icon">+</span>
+                        </div>
+
+                        <div class="filter-content">
+
+                            @foreach ($brands as $brand)
+                                <div class="form-check mb-2">
+
+                                    <input class="form-check-input filter-checkbox" type="checkbox"
+                                        value="{{ $brand->id }}" data-type="brand" id="brand{{ $brand->id }}">
+
+                                    <label class="form-check-label" for="brand{{ $brand->id }}">
+
+                                        {{ $brand->name }}
+
+                                    </label>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -44,8 +86,14 @@
 
                             <div>
                                 Displayed As
-                                <button class="btn btn-dark btn-sm">▦</button>
-                                <button class="btn btn-light btn-sm">☰</button>
+
+                                <button type="button" class="btn btn-light btn-sm display-btn" id="gridView">
+                                    <i class="fa-solid fa-grip"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-light btn-sm display-btn" id="listView">
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
                             </div>
 
                             <div>
@@ -81,52 +129,16 @@
                     </form>
 
                     <!-- GRID -->
-                    <div class="row g-4">
+                    <div class="row g-4" id="productsWrapper">
 
-                        @forelse($products as $product)
-                            <div class="col-md-4">
-                                <div class="product-box">
+                        @include('partials.shop-products', ['products' => $products])
 
-                                    <div class="product-img">
-                                        <img src="{{ asset('storage/' . $product->mainImage->url) }}">
-                                        <div class="hover-icons">
-                                            <button class="icon-btn quick-view-btn"
-                                                data-product-id="{{ $product->id }}">
-                                                <i class="bi bi-search"></i>
-                                            </button>
+                    </div>
 
-                                            <button class="icon-btn wishlist-btn"
-                                                data-product-id="{{ $product->id }}">
-                                                <i
-                                                    class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($product->id) ? 'text-danger' : '' }}"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                    <!-- PAGINATION -->
+                    <div class="d-flex justify-content-center mt-4">
 
-                                    <small>{{ $product->category->name ?? '' }}</small>
-
-                                    {{-- <a href="{{ route('productDetails', $product->slug) }}"> --}}
-                                    <a class="text-dark text-decoration-none" href="{{ route('productDetails', $product->slug) }}">
-                                        <h6>{{ $product->name }}</h6>
-                                    </a>
-                                    {{-- </a> --}}
-
-                                    <strong>${{ $product->firstVariant->price }}</strong>
-
-                                    <button id="cta-btn" class="shop-btn quick-view-btn"
-                                        data-product-id="{{ $product->id }}">
-                                        Add to Cart
-                                    </button>
-
-                                </div>
-                            </div>
-
-                        @empty
-
-                            <div class="col-12 text-center">
-                                <h4>No Products Found</h4>
-                            </div>
-                        @endforelse
+                        {{ $products->links('pagination::bootstrap-5') }}
 
                     </div>
 
@@ -139,6 +151,64 @@
 @section('css')
     <style type="text/css">
         /*in page css here*/
+        /* LIST VIEW */
+        .list-view .product-column {
+            width: 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .list-view .product-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .list-view .product-img {
+            width: 220px;
+            flex-shrink: 0;
+        }
+
+        .list-view .product-img img {
+            width: 100%;
+        }
+
+        .list-view .shop-btn {
+            width: fit-content;
+        }
+
+        /* GRID VIEW */
+        .grid-view .product-box {
+            display: block;
+        }
+
+        .filter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .filter-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-top: 0;
+        }
+
+        .toggle-icon {
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .filter-item.active .toggle-icon {
+            transform: rotate(45deg);
+        }
     </style>
 @endsection
 @section('js')
@@ -153,5 +223,146 @@
             currentUrl.searchParams.set('sort', sortOption);
             window.location.href = currentUrl.toString();
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            const wrapper = $('#productsWrapper');
+
+            function setActiveButton(type) {
+
+                $('.display-btn')
+                    .removeClass('btn-dark')
+                    .addClass('btn-light');
+
+                if (type == 'grid') {
+
+                    $('#gridView')
+                        .removeClass('btn-light')
+                        .addClass('btn-dark');
+
+                } else {
+
+                    $('#listView')
+                        .removeClass('btn-light')
+                        .addClass('btn-dark');
+                }
+            }
+
+            // DEFAULT VIEW
+            if (localStorage.getItem('displayType') == 'list') {
+
+                wrapper.removeClass('grid-view').addClass('list-view');
+
+                setActiveButton('list');
+
+            } else {
+
+                wrapper.removeClass('list-view').addClass('grid-view');
+
+                setActiveButton('grid');
+            }
+
+            // GRID VIEW
+            $('#gridView').click(function() {
+
+                wrapper.removeClass('list-view').addClass('grid-view');
+
+                localStorage.setItem('displayType', 'grid');
+
+                setActiveButton('grid');
+            });
+
+            // LIST VIEW
+            $('#listView').click(function() {
+
+                wrapper.removeClass('grid-view').addClass('list-view');
+
+                localStorage.setItem('displayType', 'list');
+
+                setActiveButton('list');
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $('.toggle-filter').click(function() {
+
+                const content = $(this).next('.filter-content');
+
+                $('.filter-content').not(content).slideUp();
+
+                $('.toggle-filter').not(this).removeClass('active');
+
+                content.slideToggle();
+
+                $(this).toggleClass('active');
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            function filterProducts() {
+
+                let categories = [];
+                let brands = [];
+
+                $('.filter-checkbox[data-type="category"]:checked').each(function() {
+
+                    categories.push($(this).val());
+
+                });
+
+                $('.filter-checkbox[data-type="brand"]:checked').each(function() {
+
+                    brands.push($(this).val());
+
+                });
+
+                let sort = $('select[name="sort"]').val();
+
+                $.ajax({
+
+                    url: "{{ route('shop.filter.ajax') }}",
+                    type: "GET",
+                    dataType: "html",
+
+                    data: {
+                        categories: categories,
+                        brands: brands,
+                        sort: sort
+                    },
+
+                    success: function(response) {
+
+                        $('#productsWrapper').html(response);
+
+                    }
+
+                });
+
+            }
+
+            // FILTER CHANGE
+            $(document).on('change', '.filter-checkbox', function() {
+
+                filterProducts();
+
+            });
+
+            // SORT CHANGE
+            $('select[name="sort"]').change(function(e) {
+
+                e.preventDefault();
+
+                filterProducts();
+
+            });
+
+        });
     </script>
 @endsection

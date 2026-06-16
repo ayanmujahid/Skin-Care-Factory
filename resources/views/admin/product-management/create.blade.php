@@ -189,6 +189,17 @@
 
         </div>
     </div>
+    
+    <div id="dragOverlay">
+    <div class="drag-content">
+        <i class="fa fa-cloud-upload-alt"></i>
+        <h2>Drop Images Anywhere</h2>
+        <p>
+            First image will become Main Image<br>
+            Remaining images will go to Gallery
+        </p>
+    </div>
+</div>
 @endsection
 @section('css')
     <style>
@@ -220,9 +231,116 @@
             cursor: pointer;
             font-size: 14px;
         }
+
+        #dragOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+#dragOverlay.active {
+    display: flex;
+}
+
+.drag-content {
+    text-align: center;
+    color: white;
+    border: 2px dashed rgba(255,255,255,0.5);
+    padding: 60px;
+    border-radius: 20px;
+    width: 500px;
+    max-width: 90%;
+    background: rgba(255,255,255,0.05);
+}
+
+.drag-content i {
+    font-size: 70px;
+    margin-bottom: 20px;
+}
+
+.drag-content h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.drag-content p {
+    font-size: 16px;
+    opacity: 0.8;
+}
     </style>
 @endsection
 @section('js')
+
+<script>
+    let dragCounter = 0;
+
+    const dragOverlay = document.getElementById('dragOverlay');
+    const mainImageInput = document.getElementById('mainImageInput');
+    const galleryInput = document.getElementById('galleryInput');
+
+    // SHOW OVERLAY
+    document.addEventListener('dragenter', function(e) {
+        e.preventDefault();
+        dragCounter++;
+
+        if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+            dragOverlay.classList.add('active');
+        }
+    });
+
+    // HIDE OVERLAY
+    document.addEventListener('dragleave', function(e) {
+        dragCounter--;
+
+        if (dragCounter === 0) {
+            dragOverlay.classList.remove('active');
+        }
+    });
+
+    // PREVENT DEFAULT
+    document.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+
+    // DROP
+    document.addEventListener('drop', function(e) {
+        e.preventDefault();
+
+        dragOverlay.classList.remove('active');
+        dragCounter = 0;
+
+        const files = Array.from(e.dataTransfer.files)
+            .filter(file => file.type.startsWith('image/'));
+
+        if (!files.length) return;
+
+        // FIRST IMAGE => MAIN IMAGE
+        const mainImage = files[0];
+
+        const mainDT = new DataTransfer();
+        mainDT.items.add(mainImage);
+
+        mainImageInput.files = mainDT.files;
+
+        // TRIGGER MAIN IMAGE PREVIEW
+        mainImageInput.dispatchEvent(new Event('change'));
+
+        // REMAINING => GALLERY
+        const galleryImages = files.slice(1);
+
+        galleryFiles = [...galleryFiles, ...galleryImages];
+
+        updateGalleryInput();
+        renderGallery();
+    });
+</script>
+
     <script>
         /* MAIN IMAGE PREVIEW */
         document.getElementById('mainImageInput').addEventListener('change', function() {
@@ -359,53 +477,84 @@
         });
     </script>
     <script>
-        let variantIndex = 1;
+    let variantIndex = 1;
 
-        document.getElementById('add-variant').addEventListener('click', function() {
+    // ADD VARIANT
+    document.getElementById('add-variant').addEventListener('click', function() {
 
-            let html = `
-    <div class="variant-box border p-3 mb-3">
+        let html = `
+        <div class="variant-box border p-3 mb-3 position-relative">
 
-        <div class="row">
+            <!-- REMOVE BUTTON -->
+            <button type="button"
+                class="btn btn-danger btn-sm remove-variant"
+                style="position:absolute; top:1px; right:10px;">
+                Remove
+            </button>
 
-            <div class="col-md-4 mb-2">
-                <label>Price</label>
-                <input type="number" name="variants[${variantIndex}][price]" class="form-control" step="0.01" required>
+            <div class="row">
+
+                <div class="col-md-4 mb-2">
+                    <label>Price</label>
+                    <input type="number"
+                        name="variants[${variantIndex}][price]"
+                        class="form-control"
+                        step="0.01"
+                        required>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                    <label>Compare Price</label>
+                    <input type="number"
+                        name="variants[${variantIndex}][compare_price]"
+                        class="form-control"
+                        step="0.01">
+                </div>
+
+                <div class="col-md-4 mb-2">
+                    <label>Stock</label>
+                    <input type="number"
+                        name="variants[${variantIndex}][stock]"
+                        class="form-control">
+                </div>
+
             </div>
 
-            <div class="col-md-4 mb-2">
-                <label>Compare Price</label>
-                <input type="number" name="variants[${variantIndex}][compare_price]" class="form-control" step="0.01">
+            <hr>
+
+            <h6>Attributes</h6>
+
+            <div class="row mb-2">
+                <div class="col-md-5">
+                    <input type="text"
+                        name="variants[${variantIndex}][attributes][0][name]"
+                        class="form-control"
+                        placeholder="Attribute">
+                </div>
+
+                <div class="col-md-5">
+                    <input type="text"
+                        name="variants[${variantIndex}][attributes][0][value]"
+                        class="form-control"
+                        placeholder="Value">
+                </div>
             </div>
 
-            <div class="col-md-4 mb-2">
-                <label>Stock</label>
-                <input type="number" name="variants[${variantIndex}][stock]" class="form-control">
-            </div>
+        </div>`;
 
-        </div>
+        document.getElementById('variants-wrapper')
+            .insertAdjacentHTML('beforeend', html);
 
-        <hr>
+        variantIndex++;
+    });
 
-        <h6>Attributes</h6>
-
-        <div class="row mb-2">
-            <div class="col-md-5">
-                <input type="text" name="variants[${variantIndex}][attributes][0][name]" class="form-control" placeholder="Attribute">
-            </div>
-
-            <div class="col-md-5">
-                <input type="text" name="variants[${variantIndex}][attributes][0][value]" class="form-control" placeholder="Value">
-            </div>
-        </div>
-
-    </div>`;
-
-            document.getElementById('variants-wrapper').insertAdjacentHTML('beforeend', html);
-
-            variantIndex++;
-        });
-    </script>
+    // REMOVE VARIANT
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-variant')) {
+            e.target.closest('.variant-box').remove();
+        }
+    });
+</script>
     <script>
         CKEDITOR.replace('description');
         CKEDITOR.replace('benefits');

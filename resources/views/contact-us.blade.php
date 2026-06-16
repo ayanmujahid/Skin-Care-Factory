@@ -1,208 +1,268 @@
 @extends('layouts.main')
 @section('content')
-<!-- ================= Contact Banner ================= -->
- <!-- Contact page content -->
-        <div class="contact-page-area">
 
-            <!-- contact page map -->
-            <div class="contact-page-map">
-                <!-- Google Map Start -->
-                <div class="container">
-                    <div id="map"></div>
-                </div>
-                <!-- Google Map End -->
+    <!-- Banner -->
+    <section class="collection-banner text-center">
+        <h2>Contact Us</h2>
+        <p>Home / Contact Us</p>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="py-5">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Get In Touch</h2>
+                <p class="text-muted">
+                    We'd love to hear from you. Reach out for product inquiries,
+                    support, or general questions.
+                </p>
             </div>
-            <!-- contact page map -->
 
-            <!-- contact form area -->
-            <div class="contact-form-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="contact-form-inner">
-                                <h2>TELL US YOUR PROJECT</h2>
-                                <form action="{{route('contactSubmit')}}" method="POST">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control" name="name" placeholder="Full Name*" required>
-                                        </div>
-                                        {{-- <div class="col">
-                                            <input type="text" class="form-control" placeholder="Last name*" required>
-                                        </div> --}}
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control" name="email" placeholder="Email*" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control" name="subject" placeholder="Subject*" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true"
-                                                aria-invalid="false" placeholder="Message *" required></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="contact-submit">
-                                        <input type="submit" value="Send Email" class="wpcf7-form-control wpcf7-submit button">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="contact-address-area">
-                                <h2>CONTACT US</h2>
-                                <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est
-                                    notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
-                                <ul>
-                                    <li>
-                                        <i class="fa fa-fax">&nbsp;</i> Address : No 40 Baria Sreet 133/2 NewYork City</li>
-                                    <li>
-                                        <i class="fa fa-phone">&nbsp;</i> Info@roadthemes.com</li>
-                                    <li>
-                                        <i class="fa fa-envelope-o"></i>&nbsp;</i>0314-2957246</li>
-                                </ul>
-                                <h3>
-                                    <strong>Working hours</strong>
-                                </h3>
-                                <p>
-                                    <strong>Monday – Saturday</strong>: &nbsp;08AM – 22PM</p>
-                            </div>
-                        </div>
+            <div class="row g-4 mb-5">
+
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <i class="fa fa-map-marker"></i>
+                        <h5>Address</h5>
+                        <p>
+                            SkinCare Factory<br>
+                            Austin, Texas
+                        </p>
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <i class="fa fa-envelope"></i>
+                        <h5>Email</h5>
+                        <p>
+                            info@skincarefactory.com
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <i class="fa fa-phone"></i>
+                        <h5>Phone</h5>
+                        <p>
+                            +1 (123) 123-1234
+                        </p>
+                    </div>
+                </div>
+
             </div>
-            <!-- contact form area end -->
 
         </div>
-        <!-- Contact page content end -->
+    </section>
+
+    <!-- Contact Form + Details -->
+    <section class="pb-5">
+        <div class="container">
+
+            <div class="row g-5">
+
+                <div class="col-lg-7">
+
+                    <div class="contact-box">
+
+                        <h3 class="mb-4">
+                            Send Us a Message
+                        </h3>
+
+                        <form action="{{ route('contactSubmit') }}" method="POST">
+                            @csrf
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <input type="text"
+                                           name="name"
+                                           class="form-control"
+                                           placeholder="Full Name"
+                                           required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email"
+                                           name="email"
+                                           class="form-control"
+                                           placeholder="Email Address"
+                                           required>
+                                </div>
+
+                                <div class="col-12">
+                                    <input type="text"
+                                           name="subject"
+                                           class="form-control"
+                                           placeholder="Subject"
+                                           required>
+                                </div>
+
+                                <div class="col-12">
+                                    <textarea name="message"
+                                              rows="6"
+                                              class="form-control"
+                                              placeholder="Write your message..."
+                                              required></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary px-4">
+                                        Send Message
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="contact-box h-100">
+
+                        <h3 class="mb-4">
+                            Business Information
+                        </h3>
+
+                        <p class="text-muted">
+                            SkinCare Factory is dedicated to helping customers
+                            discover high-quality skincare solutions and expert
+                            educational resources.
+                        </p>
+
+                        <ul class="list-unstyled contact-list">
+                            <li>
+                                <strong>Working Hours</strong><br>
+                                Monday - Friday: 9:00 AM - 6:00 PM
+                            </li>
+
+                            <li>
+                                <strong>Email</strong><br>
+                                info@skincarefactory.com
+                            </li>
+
+                            <li>
+                                <strong>Phone</strong><br>
+                                +1 (123) 123-1234
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="pb-5">
+        <div class="container">
+            <div class="map-wrapper">
+
+                <iframe
+                    src="https://maps.google.com/maps?q=austin&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+
+            </div>
+        </div>
+    </section>
+
 @endsection
 @section('css')
-    <style type="text/css">
-        /*in page css here*/
-    </style>
-@endsection
-@section('js')
-    <script type="text/javascript">
-        (() => {
-            /*in page js here*/
-        })()
-    </script>
-    <script>
-        // When the window has finished loading create our google map below
-        google.maps.event.addDomListener(window, 'load', init);
+<style>
 
-        function init() {
-            // Basic options for a simple Google Map
-            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            var mapOptions = {
-                // How zoomed in you want the map to start at (always required)
-                zoom: 11,
+section{
+    background: #fbf5ec;
+}
 
-                scrollwheel: false,
+    .contact-card{
+        background:#f2ddc3;
+        border:1px solid #ececec;
+        border-radius:15px;
+        padding:30px 20px;
+        transition:.3s;
+        height:100%;
+    }
 
-                // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(23.761226, 90.420766), // New York
+    .contact-card:hover{
+        transform:translateY(-5px);
+        box-shadow:0 15px 30px rgba(0,0,0,.08);
+    }
 
-                // How you would like to style the map. 
-                // This is where you would paste any style found on Snazzy Maps.
-                styles: [{
-                        "featureType": "administrative",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#444444"
-                        }]
-                    },
-                    {
-                        "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [{
-                            "color": "#f2f2f2"
-                        }]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "all",
-                        "stylers": [{
-                            "visibility": "off"
-                        }]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "all",
-                        "stylers": [{
-                                "saturation": -100
-                            },
-                            {
-                                "lightness": 45
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "all",
-                        "stylers": [{
-                            "visibility": "simplified"
-                        }]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "labels.icon",
-                        "stylers": [{
-                            "visibility": "off"
-                        }]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "all",
-                        "stylers": [{
-                            "visibility": "off"
-                        }]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "all",
-                        "stylers": [{
-                                "color": "#314453"
-                            },
-                            {
-                                "visibility": "on"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry.fill",
-                        "stylers": [{
-                                "lightness": "-12"
-                            },
-                            {
-                                "saturation": "0"
-                            },
-                            {
-                                "color": "#4bc7e9"
-                            }
-                        ]
-                    }
-                ]
-            };
+    .contact-card i{
+        font-size:35px !important;
+        margin-bottom:15px;
+    }
 
-            // Get the HTML DOM element that will contain your map 
-            // We are using a div with id="map" seen below in the <body>
-            var mapElement = document.getElementById('map');
+    .contact-box{
+        background:#fbf5ec;
+        border:1px solid #ececec;
+        border-radius:15px;
+        padding:35px;
+        box-shadow:0 5px 20px rgba(0,0,0,.04);
+    }
 
-            // Create the Google Map using our element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
+    .contact-box .form-control{
+        height:52px;
+        border-radius:10px;
+    }
 
-            // Let's also add a marker while we're at it
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(23.761226, 90.420766),
-                map: map,
-                title: 'Snazzy!'
-            });
+    .contact-box textarea.form-control{
+        height:auto;
+    }
+
+    .contact-list li{
+        margin-bottom:25px;
+        color:#6c757d;
+    }
+
+    .map-wrapper{
+        overflow:hidden;
+        border-radius:15px;
+        box-shadow:0 10px 25px rgba(0,0,0,.08);
+    }
+
+     .btn-primary {
+            background: #000;
+            border-color: #000;
         }
 
-    </script>
+        .btn-primary:hover {
+            background: #fbf5ec;
+            border-color: #000;
+            color: #000
+        }
+
+    @media(max-width:767px){
+
+        .contact-box{
+            padding:25px;
+        }
+
+        .contact-card{
+            padding:25px 15px;
+        }
+
+    }
+
+</style>
+@endsection
+@section('js')
+<script>
+    (() => {
+
+    })();
+</script>
 @endsection

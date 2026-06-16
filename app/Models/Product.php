@@ -64,9 +64,9 @@ class Product extends Model
     }
 
     public function firstVariant()
-{
-    return $this->hasOne(ProductVariant::class)->orderBy('price');
-}
+    {
+        return $this->hasOne(ProductVariant::class)->orderBy('price');
+    }
 
 
     public function orderItems()
@@ -74,6 +74,8 @@ class Product extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-
-
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

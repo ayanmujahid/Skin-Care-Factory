@@ -61,14 +61,24 @@
 
                     <div id="variant-options">
                         @foreach ($product->variants as $v)
+                            @php
+                                $variantLabel = $v->attributes
+                                    ->map(function ($attr) {
+                                        return $attr->attribute->name . ': ' . $attr->value;
+                                    })
+                                    ->implode(', ');
+                            @endphp
+
                             <div class="form-check mb-2">
+
                                 <input class="form-check-input variant-radio" type="radio" name="variant"
                                     value="{{ $v->id }}" data-price="{{ $v->price }}"
-                                    data-stock="{{ $v->stock ?? 0 }}">
+                                    data-stock="{{ $v->stock ?? 0 }}" {{ $loop->first ? 'checked' : '' }}>
 
                                 <label class="form-check-label">
-                                    {{ $v->sku ?? 'Variant' }} - ${{ $v->price }}
+                                    {{ $variantLabel }} - ${{ $v->price }}
                                 </label>
+
                             </div>
                         @endforeach
                     </div>
@@ -77,7 +87,7 @@
                     {{-- <p class="product-varients"><strong>Type:</strong></p> --}}
 
                     <p class="product-varients"><strong>Availability:</strong> <span
-                            class="stock">{{ $product->total_stock ?? 0 }}</span></p>
+                            class="stock">{{ $product->variants->first()->stock ?? 0 }}</span></p>
 
                     <!-- QTY -->
                     <div class="qty-box">
@@ -90,7 +100,7 @@
                         Add to Cart
                     </button>
                     <button
-                        class="wishlist-btn {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($upperNewProduct->id) ? 'text-danger' : '' }}"
+                        class="wishlist-btn {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($product->id) ? 'text-danger' : '' }}"
                         data-product-id="{{ $product->id }}">Add to wishlist</button>
                     {{-- <button class="buy-btn">Buy it now</button> --}}
 
@@ -157,23 +167,52 @@
             <!-- TITLE -->
             <h3 class="text-center mb-4">Customer Reviews</h3>
 
+            @php
+                $reviews = $product->reviews->where('status', 1);
+
+                $total = $reviews->count();
+                $avg = $total ? round($reviews->avg('rating'), 1) : 0;
+
+                $ratingCount = [
+                    5 => $reviews->where('rating', 5)->count(),
+                    4 => $reviews->where('rating', 4)->count(),
+                    3 => $reviews->where('rating', 3)->count(),
+                    2 => $reviews->where('rating', 2)->count(),
+                    1 => $reviews->where('rating', 1)->count(),
+                ];
+            @endphp
+
             <!-- SUMMARY ROW -->
             <div class="row align-items-center mb-4">
 
                 <!-- LEFT -->
                 <div class="col-md-4 text-center">
-                    <div class="stars">★★★★☆</div>
-                    <p>4.00 out of 5</p>
-                    <small>Based on 1 review ✔</small>
+                    <div class="stars">
+                        {{ str_repeat('★', floor($avg)) }}{{ str_repeat('☆', 5 - floor($avg)) }}
+                    </div>
+                    <p>{{ $avg }} out of 5</p>
+                    <small>Based on {{ $total }} review(s) ✔</small>
                 </div>
 
                 <!-- MIDDLE -->
                 <div class="col-md-4">
-                    <div class="rating-row">★★★★★ <div class="bar"></div> <span>0</span></div>
-                    <div class="rating-row">★★★★☆ <div class="bar active"></div> <span>1</span></div>
-                    <div class="rating-row">★★★☆☆ <div class="bar"></div> <span>0</span></div>
-                    <div class="rating-row">★★☆☆☆ <div class="bar"></div> <span>0</span></div>
-                    <div class="rating-row">★☆☆☆☆ <div class="bar"></div> <span>0</span></div>
+
+                    @for ($i = 5; $i >= 1; $i--)
+                        @php
+                            $percent = $total ? ($ratingCount[$i] / $total) * 100 : 0;
+                        @endphp
+
+                        <div class="rating-row">
+                            {{ str_repeat('★', $i) }}{{ str_repeat('☆', 5 - $i) }}
+
+                            <div class="bar">
+                                <div style="width:{{ $percent }}%;height:100%;background:#000;"></div>
+                            </div>
+
+                            <span>{{ $ratingCount[$i] }}</span>
+                        </div>
+                    @endfor
+
                 </div>
 
                 <!-- RIGHT -->
@@ -186,62 +225,87 @@
             <hr>
 
             <!-- REVIEW LIST -->
-            <div class="review-item py-3">
-                <div class="stars">★★★★☆</div>
-                <strong>Jasminie</strong>
-                <span class="float-end">10/26/2022</span>
-                <p class="mt-2 fw-bold">Cursus eget nunc scelerisque viverra</p>
-                <p>
-                    Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus.
-                    Magnis dis parturient montes nascetur.
-                </p>
-            </div>
+            @forelse($reviews as $review)
+                <div class="review-item py-3">
+                    <div class="stars">
+                        {{ str_repeat('★', $review->rating) }}{{ str_repeat('☆', 5 - $review->rating) }}
+                    </div>
 
-            <hr>
+                    <strong>{{ $review->name }}</strong>
 
-            <!-- REVIEW FORM (HIDDEN INITIALLY) -->
+                    <span class="float-end">
+                        {{ $review->created_at->format('m/d/Y') }}
+                    </span>
+
+                    <p class="mt-2 fw-bold"></p>
+
+                    <p>{{ $review->content }}</p>
+                </div>
+                <hr>
+            @empty
+                <p class="text-center">No reviews yet.</p>
+            @endforelse
+
+            <!-- REVIEW FORM -->
             <div id="reviewForm" class="review-form mt-5" style="display:none;">
+
                 <h4 class="text-center mb-4">Write a review</h4>
 
+                <!-- RATING -->
                 <div class="text-center mb-3">
                     Rating <br>
-                    ★★★★★
+                    <div id="starRating" style="font-size:30px;cursor:pointer;">
+                        ☆☆☆☆☆
+                    </div>
+                    <input type="hidden" id="rating" value="0">
                 </div>
 
-                <div class="mb-3">
-                    <label>Review Title (100)</label>
-                    <input type="text" class="form-control" placeholder="Give your review a title">
-                </div>
-
-                <div class="mb-3">
-                    <label>Review content</label>
-                    <textarea class="form-control" rows="4" placeholder="Start writing here..."></textarea>
-                </div>
-
-                <div class="mb-3 text-center">
-                    <label>Picture/Video (optional)</label>
-                    <div class="upload-box">⬆</div>
-                </div>
-
+                <!-- NAME -->
                 <div class="mb-3">
                     <label>Display name</label>
-                    <input type="text" class="form-control" placeholder="Display name">
+                    <input type="text" id="name" class="form-control" placeholder="Display name">
                 </div>
 
+                <!-- EMAIL -->
                 <div class="mb-3">
                     <label>Email address</label>
-                    <input type="email" class="form-control" placeholder="Your email address">
+                    <input type="email" id="email" class="form-control" placeholder="Your email address">
+                </div>
+
+                <!-- CONTENT -->
+                <div class="mb-3">
+                    <label>Review content</label>
+                    <textarea id="content" class="form-control" rows="4"></textarea>
+                </div>
+
+                <!-- UPLOAD -->
+                <div class="mb-3 text-center">
+                    <label>Picture/Video (optional)</label>
+
+                    <input type="file" id="files" multiple hidden>
+
+                    <div class="upload-box" onclick="document.getElementById('files').click()">
+                        ⬆
+                    </div>
                 </div>
 
                 <p class="small">
-                    How we use your data: We'll only contact you about the review you left,
-                    and only if necessary.
+                    How we use your data: We'll only contact you about your review.
                 </p>
 
+                <!-- ACTIONS -->
                 <div class="text-center mt-3">
-                    <button id="cancelReview" class="btn btn-outline-dark me-2">Cancel review</button>
-                    <button class="btn btn-dark">Submit Review</button>
+
+                    <button id="cancelReview" class="btn btn-outline-dark me-2">
+                        Cancel review
+                    </button>
+
+                    <button id="submitReview" class="btn btn-dark">
+                        Submit Review
+                    </button>
+
                 </div>
+
             </div>
 
         </div>
@@ -278,7 +342,7 @@
         // ===== Quantity Buttons =====
     </script>
 
-    <script>
+    {{-- <script>
         $(document).on('click', '.add-cart', function(e) {
             e.preventDefault();
 
@@ -310,7 +374,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const mainImage = document.getElementById("mainProductImage");
@@ -338,61 +402,92 @@
     </script>
 
     <script>
-        $(document).on('change', '.variant-radio', function () {
+        $(document).on('change', '.variant-radio', function() {
 
-    let price = $(this).data('price');
-    $('#product-price').text(price);
+            let price = $(this).data('price');
+            let stock = $(this).data('stock');
 
-    $('#qty').val(1);
-});
+            $('#product-price').text(price);
+            $('.stock').text(stock);
+
+            $('#qty').val(1);
+        });
+
+        $(document).on('click', '#qty-plus', function() {
+            let qty = parseInt($('#qty').val()) + 1;
+            $('#qty').val(qty);
+        });
+
+        $(document).on('click', '#qty-minus', function() {
+            let qty = parseInt($('#qty').val()) - 1;
+            if (qty < 1) qty = 1;
+            $('#qty').val(qty);
+        });
 
 
-$(document).on('click', '#qty-plus', function () {
-    let qty = parseInt($('#qty').val()) + 1;
-    $('#qty').val(qty);
-});
+        // $(document).on('click', '#add-to-cart-btn', function() {
 
-$(document).on('click', '#qty-minus', function () {
-    let qty = parseInt($('#qty').val()) - 1;
-    if (qty < 1) qty = 1;
-    $('#qty').val(qty);
-});
+        //     let variantId = $('input[name="variant"]:checked').val();
+        //     let qty = $('#qty').val();
 
+        //     if (!variantId) {
+        //         Swal.fire('Please select a variant');
+        //         return;
+        //     }
 
-$(document).on('click', '#add-to-cart-btn', function () {
+        //     $.ajax({
+        //         url: '/cart/add',
+        //         method: 'POST',
+        //         data: {
+        //             variant_id: variantId,
+        //             quantity: qty,
+        //             _token: $('meta[name="csrf-token"]').attr('content')
+        //         },
 
-    let variantId = $('input[name="variant"]:checked').val();
-    let qty = $('#qty').val();
+        //         success: function(res) {
 
-    if (!variantId) {
-        Swal.fire('Please select a variant');
-        return;
-    }
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: res.message || 'Added to cart'
+        //             });
 
-    $.ajax({
-        url: '/cart/add',
-        method: 'POST',
-        data: {
-            variant_id: variantId,
-            quantity: qty,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        },
+        //             loadCart(); // reuse your existing cart refresh
+        //         },
 
-        success: function (res) {
+        //         error: function() {
+        //             Swal.fire('Something went wrong');
+        //         }
+        //     });
 
-            Swal.fire({
-                icon: 'success',
-                title: res.message || 'Added to cart'
+        // });
+    </script>
+
+    {{-- Review --}}
+
+    <script>
+        document.querySelectorAll('#starRating').forEach(el => {
+
+            el.innerHTML = '☆☆☆☆☆';
+
+            el.addEventListener('click', function(e) {
+
+                const stars = this.innerText.split('');
+
+                let index = Math.floor(e.offsetX / (this.offsetWidth / 5));
+
+                rating = index + 1;
+
+                let output = '';
+
+                for (let i = 1; i <= 5; i++) {
+                    output += (i <= rating) ? '★' : '☆';
+                }
+
+                this.innerHTML = output;
+                document.getElementById('rating').value = rating;
+
             });
 
-            loadCart(); // reuse your existing cart refresh
-        },
-
-        error: function () {
-            Swal.fire('Something went wrong');
-        }
-    });
-
-});
+        });
     </script>
 @endsection
