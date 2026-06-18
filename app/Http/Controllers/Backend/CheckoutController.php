@@ -13,7 +13,8 @@ use App\Mail\OrderPlacedMail;
 use App\Models\SharedCart;
 use App\Models\PointsTransaction;
 use App\Models\User;
-
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 
 class CheckoutController extends Controller
 {
@@ -125,9 +126,21 @@ class CheckoutController extends Controller
     | CREATE ORDER
     |--------------------------------------------------------------------------
     */
+        $paymentIntentId = $request->payment_intent_id;
+
+        if (!$paymentIntentId) {
+            return back()->with('error', 'Payment not completed.');
+        }
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $paymentIntent = PaymentIntent::retrieve($paymentIntentId);
+
+        if ($paymentIntent->status !== 'succeeded') {
+            return back()->with('error', 'Payment not successful.');
+        }
 
         $order = Order::create([
-
             'user_id' => auth()->id(),
 
             'name'    => $request->name,
@@ -142,14 +155,15 @@ class CheckoutController extends Controller
 
             'total'   => $finalTotal,
 
-            'professional_id' =>
-            $isShared ? $sharedCart->professional_id : null,
+            // 🔥 Stripe fields
+            'payment_method' => 'stripe',
+            'payment_intent_id' => $paymentIntentId,
+            'transaction_id' => $paymentIntentId,
+            'paid_at' => now(),
 
-            'shared_cart_id'  =>
-            $isShared ? $sharedCart->id : null,
-
-            'is_shared_cart'  =>
-            $isShared ? 1 : 0,
+            'professional_id' => $isShared ? $sharedCart->professional_id : null,
+            'shared_cart_id'  => $isShared ? $sharedCart->id : null,
+            'is_shared_cart'  => $isShared ? 1 : 0,
         ]);
 
         /*
@@ -241,5 +255,24 @@ class CheckoutController extends Controller
         return redirect()
             ->route('shop')
             ->with('notify_success', 'Order placed successfully!');
+    }
+
+    public function createPaymentIntent(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $amount = $request->total;
+
+        $intent = PaymentIntent::create([
+            'amount' => intval($amount * 100),
+            'currency' => 'usd',
+            'automatic_payment_methods' => [
+                'enabled' => true,
+            ],
+        ]);
+
+        return response()->json([
+            'clientSecret' => $intent->client_secret
+        ]);
     }
 }

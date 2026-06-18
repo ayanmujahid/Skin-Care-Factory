@@ -6,7 +6,9 @@
 
         <div class="product-img">
 
-            <img src="{{ asset('storage/' . $product->mainImage->url) }}">
+            <img src="{{ $product->mainImage?->url
+    ? asset('storage/' . $product->mainImage->url)
+    : asset('assets/images/placeholder.png') }}">
 
         </div>
 

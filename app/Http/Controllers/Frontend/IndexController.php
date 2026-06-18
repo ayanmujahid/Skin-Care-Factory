@@ -12,6 +12,7 @@ use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SharedCart;
 
+
 class IndexController extends Controller
 {
     public function __construct()
@@ -139,6 +140,10 @@ class IndexController extends Controller
             'isShared' => false
         ]);
     }
+
+
+
+
 
     public function contactUs()
     {
@@ -448,5 +453,10 @@ class IndexController extends Controller
         return response()->json([
             'html' => $html
         ]);
+    }
+
+    public function paymentSuccess()
+    {
+        return view('payment-success')->with('title', 'Payment Success');
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, ReviewController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
+use App\Http\Controllers\Backend\{AdminController, CouponController, ReviewController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\CouponFrontendController;
 use App\Http\Controllers\Frontend\ReviewFrontendController;
 use App\Http\Controllers\Frontend\ProductImportController;
 use App\Http\Controllers\Professionals\ProfessionalCartController;
@@ -56,6 +57,12 @@ Route::get('/product-search', [IndexController::class, 'search'])
 // ---------------------------------------For Frontend-----------------------------------
 
 
+// ---------------------------------------For Coupon-----------------------------------
+Route::post('/apply-coupon', [CouponFrontendController::class, 'applyCoupon']);
+Route::post('/remove-coupon', [CouponFrontendController::class, 'removeCoupon']);
+// ---------------------------------------For Coupon-----------------------------------
+
+
 // ---------------------------------------For Cart Setup-----------------------------------
 Route::get('/product/quick-view/{id}', [CartController::class, 'quickView']);
 Route::post('/place-order/{token?}', [CheckoutController::class, 'placeOrder'])->name('place.order');
@@ -81,13 +88,20 @@ Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
 
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [IndexController::class, 'checkout']);
+    Route::post('/create-payment-intent', [CheckoutController::class, 'createPaymentIntent']);
 });
+
+// Route::get('/payment-success', function () {
+//     return "Payment successful!";
+// });
+Route::get('/payment-success', [IndexController::class, 'paymentSuccess'])->name('payment.success');
 // ---------------------------------------For Checkout Setup-----------------------------------
 
 
 // ---------------------------------------For Review Setup-----------------------------------
 
-
+Route::post('/reviews/store', [ReviewFrontendController::class, 'storeFrontend'])
+    ->name('reviews.store');
 
 // ---------------------------------------For Review Setup-----------------------------------
 
@@ -95,12 +109,12 @@ Route::middleware('auth')->group(function () {
 // ---------------------------------------For Import Setup-----------------------------------
 Route::get(
     '/admin/products/import',
-    [ProductImportController::class,'index']
+    [ProductImportController::class, 'index']
 );
 
 Route::post(
     '/admin/products/import',
-    [ProductImportController::class,'import']
+    [ProductImportController::class, 'import']
 );
 // ---------------------------------------For Import Setup-----------------------------------
 
@@ -267,6 +281,14 @@ Route::prefix('admin')
 
         Route::get('/licenses/status/{status?}', [ProfessionalController::class, 'listByStatus'])
             ->name('licenses.status');
+
+        /*
+        |---------------------------------
+        | Coupons
+        |---------------------------------
+        */
+        Route::resource('coupons', CouponController::class);
+
 
         /*
         |---------------------------------

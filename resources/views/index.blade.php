@@ -44,42 +44,42 @@
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-1.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-1.webp') }}" alt="">
                         </div>
                         <p>Serum Set</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-2.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-2.webp') }}" alt="">
                         </div>
                         <p>Face Cream</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-3.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-3.webp') }}" alt="">
                         </div>
                         <p>Hair Oil</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-4.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-4.webp') }}" alt="">
                         </div>
                         <p>Face Wash</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-5.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-5.webp') }}" alt="">
                         </div>
                         <p>Lip Shade</p>
                     </div>
 
                     <div class="category-item">
                         <div class="category-circle">
-                            <img src="{{asset('assets/images/es-ct-1.webp')}}" alt="">
+                            <img src="{{ asset('assets/images/es-ct-1.webp') }}" alt="">
                         </div>
                         <p>Foundation</p>
                     </div>
@@ -108,8 +108,10 @@
                     <div class="product-card">
 
                         <div class="product-img">
-                            <img src="{{ asset('storage/' . $upperNewProduct->mainImage->url) }}" class="img-fluid"
-                                alt="">
+                            <img src="{{ $upperNewProduct->mainImage && $upperNewProduct->mainImage->url
+                                ? asset('storage/' . $upperNewProduct->mainImage->url)
+                                : asset('assets/images/placeholder.png') }}"
+                                class="img-fluid" alt="">
 
                             <div class="hover-icons">
                                 <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
@@ -124,7 +126,10 @@
                         </div>
 
                         <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand->name ?? '' }}</small>
-                       <a class="text-dark text-decoration-none" href="{{ route('productDetails', $upperNewProduct->slug) }}"> <h6>{{ $upperNewProduct->name }}</h6> </a>
+                        <a class="text-dark text-decoration-none"
+                            href="{{ route('productDetails', $upperNewProduct->slug) }}">
+                            <h6>{{ $upperNewProduct->name }}</h6>
+                        </a>
 
                         <strong>
                             $ {{ number_format(optional($upperNewProduct->firstVariant)->price ?? 0, 2) }}
@@ -256,8 +261,10 @@
                     <div class="col-lg-2 col-md-4 col-6">
                         <div class="popular-products-card">
                             <div class="popular-products-image">
-                                <img src="{{ asset('storage/' . $featuredProduct->mainImage->url) }}" class="img-fluid"
-                                    alt="">
+                                <img src="{{ $featuredProduct->mainImage && $featuredProduct->mainImage->url
+                                    ? asset('storage/' . $featuredProduct->mainImage->url)
+                                    : asset('assets/images/placeholder.png') }}"
+                                    class="img-fluid" alt="">
                                 <div class="hover-icons">
                                     <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
                                         <i class="bi bi-search"></i>

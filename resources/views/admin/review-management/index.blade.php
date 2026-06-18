@@ -93,7 +93,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('admin.reviews.edit', $review->id) }}"
+                                        <a href="{{ route('admin.reviews.show', $review->id) }}"
                                             class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                             <iconify-icon icon="lucide:edit"></iconify-icon>
                                         </a>

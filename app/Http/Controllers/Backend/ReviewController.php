@@ -104,7 +104,7 @@ class ReviewController extends Controller
     {
         $review->load(['product', 'files']);
 
-        return view('admin.reviews.show', compact('review'));
+        return view('admin.review-management.show', compact('review'));
     }
 
     public function destroy(Review $review)

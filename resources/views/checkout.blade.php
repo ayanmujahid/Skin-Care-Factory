@@ -18,7 +18,8 @@
 
                     <h2 class="amiy-section-title">Contact</h2>
 
-                    <input class="amiy-checkout-input" type="email" name="email" placeholder="Email" required>
+                    <input class="amiy-checkout-input" id="email" type="email" name="email" placeholder="Email"
+                        required>
 
                     <label class="amiy-checkout-checkbox">
                         <input type="checkbox"> Email me with news and offers
@@ -34,7 +35,7 @@
 
                     <div class="amiy-checkout-row">
                         <input class="amiy-checkout-input" type="text" name="name" placeholder="Full Name">
-                        <input class="amiy-checkout-input" type="text" name="phone" placeholder="Phone">
+                        <input class="amiy-checkout-input" type="text" name="phone" id="phone" placeholder="Phone">
                     </div>
 
                     <input class="amiy-checkout-input" type="text" name="address" placeholder="Address">
@@ -66,7 +67,7 @@
                             Credit Card
                         </label>
 
-                        <div class="amiy-card-fields">
+                        {{-- <div class="amiy-card-fields">
                             <input class="amiy-checkout-input" type="text" placeholder="Card number">
 
                             <div class="amiy-checkout-row">
@@ -75,16 +76,25 @@
                             </div>
 
                             <input class="amiy-checkout-input" type="text" placeholder="Name on card">
-                        </div>
+                        </div> --}}
 
-                        <label class="amiy-payment-option">
+                        <h2 class="amiy-section-title amiy-mt-30">Payment</h2>
+
+                        <div id="payment-element" style="padding:15px;border:1px solid #ddd;border-radius:8px;"></div>
+
+                        <div id="payment-message" style="color:red;margin-top:10px;"></div>
+                        <input type="hidden" id="cart_total" value="{{ $cartTotal }}">
+
+                        {{-- <label class="amiy-payment-option">
                             <input type="radio" name="payment_method" value="cod">
                             Cash on Delivery
-                        </label>
+                        </label> --}}
 
                     </div>
 
-                    <button class="amiy-pay-btn">Pay now</button>
+                    <button type="button" id="payBtn" class="amiy-pay-btn">
+                        Pay now
+                    </button>
 
                 </form>
 
@@ -118,8 +128,8 @@
                 </div>
 
                 <div class="amiy-discount-box">
-                    <input class="amiy-checkout-input" type="text" placeholder="Discount code">
-                    <button class="amiy-pay-btn" style="width:auto;padding:10px 20px;">Apply</button>
+                    <input class="amiy-checkout-input" id="coupon_code" type="text" placeholder="Discount code">
+                    <button id="applyCoupon" class="amiy-pay-btn" style="width:auto;padding:10px 20px;">Apply</button>
                 </div>
 
                 <div class="amiy-summary">
@@ -137,13 +147,13 @@
                     @if ($isShared)
                         <div class="amiy-summary-row">
                             <span>Discount</span>
-                            <span>- ${{ number_format($discount, 2) }}</span>
+                            <span>- $<span id="discount_amount">{{ number_format($discount, 2) }}</span></span>
                         </div>
                     @endif
 
                     <div class="amiy-summary-total">
                         <span>Total</span>
-                        <span>${{ number_format($cartTotal, 2) }}</span>
+                        <span>$<span id="final_total">{{ number_format($cartTotal, 2) }}</span></span>
                     </div>
 
                 </div>
@@ -159,9 +169,126 @@
     </style>
 @endsection
 @section('js')
+    <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         (() => {
             /*in page js here*/
         })()
+    </script>
+    <script>
+        $('#applyCoupon').click(function() {
+
+            $.ajax({
+
+                url: '/apply-coupon',
+
+                type: 'POST',
+
+                data: {
+
+                    coupon_code: $('#coupon_code').val(),
+
+                    email: $('#email').val(),
+
+                    phone: $('#phone').val(),
+
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+
+                success: function(response) {
+
+                    if (response.status) {
+
+                        $('#discount_amount').text(response.discount);
+
+                        $('#final_total').text(response.final_total);
+
+                        alert(response.message);
+
+                    } else {
+
+                        alert(response.message);
+                    }
+                }
+            });
+
+        });
+    </script>
+    <script>
+        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+
+        let elements;
+        let clientSecret;
+
+        async function initializeStripe() {
+
+            const total = document.getElementById('cart_total').value;
+
+            const res = await fetch("/create-payment-intent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    total: total
+                })
+            });
+
+            const data = await res.json();
+            clientSecret = data.clientSecret;
+
+            elements = stripe.elements({
+                clientSecret
+            });
+
+            const paymentElement = elements.create("payment");
+            paymentElement.mount("#payment-element");
+        }
+
+        initializeStripe();
+    </script>
+    <script>
+        document.getElementById('payBtn').addEventListener('click', async function() {
+
+            const {
+                error,
+                paymentIntent
+            } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: window.location.origin + "/payment-success"
+                }
+            });
+
+            if (error) {
+                document.getElementById('payment-message').innerText = error.message;
+            }
+        });
+    </script>
+    <script>
+        const {
+            paymentIntent,
+            error
+        } = await stripe.confirmPayment({
+            elements,
+            redirect: "if_required"
+        });
+
+        if (paymentIntent) {
+
+            // submit your form with payment_intent_id
+
+            let form = document.querySelector("form");
+
+            let input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "payment_intent_id";
+            input.value = paymentIntent.id;
+
+            form.appendChild(input);
+
+            form.submit();
+        }
     </script>
 @endsection
