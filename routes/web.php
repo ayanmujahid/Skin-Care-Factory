@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\{AdminController, CouponController, ReviewController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
+use App\Http\Controllers\Backend\{AdminController, ProfileController, CouponController, ReviewController, BrandController, WishlistController, CheckoutController, CartController, DashboardController, ProductController, NewsletterController, InquiryController, OrderController, ProductCategoryController, ProductSubCategoryController, ProfessionalController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\CouponFrontendController;
@@ -86,8 +86,8 @@ Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
 
 // ---------------------------------------For Checkout Setup-----------------------------------
 
+Route::get('/checkout', [IndexController::class, 'checkout']);
 Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [IndexController::class, 'checkout']);
     Route::post('/create-payment-intent', [CheckoutController::class, 'createPaymentIntent']);
 });
 
@@ -213,6 +213,16 @@ Route::prefix('admin')
         */
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard.index');
+
+        /*
+        |---------------------------------
+        | Profile Management
+        |---------------------------------
+        */
+        Route::get('/profile', [ProfileController::class, 'profile'])
+            ->name('profile');
+        Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');
+         Route::post('/settings/update', [ProfileController::class, 'updateSettings'])->name('settings.update');
 
         /*
         |---------------------------------

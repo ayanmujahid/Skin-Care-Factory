@@ -68,15 +68,38 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'brand_logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
+        // Regenerate slug only if name changed
+        $slug = $brand->name !== $request->name
+            ? $this->slug_maker($request->name, Brand::class)
+            : $brand->slug;
+
+        // Update brand data
         $brand->update([
             'name' => $request->name,
+            'slug' => $slug,
             'is_featured' => $request->is_featured ? true : false,
         ]);
 
-        return redirect()->route('admin.brands.index')->with('success', 'Brand updated successfully!');
+        // Handle logo update
+        if ($request->hasFile('brand_logo')) {
+
+            // optional: delete old file if your repo supports it
+            // $this->fileRepo->delete($brand, 'brand_logo');
+
+            $this->fileRepo->upload(
+                $request->file('brand_logo'),
+                $brand,
+                'brand_logo'
+            );
+        }
+
+        return redirect()
+            ->route('admin.brands.index')
+            ->with('success', 'Brand updated successfully!');
     }
 
     public function destroy(Brand $brand)

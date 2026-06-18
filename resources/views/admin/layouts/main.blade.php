@@ -16,7 +16,7 @@
     @yield('css')
 </head>
 
-<body class="responsive">
+<body>
     <input type="hidden" id="web_base_url" value="{{ url('/') }}" />
     @include('admin.layouts.header')
     @yield('content')

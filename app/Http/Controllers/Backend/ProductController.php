@@ -370,7 +370,7 @@ class ProductController extends Controller
         $this->fileRepo->deleteAll($product); // delete all related files
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
 
 

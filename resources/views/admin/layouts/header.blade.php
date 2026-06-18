@@ -126,7 +126,7 @@
           </div>
         </div><!-- Language dropdown end --> --}}
 
-        <div class="dropdown">
+        {{-- <div class="dropdown">
           <button
             class="has-indicator w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center"
             type="button" data-bs-toggle="dropdown">
@@ -345,7 +345,7 @@
             </div>
 
           </div>
-        </div><!-- Notification dropdown end -->
+        </div><!-- Notification dropdown end --> --}}
 @php
     $admin = auth('admin')->user();
 @endphp
@@ -369,17 +369,17 @@
             <ul class="to-top-list">
               <li>
                 <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
-                  href="javascript:void(0)">
+                  href="{{route('admin.profile')}}">
                   <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon> My Profile</a>
               </li>
-              <li>
+              {{-- <li>
                 <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
                   href="javascript:void(0)">
                   <iconify-icon icon="tabler:message-check" class="icon text-xl"></iconify-icon> Inbox</a>
-              </li>
+              </li> --}}
               <li>
                 <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
-                  href="javascript:void(0)">
+                  href="{{route('admin.settings')}}">
                   <iconify-icon icon="icon-park-outline:setting-two" class="icon text-xl"></iconify-icon> Setting</a>
               </li>
               <li>

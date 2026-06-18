@@ -103,40 +103,40 @@
 
             <div class="product-slider d-flex">
 
-                @foreach ($upperNewProducts as $upperNewProduct)
+                @foreach ($featuredProducts as $featuredProduct)
                     <!-- Product 1 -->
                     <div class="product-card">
 
                         <div class="product-img">
-                            <img src="{{ $upperNewProduct->mainImage && $upperNewProduct->mainImage->url
-                                ? asset('storage/' . $upperNewProduct->mainImage->url)
+                            <img src="{{ $featuredProduct->mainImage && $featuredProduct->mainImage->url
+                                ? asset('storage/' . $featuredProduct->mainImage->url)
                                 : asset('assets/images/placeholder.png') }}"
                                 class="img-fluid" alt="">
 
                             <div class="hover-icons">
-                                <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
                                     <i class="bi bi-search"></i>
                                 </button>
 
-                                <button class="icon-btn wishlist-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                <button class="icon-btn wishlist-btn" data-product-id="{{ $featuredProduct->id }}">
                                     <i
-                                        class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($upperNewProduct->id) ? 'text-danger' : '' }}"></i>
+                                        class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($featuredProduct->id) ? 'text-danger' : '' }}"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand->name ?? '' }}</small>
+                        <small class="text-muted d-block mt-3">{{ $featuredProduct->brand->name ?? '' }}</small>
                         <a class="text-dark text-decoration-none"
-                            href="{{ route('productDetails', $upperNewProduct->slug) }}">
-                            <h6>{{ $upperNewProduct->name }}</h6>
+                            href="{{ route('productDetails', $featuredProduct->slug) }}">
+                            <h6>{{ $featuredProduct->name }}</h6>
                         </a>
 
                         <strong>
-                            $ {{ number_format(optional($upperNewProduct->firstVariant)->price ?? 0, 2) }}
+                            $ {{ number_format(optional($featuredProduct->firstVariant)->price ?? 0, 2) }}
                         </strong>
 
                         <button class="btn btn-dark w-100 mt-2 quick-view-btn" id="cta-btn"
-                            data-product-id="{{ $upperNewProduct->id }}">
+                            data-product-id="{{ $featuredProduct->id }}">
                             Add to Cart
                         </button>
 
@@ -245,58 +245,56 @@
         </div>
     </section>
 
-    <section class="popular-products py-5">
+    <section class="product-section py-5">
         <div class="container">
 
-            <!-- Heading -->
-            <div class="popular-products-header text-center mb-5">
-                <p class="popular-products-subtitle mb-2">NEW ARRIVALS</p>
-                <h2 class="popular-products-title">Most Popular Products</h2>
-            </div>
+            <small class="text-muted d-block text-center letter-spacing">NEW ARRIVALS</small>
+            <h2 class="fw-bold text-center mb-4">Most Popular Products</h2>
 
-            <div class="row g-4">
+            <div class="product-slider d-flex">
 
-                <!-- Product Card -->
-                @foreach ($featuredProducts as $featuredProduct)
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="popular-products-card">
-                            <div class="popular-products-image">
-                                <img src="{{ $featuredProduct->mainImage && $featuredProduct->mainImage->url
-                                    ? asset('storage/' . $featuredProduct->mainImage->url)
-                                    : asset('assets/images/placeholder.png') }}"
-                                    class="img-fluid" alt="">
-                                <div class="hover-icons">
-                                    <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
-                                        <i class="bi bi-search"></i>
-                                    </button>
+                @foreach ($upperNewProducts as $upperNewProduct)
+                    <!-- Product 1 -->
+                    <div class="product-card">
 
-                                    <button class="icon-btn wishlist-btn" data-product-id="{{ $featuredProduct->id }}">
-                                        <i
-                                            class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($featuredProduct->id) ? 'text-danger' : '' }}"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="popular-products-info">
-                                <span class="popular-products-brand">{{ $featuredProduct->brand->name }}</span>
-                                <h6 class="popular-products-name">
-                                    {{ $featuredProduct->name }}
-                                </h6>
-                                <div class="popular-products-price">$
-                                    {{ number_format(optional($featuredProduct->firstVariant)->price ?? 0, 2) }}</div>
-                                <button class="popular-products-btn quick-view-btn" id="cta-btn"
-                                    data-product-id="{{ $featuredProduct->id }}">Add to Cart</button>
+                        <div class="product-img">
+                            <img src="{{ $upperNewProduct->mainImage && $upperNewProduct->mainImage->url
+                                ? asset('storage/' . $upperNewProduct->mainImage->url)
+                                : asset('assets/images/placeholder.png') }}"
+                                class="img-fluid" alt="">
+
+                            <div class="hover-icons">
+                                <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                    <i class="bi bi-search"></i>
+                                </button>
+
+                                <button class="icon-btn wishlist-btn" data-product-id="{{ $upperNewProduct->id }}">
+                                    <i
+                                        class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($upperNewProduct->id) ? 'text-danger' : '' }}"></i>
+                                </button>
                             </div>
                         </div>
+
+                        <small class="text-muted d-block mt-3">{{ $upperNewProduct->brand->name ?? '' }}</small>
+                        <a class="text-dark text-decoration-none"
+                            href="{{ route('productDetails', $upperNewProduct->slug) }}">
+                            <h6>{{ $upperNewProduct->name }}</h6>
+                        </a>
+
+                        <strong>
+                            $ {{ number_format(optional($upperNewProduct->firstVariant)->price ?? 0, 2) }}
+                        </strong>
+
+                        <button class="btn btn-dark w-100 mt-2 quick-view-btn" id="cta-btn"
+                            data-product-id="{{ $upperNewProduct->id }}">
+                            Add to Cart
+                        </button>
+
                     </div>
                 @endforeach
 
-            </div>
 
-            <!-- View More Button -->
-            <div class="text-center mt-5">
-                <form action="{{ route('shop') }}" method="GET">
-                    <button type="submit" class="popular-products-viewmore">View More</button>
-                </form>
+
             </div>
 
         </div>

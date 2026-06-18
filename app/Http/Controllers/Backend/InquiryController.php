@@ -37,7 +37,7 @@ class InquiryController extends Controller
 
     public function show(Inquiry $inquiry)
     {
-        return view('admin.inquiry-management.index', compact('inquiry'));
+        return view('admin.inquiry-management.show', compact('inquiry'));
     }
 
     public function edit(Inquiry $inquiry)

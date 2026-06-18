@@ -105,13 +105,13 @@
     const closeBtn = document.querySelector(".close-cart");
 
     document.querySelectorAll(".openCart").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault();
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
 
-        cartModal.classList.add("active");
-        overlay.classList.add("active");
+            cartModal.classList.add("active");
+            overlay.classList.add("active");
+        });
     });
-});
 
     closeBtn.addEventListener("click", closeCart);
     overlay.addEventListener("click", closeCart);
@@ -135,12 +135,12 @@
     $(document).ready(function() {
 
         // OPEN SEARCH
-       $(document).on("click", ".openSearch", function(e) {
-    e.preventDefault();
+        $(document).on("click", ".openSearch", function(e) {
+            e.preventDefault();
 
-    $(".search-sidebar").addClass("active");
-    $(".search-overlay").addClass("active");
-});
+            $(".search-sidebar").addClass("active");
+            $(".search-overlay").addClass("active");
+        });
 
         // CLOSE SEARCH
         $(".close-search, .search-overlay").click(function() {
@@ -180,22 +180,22 @@
     });
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
 
-    if (window.innerWidth >= 992) {
+        if (window.innerWidth >= 992) {
 
-        document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+            document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
 
-            el.addEventListener('click', function(e) {
-                e.preventDefault(); // prevent dropdown click behavior on desktop
-                window.location.href = this.href; // go to brands page
+                el.addEventListener('click', function(e) {
+                    e.preventDefault(); // prevent dropdown click behavior on desktop
+                    window.location.href = this.href; // go to brands page
+                });
+
             });
 
-        });
+        }
 
-    }
-
-});
+    });
 </script>
 
 {{-- -----------------------------------Links to Change----------------------------------- --}}

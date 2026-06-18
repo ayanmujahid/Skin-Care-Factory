@@ -6,8 +6,8 @@
     <div>
         <a href="{{ route('admin.dashboard.index') }}" class="sidebar-logo">
             <img src="{{ asset('admin/images/logo.webp') }}" alt="site logo" class="light-logo">
-            <img src="assets/images/logo-light.png" alt="site logo" class="dark-logo">
-            <img src="assets/images/logo-icon.png" alt="site logo" class="logo-icon">
+            <img src="{{ asset('admin/images/logo-white.png') }}" alt="site logo" class="dark-logo">
+            <img src="{{ asset('admin/images/logo.webp') }}" alt="site logo" class="logo-icon">
         </a>
     </div>
     <div class="sidebar-menu-area">
@@ -17,6 +17,52 @@
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                     <span>Dashboard</span>
                 </a>
+            </li>
+
+            <li class="sidebar-menu-group-title">Coupon Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cube-outline" class="menu-icon"></iconify-icon>
+                    <span>Coupon Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.coupons.index') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Coupon List</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="sidebar-menu-group-title">Inquiry Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cube-outline" class="menu-icon"></iconify-icon>
+                    <span>Inquiry Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.inquiries.index') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Inquiry List</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="sidebar-menu-group-title">Newsletter Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cube-outline" class="menu-icon"></iconify-icon>
+                    <span>Newsletter Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.newsletters.index') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Newsletter List</a>
+                    </li>
+
+                </ul>
             </li>
 
             <li class="sidebar-menu-group-title">Inventory Management</li>
@@ -141,6 +187,34 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="sidebar-menu-group-title">Review Management</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:star-box" class="menu-icon"></iconify-icon>
+                    <span>Review Management</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.reviews.index') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Review List
+                        </a>
+                    </li>
+
+                    {{-- <li>
+                        <a href="{{ route('admin.admins.create') }}">
+                            <i class="ri-circle-fill circle-icon text-success-main w-auto"></i>
+                            Add Admin
+                        </a>
+                    </li> --}}
+
+
+                </ul>
+            </li>
+
+
+
             <li class="sidebar-menu-group-title">Admin Management</li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
@@ -174,19 +248,23 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Company</a>
+                        <a href="{{ route('admin.profile') }}"><i
+                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
+                            My Profile</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
-                            Notification</a>
+                        <a href="{{ route('admin.settings') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Profile Settings</a>
                     </li>
-                    <li>
+
+                    {{-- <li>
                         <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Notification Alert</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                        <a href="javascript:void(0)"><i
+                                class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
                             Theme</a>
                     </li>
                     <li>
@@ -204,7 +282,7 @@
                                 class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
                             Payment
                             Gateway</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
         </ul>
