@@ -259,22 +259,63 @@ class CheckoutController extends Controller
             ->with('notify_success', 'Order placed successfully!');
     }
 
-    public function createPaymentIntent(Request $request)
+   public function createPaymentIntent(Request $request)
+
     {
+
+        // Set Stripe Secret Key
+
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $amount = $request->total;
+        // Validate amount
 
-        $intent = PaymentIntent::create([
-            'amount' => intval($amount * 100),
-            'currency' => 'usd',
-            'automatic_payment_methods' => [
-                'enabled' => true,
-            ],
-        ]);
+        $amount = floatval($request->total);
 
-        return response()->json([
-            'clientSecret' => $intent->client_secret
-        ]);
+        if (!$amount || $amount <= 0) {
+
+            return response()->json([
+
+                'error' => 'Invalid amount'
+
+            ], 400);
+
+        }
+
+        try {
+
+            // Create Payment Intent
+
+            $intent = PaymentIntent::create([
+
+                'amount' => intval($amount * 100), // cents
+
+                'currency' => 'usd',
+
+                'automatic_payment_methods' => [
+
+                    'enabled' => true,
+
+                ],
+
+            ]);
+
+            return response()->json([
+
+                'clientSecret' => $intent->client_secret
+
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+
+                'error' => $e->getMessage()
+
+            ], 500);
+
+        }
+
     }
+
+
 }
