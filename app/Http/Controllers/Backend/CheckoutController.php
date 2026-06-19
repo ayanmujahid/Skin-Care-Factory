@@ -264,7 +264,7 @@ class CheckoutController extends Controller
     {
 
         // Set Stripe Secret Key
-
+dd(config('services.stripe.secret'));
         Stripe::setApiKey(config('services.stripe.secret'));
 
         // Validate amount
