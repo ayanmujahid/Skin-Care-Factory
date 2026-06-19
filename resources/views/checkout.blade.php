@@ -170,7 +170,9 @@
 @endsection
 @section('js')
 <script src="https://js.stripe.com/v3/"></script>
-
+<script>
+    console.log("STRIPE KEY:", "{{ config('services.stripe.key') }}");
+</script>
 <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}");
 </script>
