@@ -261,7 +261,7 @@ class CheckoutController extends Controller
 
     public function createPaymentIntent(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         $amount = $request->total;
 
