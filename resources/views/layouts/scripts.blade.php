@@ -20,7 +20,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<script src="https://js.stripe.com/v3/"></script>
 
 <!-- Custom JS (Place at the end to ensure it loads last) -->
 <script src="{{ asset('assets/js/custom.js') }}"></script>

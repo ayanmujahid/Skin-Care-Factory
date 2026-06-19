@@ -169,6 +169,8 @@
     </style>
 @endsection
 @section('js')
+<script src="https://js.stripe.com/v3/"></script>
+
     <script type="text/javascript">
         (() => {
             /*in page js here*/
