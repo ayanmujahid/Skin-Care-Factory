@@ -2982,7 +2982,121 @@ section.extra-feature-category.py-5 {
   font-weight: 600;
 }
 
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .amiy-checkout-left {
+    padding: 30px;
+  }
+
+  .amiy-checkout-right {
+    padding: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .amiy-checkout-right {
+    order: -1;
+  }
+  .amiy-checkout-container {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .amiy-checkout-left,
+  .amiy-checkout-right {
+    width: 100%;
+    padding: 20px;
+  }
+
+  /* Stack rows vertically */
+  .amiy-checkout-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .amiy-checkout-row .amiy-checkout-input {
+    width: 100%;
+  }
+
+  /* Product row spacing */
+  .amiy-product-row {
+    align-items: flex-start;
+  }
+
+  .amiy-product-row img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .amiy-product-info h4 {
+    font-size: 14px;
+    margin: 0 0 5px;
+  }
+
+  .amiy-product-price {
+    font-size: 14px;
+  }
+
+  /* Coupon section */
+  .amiy-discount-box {
+    flex-direction: column;
+  }
+
+  .amiy-discount-box button {
+    width: 100% !important;
+  }
+
+  /* Payment box */
+  #payment-element {
+    padding: 10px !important;
+  }
+
+  .amiy-pay-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .amiy-section-title {
+    font-size: 18px;
+  }
+
+  .amiy-summary-total {
+    font-size: 16px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .amiy-checkout-left,
+  .amiy-checkout-right {
+    padding: 15px;
+  }
+
+  .amiy-checkout-input,
+  .amiy-checkout-select {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .amiy-pay-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .amiy-product-row {
+    gap: 8px;
+  }
+
+  .amiy-product-row img {
+    width: 45px;
+    height: 45px;
+  }
+}
 
 /* wishlist page */
 
