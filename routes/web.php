@@ -86,9 +86,10 @@ Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');
 
 // ---------------------------------------For Checkout Setup-----------------------------------
 Route::get('/checkout', [IndexController::class, 'checkout']);
-Route::post('/create-payment-intent', [CheckoutController::class, 'createPaymentIntent']);
 
 Route::middleware('auth')->group(function () {
+Route::post('/create-payment-intent', [CheckoutController::class, 'createPaymentIntent']);
+
 });
 
 // Route::get('/payment-success', function () {
