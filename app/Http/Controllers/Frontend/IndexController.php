@@ -124,7 +124,7 @@ class IndexController extends Controller
                 'isShared' => true
             ]);
         }
-dd(config('services.stripe.secret'));
+// dd(config('services.stripe.secret'));
 
         // 🔥 CASE 2: Normal Cart
         $cart = session('cart', []);

@@ -225,7 +225,7 @@
         });
     </script>
     <script>
-        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+        const stripe = Stripe("{{ config('services.stripe.key') }}");
 
         let elements;
         let clientSecret;
