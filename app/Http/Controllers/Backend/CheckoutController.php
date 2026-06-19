@@ -139,7 +139,7 @@ class CheckoutController extends Controller
         if ($paymentIntent->status !== 'succeeded') {
             return back()->with('error', 'Payment not successful.');
         }
-        
+
         // $userId = auth()->check() ? auth()->id() : null;
 
         $order = Order::create([
