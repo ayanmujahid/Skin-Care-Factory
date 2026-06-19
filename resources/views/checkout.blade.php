@@ -171,6 +171,10 @@
 @section('js')
 <script src="https://js.stripe.com/v3/"></script>
 
+<script>
+    const stripe = Stripe("{{ config('services.stripe.key') }}");
+</script>
+
     <script type="text/javascript">
         (() => {
             /*in page js here*/
