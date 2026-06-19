@@ -176,6 +176,9 @@
 <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}");
 </script> --}}
+<script>
+    console.log("STRIPE KEY:", "{{ config('services.stripe.key') }}");
+</script>
 
     <script type="text/javascript">
         (() => {
