@@ -13,25 +13,67 @@
             <div class="row">
 
                 <!-- SIDEBAR -->
-                {{-- <div class="col-lg-3 shop-sidebar">
+                <div class="col-lg-3 shop-sidebar">
 
-                    <div class="filter-item">Category <span>+</span></div>
-                    <div class="filter-item">Availability <span>+</span></div>
-                    <div class="filter-item">Price <span>+</span></div>
-                    <div class="filter-item">Product type <span>+</span></div>
-                    <div class="filter-item">Brand <span>+</span></div>
+                    <!-- CATEGORY -->
+                    <div class="filter-box mb-3">
 
-                    <button class="btn-clear" id="cta-btn">Clear All</button>
+                        <div class="filter-item toggle-filter">
+                            Category
+                            <span class="toggle-icon">+</span>
+                        </div>
 
-                    <h5 class="mt-4">Best Sellers</h5>
+                        <div class="filter-content">
 
-                    <div class="best-slider">
-                        <img src="assets/images/na-mp-4.webp">
-                        <img src="assets/images/na-mp-5.webp">
-                        <img src="assets/images/na-mp-2.webp">
+                            @foreach ($categories as $category)
+                                <div class="form-check mb-2">
+
+                                    <input class="form-check-input filter-checkbox" type="checkbox"
+                                        value="{{ $category->id }}" data-type="category" id="category{{ $category->id }}">
+
+                                    <label class="form-check-label" for="category{{ $category->id }}">
+
+                                        {{ $category->name }}
+
+                                    </label>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
                     </div>
 
-                </div> --}}
+                    <!-- BRAND -->
+                    <div class="filter-box mb-3">
+
+                        <div class="filter-item toggle-filter">
+                            Brand
+                            <span class="toggle-icon">+</span>
+                        </div>
+
+                        <div class="filter-content">
+
+                            @foreach ($brands as $brand)
+                                <div class="form-check mb-2">
+
+                                    <input class="form-check-input filter-checkbox" type="checkbox"
+                                        value="{{ $brand->id }}" data-type="brand" id="brand{{ $brand->id }}">
+
+                                    <label class="form-check-label" for="brand{{ $brand->id }}">
+
+                                        {{ $brand->name }}
+
+                                    </label>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
                 <!-- PRODUCTS -->
@@ -44,8 +86,14 @@
 
                             <div>
                                 Displayed As
-                                <button class="btn btn-dark btn-sm">▦</button>
-                                <button class="btn btn-light btn-sm">☰</button>
+
+                                <button type="button" class="btn btn-light btn-sm display-btn" id="gridView">
+                                    <i class="fa-solid fa-grip"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-light btn-sm display-btn" id="listView">
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
                             </div>
 
                             <div>
@@ -81,48 +129,16 @@
                     </form>
 
                     <!-- GRID -->
-                    <div class="row g-4">
+                    <div class="row g-4" id="productsWrapper">
 
-                        @forelse($products as $product)
-                            <div class="col-md-4">
-                                <div class="product-box">
+                        @include('partials.shop-products', ['products' => $products])
 
-                                    <div class="product-img">
-                                        <img src="{{ asset('storage/' . $product->mainImage->url) }}">
-                                        <div class="hover-icons">
-                                            <button class="icon-btn quick-view-btn" data-product-id="{{ $product->id }}">
-                                                <i class="bi bi-search"></i>
-                                            </button>
+                    </div>
 
-                                            <button class="icon-btn wishlist-btn" data-product-id="{{ $product->id }}">
-                                                <i
-                                                    class="bi bi-heart {{ auth()->check() && auth()->user()->wishlist->pluck('product_id')->contains($product->id) ? 'text-danger' : '' }}"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                    <!-- PAGINATION -->
+                    <div class="d-flex justify-content-center mt-4">
 
-                                    <small>{{ $product->category->name ?? '' }}</small>
-
-                                    {{-- <a href="{{ route('productDetails', $product->slug) }}"> --}}
-                                    <h6>{{ $product->name }}</h6>
-                                    {{-- </a> --}}
-
-                                    <strong>${{ $product->firstVariant->price }}</strong>
-
-                                    <button id="cta-btn" class="shop-btn quick-view-btn"
-                                        data-product-id="{{ $product->id }}">
-                                        Add to Cart
-                                    </button>
-
-                                </div>
-                            </div>
-
-                        @empty
-
-                            <div class="col-12 text-center">
-                                <h4>No Products Found</h4>
-                            </div>
-                        @endforelse
+                        {{ $products->links('pagination::bootstrap-5') }}
 
                     </div>
 
