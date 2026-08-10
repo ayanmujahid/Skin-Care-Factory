@@ -137,11 +137,12 @@ header {
 }
 
 .navbar-brand img {
-  height: 40px;
+  height: 70px;
   /* control logo size */
   width: auto;
   /* keep aspect ratio */
 }
+
 
 /* .navbar-brand {
   position: absolute;

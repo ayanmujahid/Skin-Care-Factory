@@ -13,6 +13,13 @@
             </div>
         </div>
 
+        <!-- Logo Section (Desktop only, centered above nav) -->
+        <div class="logo-section d-none d-lg-flex justify-content-center py-3" style="background-color: #fef9f2 !important">
+            <a href="{{ route('index') }}" class="navbar-brand fw-bold">
+                <img class="logo-header" src="{{ asset('assets/images/logo.webp') }}" alt="Skincare Factory">
+            </a>
+        </div>
+
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-light px-4 navbar-responsive">
             <!-- Hamburger Toggler (Left on mobile) -->
@@ -21,8 +28,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Logo (Centered on mobile) -->
-            <a class="navbar-brand fw-bold" href="{{ route('index') }}"><img class="logo-header"
+            <!-- Logo (Centered on mobile only) -->
+            <a class="navbar-brand fw-bold d-lg-none" href="{{ route('index') }}"><img class="logo-header"
                     src="{{ asset('assets/images/logo.webp') }}" alt=""></a>
 
             <!-- Mobile Right Icons (Cart & Wishlist only on mobile) -->
