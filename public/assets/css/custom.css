@@ -2,11 +2,13 @@ body {
   font-family: "Urbanist", sans-serif !important;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 html {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 * {
@@ -166,6 +168,7 @@ header {
   background-size: cover;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 /* Beige center panel */
@@ -179,7 +182,8 @@ header {
   font-size: 35px;
   line-height: 1.25;
   color: #111;
-  margin: 0 50px 0 50px;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 /* Small title */
@@ -194,7 +198,8 @@ header {
   font-size: 15px;
   line-height: 1.6;
   font-weight: 600;
-  margin: 0px 129px;
+  margin: 0 auto;
+  max-width: 620px;
 }
 
 /* Button */

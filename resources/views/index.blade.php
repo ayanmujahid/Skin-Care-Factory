@@ -647,10 +647,9 @@
                             { scale: 0.9, opacity: 0 },
                             { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.9)' }, 0.7);
 
-                    // Slow background "zoom" parallax as the hero scrolls out
+                    // Slow background parallax as the hero scrolls out
                     gsap.to(heroSection, {
-                        scale: 1.08,
-                        transformOrigin: 'center center',
+                        backgroundPosition: 'center 25%',
                         ease: 'none',
                         scrollTrigger: {
                             trigger: heroSection,
