@@ -51,7 +51,7 @@ html {
 }
 
 .nav-link:hover {
-  color: rgb(255 0 0 / 80%) !important;
+  color: #ddbea9 !important;
 }
 
 p {
@@ -306,6 +306,10 @@ header {
   /* max lines */
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.product-card {
+    border: 1px dotted #333;
+    padding: 10px;
 }
 
 
@@ -2312,7 +2316,7 @@ section.extra-feature-category.py-5 {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 60vh;
   background: #fbf5ec;
 }
 

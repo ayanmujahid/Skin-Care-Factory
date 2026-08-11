@@ -136,10 +136,8 @@
                     </div>
 
                     <!-- PAGINATION -->
-                    <div class="d-flex justify-content-center mt-4">
-
+                    <div class="custom-pagination">
                         {{ $products->links('pagination::bootstrap-5') }}
-
                     </div>
 
                 </div>
@@ -150,6 +148,125 @@
 @endsection
 @section('css')
     <style type="text/css">
+        /* =========================================
+       LARAVEL PAGINATION
+       ========================================= */
+
+        .custom-pagination {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        /* Laravel generated NAV */
+        .custom-pagination nav {
+            width: 100%;
+        }
+
+        /* This is the Bootstrap 5 container that
+       normally puts text + pagination side by side */
+        .custom-pagination nav>div.d-sm-flex {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100%;
+        }
+
+        /* "Showing 1 to 12 of 108 results" */
+        .custom-pagination nav>div.d-sm-flex>div:first-child {
+            width: 100% !important;
+            text-align: center !important;
+            margin-bottom: 10px !important;
+        }
+
+        /* Remove Bootstrap's default paragraph spacing */
+        .custom-pagination nav>div.d-sm-flex>div:first-child p {
+            margin: 0 !important;
+            text-align: center !important;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Pagination numbers container */
+        .custom-pagination nav>div.d-sm-flex>div:last-child {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        /* Pagination UL */
+        .custom-pagination .pagination {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 0 !important;
+        }
+
+        /* Pagination buttons */
+        .custom-pagination .page-link {
+            min-width: 40px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            color: #0d6efd;
+            background: #fff;
+            border: 1px solid #dee2e6;
+
+            box-shadow: none !important;
+        }
+
+        /* Hover */
+        .custom-pagination .page-link:hover {
+            color: #fff;
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        /* Active */
+        .custom-pagination .page-item.active .page-link {
+            color: #fff;
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        /* Disabled */
+        .custom-pagination .page-item.disabled .page-link {
+            color: #adb5bd;
+            background: #fff;
+            border-color: #dee2e6;
+        }
+
+        /* Focus */
+        .custom-pagination .page-link:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        /* Mobile */
+        @media (max-width: 575.98px) {
+
+            .custom-pagination nav>div.d-sm-flex {
+                flex-direction: column !important;
+            }
+
+            .custom-pagination nav>div.d-sm-flex>div:first-child {
+                margin-bottom: 12px !important;
+            }
+
+            .custom-pagination .page-link {
+                min-width: 36px;
+                height: 36px;
+                padding: 0 9px;
+                font-size: 13px;
+            }
+        }
+
         /*in page css here*/
         /* LIST VIEW */
         .list-view .product-column {

@@ -108,10 +108,11 @@
                     <div class="product-card">
 
                         <div class="product-img">
+                            <a href="{{ route('productDetails', $featuredProduct->slug) }}">
                             <img src="{{ $featuredProduct->mainImage && $featuredProduct->mainImage->url
                                 ? asset('storage/' . $featuredProduct->mainImage->url)
                                 : asset('assets/images/placeholder.png') }}"
-                                class="img-fluid" alt="">
+                                class="img-fluid" alt=""></a>
 
                             <div class="hover-icons">
                                 <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
@@ -256,12 +257,13 @@
                 @foreach ($upperNewProducts as $upperNewProduct)
                     <!-- Product 1 -->
                     <div class="product-card">
+                        <a  href="{{ route('productDetails', $upperNewProduct->slug) }}">
 
                         <div class="product-img">
                             <img src="{{ $upperNewProduct->mainImage && $upperNewProduct->mainImage->url
                                 ? asset('storage/' . $upperNewProduct->mainImage->url)
                                 : asset('assets/images/placeholder.png') }}"
-                                class="img-fluid" alt="">
+                                class="img-fluid" alt=""></a>
 
                             <div class="hover-icons">
                                 <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
