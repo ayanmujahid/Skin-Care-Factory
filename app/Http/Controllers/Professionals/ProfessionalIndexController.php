@@ -48,103 +48,41 @@ class ProfessionalIndexController extends Controller
         ))->with('title', 'Professional Home');
     }
 
-    public function shop($slug = null, $subSlug = null, $brandSlug = null)
+    public function shop($slug = null, $subSlug = null)
     {
         $subcats = ProductSubCategory::get();
         $brands = Brand::get();
 
         $search_query = request('search');
-
         $sort_option = request('sort', 'featured');
-
-        // Brand from query string
-        $brandSlug = request('brand');
 
         $productsQuery = Product::query()->withMin('variants', 'price');
 
         $categories = ProductCategory::withCount('products')->get();
-
         $totalProducts = Product::count();
 
         $categoryName = 'New Arrival';
 
-        /*
-    |--------------------------------------------------------------------------
-    | CATEGORY FILTER
-    |--------------------------------------------------------------------------
-    */
-
         if ($slug) {
-
             $category = ProductCategory::where('slug', $slug)->first();
 
             if ($category) {
-
                 $categoryName = $category->name;
-
                 $productsQuery->where('category_id', $category->id);
 
                 if ($subSlug) {
-
                     $productsQuery->whereHas('subcategory', function ($query) use ($subSlug) {
-
                         $query->where('slug', $subSlug);
                     });
                 }
             }
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | BRAND FILTER
-    |--------------------------------------------------------------------------
-    */
-
-        if ($brandSlug) {
-
-            $brand = Brand::where('slug', $brandSlug)->first();
-
-            if ($brand) {
-
-                $categoryName = $brand->name;
-
-                $productsQuery->where('brand_id', $brand->id);
-            }
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | SEARCH
-    |--------------------------------------------------------------------------
-    */
-
         if ($search_query) {
-
-            $search = strtolower(trim($search_query));
-
-            $searchNoSpace = str_replace(' ', '', $search);
-
-            $pattern = implode('.*', str_split($searchNoSpace));
-
-            $productsQuery->where(function ($query) use ($search, $pattern) {
-
-                $query->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-
-                    ->orWhereRaw(
-                        "LOWER(REPLACE(name, ' ', '')) REGEXP ?",
-                        [$pattern]
-                    );
-            });
+            $productsQuery->where('name', 'like', "%$search_query%");
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | SORTING
-    |--------------------------------------------------------------------------
-    */
 
         switch ($sort_option) {
-
             case 'price-asc':
                 $productsQuery->orderBy('variants_min_price', 'asc');
                 break;
@@ -165,17 +103,22 @@ class ProfessionalIndexController extends Controller
                 $productsQuery->orderBy('created_at', 'desc');
         }
 
-        $products = $productsQuery->paginate(12);
+        $products = $productsQuery->get();
 
+<<<<<<< HEAD
         return view('professionals.shop', compact(
+=======
+        return view('professionals.shop', [
+            'cartMode' => 'professional'
+        ], compact(
+>>>>>>> parent of 131e028 (new comiit)
             'products',
             'categories',
             'categoryName',
             'subcats',
+            'brands',
             'totalProducts',
-            'slug',
-            'brandSlug',
-            'brands'
+            'slug'
         ))->with('title', 'Shop');
     }
 
