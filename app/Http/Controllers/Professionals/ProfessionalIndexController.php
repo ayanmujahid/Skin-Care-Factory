@@ -105,13 +105,11 @@ class ProfessionalIndexController extends Controller
 
         $products = $productsQuery->get();
 
-<<<<<<< HEAD
-        return view('professionals.shop', compact(
-=======
+
+        
         return view('professionals.shop', [
             'cartMode' => 'professional'
         ], compact(
->>>>>>> parent of 131e028 (new comiit)
             'products',
             'categories',
             'categoryName',
