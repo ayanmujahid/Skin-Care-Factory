@@ -11,9 +11,26 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PointsTransaction;
 use App\Helpers\PointsHelper;
 use App\Helpers\PointsDiscountHelper;
+use App\Models\ProductCategory;
+use App\Models\Product;
+use App\Models\Brand;
+
+
 
 class ProfessionalCartController extends Controller
 {
+    public function __construct()
+    {
+        $categories = ProductCategory::with('subcategories')->get();
+
+
+        $product = Product::latest()->first(); // ✅ single product
+
+        view()->share('product', $product);
+        View()->share('categories', $categories);
+        $brands = Brand::all();
+        view()->share('brands', $brands);
+    }
     //
     public function index()
     {
