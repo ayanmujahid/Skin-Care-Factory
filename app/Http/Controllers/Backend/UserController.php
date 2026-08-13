@@ -36,58 +36,63 @@ class UserController extends Controller
 
 
     public function loginSubmit(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|max:255',
-            'password' => 'required|max:50',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email|max:255',
+        'password' => 'required|max:50',
+    ]);
 
-        $user = \App\Models\User::where('email', $request->email)->first();
+    $user = \App\Models\User::where('email', $request->email)->first();
 
-        if (!$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
-            return back()->with('notify_error', 'Invalid credentials, please try again.');
-        }
-
-        /*
-    |------------------------------------------
-    | CUSTOMER LOGIN
-    |------------------------------------------
-    */
-        if ($user->role_id == 0) {
-
-            Auth::login($user);
-
-            return redirect()->route('index')
-                ->with('notify_success', 'You are logged in as Customer!');
-        }
-
-        /*
-    |------------------------------------------
-    | PROFESSIONAL LOGIN
-    |------------------------------------------
-    */
-        if ($user->role_id == 1) {
-
-            if ($user->verified_status == 1) {
-
-                Auth::login($user);
-
-                return redirect()->route('professional.shop')
-                    ->with('notify_success', 'You are logged in as Professional!');
-            }
-
-            if ($user->verified_status == 0) {
-                return back()->with('notify_error', 'Your application is still pending.');
-            }
-
-            if ($user->verified_status == 2) {
-                return back()->with('notify_error', 'Admin has rejected your application. Check your inbox for the reason.');
-            }
-        }
-
-        return back()->with('notify_error', 'Login not allowed.');
+    if (!$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
+        return back()->with('notify_error', 'Invalid credentials, please try again.');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | PROFESSIONAL - DO NOT ALLOW LOGIN HERE
+    |--------------------------------------------------------------------------
+    */
+    if ($user->role_id == 1) {
+
+        if ($user->verified_status == 1) {
+            return redirect('https://pro-skincarefactory.designatrix.com/')
+                ->with(
+                    'notify_error',
+                    'Please use Professional Login to access the Professional Site.'
+                );
+        }
+
+        if ($user->verified_status == 0) {
+            return back()->with(
+                'notify_error',
+                'Your application is still pending.'
+            );
+        }
+
+        if ($user->verified_status == 2) {
+            return back()->with(
+                'notify_error',
+                'Admin has rejected your application. Check your inbox for the reason.'
+            );
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CUSTOMER LOGIN
+    |--------------------------------------------------------------------------
+    */
+    if ($user->role_id == 0) {
+
+        Auth::login($user);
+
+        return redirect()->route('index')
+            ->with('notify_success', 'You are logged in as Customer!');
+    }
+
+    return back()->with('notify_error', 'Login not allowed.');
+}
     public function logout(Request $request)
     {
         Auth::logout();

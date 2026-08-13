@@ -18,7 +18,7 @@
         <div class="account-links">
             <a href="#">Forgot your password?</a>
             <a href="{{ route('signup') }}">Create account</a>
-            <a href="{{ route('index') }}">Return to Store</a>
+            <a href="https://pro-skincarefactory.designatrix.com/">Professional's Login</a>
         </div>
     </form>
 </div>
