@@ -11,9 +11,26 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PointsTransaction;
 use App\Helpers\PointsHelper;
 use App\Helpers\PointsDiscountHelper;
+use App\Models\ProductCategory;
+use App\Models\Product;
+use App\Models\Brand;
+
 
 class ProfessionalCartController extends Controller
 {
+    public function __construct()
+    {
+        $categories = ProductCategory::with('subcategories')->get();
+
+
+        $product = Product::latest()->first(); // ✅ single product
+        $brands = Brand::get();
+        
+
+        view()->share('product', $product);
+        View()->share('categories', $categories);
+        View()->share('brands', $brands);
+    }
     //
     public function index()
     {
@@ -31,7 +48,7 @@ class ProfessionalCartController extends Controller
         ]);
     }
 
-    // ✅ Apply Points (Voucher)
+    // âœ… Apply Points (Voucher)
     public function applyPoints(Request $request)
     {
         $request->validate([
@@ -61,10 +78,10 @@ class ProfessionalCartController extends Controller
 
         $points = $request->points;
 
-        // 🔥 discount logic (10% cap)
+        // ðŸ”¥ discount logic (10% cap)
         $discountPercent = PointsDiscountHelper::calculateDiscountPercent($points);
 
-        // 💾 update DB
+        // ðŸ’¾ update DB
         $sharedCart->update([
             'points_used' => $points,
             'discount_percent' => $discountPercent
@@ -80,7 +97,7 @@ class ProfessionalCartController extends Controller
     }
 
 
-    // ✅ Remove Points
+    // âœ… Remove Points
     public function removePoints()
     {
         $sharedCart = SharedCart::where('professional_id', auth()->id())
@@ -105,7 +122,7 @@ class ProfessionalCartController extends Controller
         ]);
     }
 
-    // ✅ Generate Link
+    // âœ… Generate Link
     public function generateLink(Request $request)
     {
         $cart = SharedCart::with('items.variant')
