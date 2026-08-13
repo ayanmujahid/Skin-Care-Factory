@@ -24,12 +24,10 @@ class ProfessionalCartController extends Controller
 
 
         $product = Product::latest()->first(); // ✅ single product
-        $brands = Brand::get();
-        
-
         view()->share('product', $product);
         View()->share('categories', $categories);
-        View()->share('brands', $brands);
+        $brands = Brand::all();
+        view()->share('brands', $brands);
     }
     //
     public function index()

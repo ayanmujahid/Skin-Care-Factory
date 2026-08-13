@@ -167,7 +167,10 @@ class ProfessionalIndexController extends Controller
 
         $products = $productsQuery->paginate(12);
 
-        return view('professionals.shop', compact(
+        
+        return view('professionals.shop', [
+            'cartMode' => 'professional'
+        ], compact(
             'products',
             'categories',
             'categoryName',

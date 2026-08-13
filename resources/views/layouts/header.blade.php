@@ -13,19 +13,32 @@
             </div>
         </div>
 
+        <!-- Logo Section (Desktop only, centered above nav) -->
+        <div class="logo-section d-none d-lg-flex justify-content-center py-3" style="background-color: #fef9f2 !important">
+            <a href="{{ route('index') }}" class="navbar-brand fw-bold">
+                <img class="logo-header" src="{{ asset('assets/images/logo.webp') }}" alt="Skincare Factory">
+            </a>
+        </div>
+
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-light px-4 navbar-responsive">
             <!-- Hamburger Toggler (Left on mobile) -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Logo (Centered on mobile) -->
-            <a class="navbar-brand fw-bold" href="{{ route('index') }}"><img class="logo-header"
+            <!-- Logo (Centered on mobile only) -->
+            <a class="navbar-brand fw-bold d-lg-none" href="{{ route('index') }}"><img class="logo-header"
                     src="{{ asset('assets/images/logo.webp') }}" alt=""></a>
 
             <!-- Mobile Right Icons (Cart & Wishlist only on mobile) -->
             <div class="header-icons-mobile d-lg-none d-flex align-items-center gap-3">
+                <a href="{{ route('login') }}" class="text-dark position-relative">
+                    <i class="fa-regular fa-user"></i>
+                    {{-- <span
+                        class="wishlist-count badge bg-dark position-absolute top-0 start-100 translate-middle">0</span> --}}
+                </a>
                 <a href="{{ route('wishlist') }}" class="text-dark position-relative">
                     <i class="fa-regular fa-heart"></i>
                     <span
@@ -69,20 +82,24 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('resources') }}">RESOURCES</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('contactUs') }}">CONTACT US</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('faqs') }}">FAQs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('professionalSignup') }}">PROFESSIONAL</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('professionalSignup') }}">PROFESSIONALS</a>
                     </li>
                     <!-- Mobile only: Search and Account -->
                     <li class="nav-item d-lg-none border-top mt-3 pt-3">
-                        <a href="javascript:void(0)" id="openSearch" class="openSearch nav-link text-dark d-flex align-items-center gap-2">
+                        <a href="javascript:void(0)" id="openSearch"
+                            class="openSearch nav-link text-dark d-flex align-items-center gap-2">
                             <i class="fa-solid fa-magnifying-glass"></i> Search
                         </a>
                     </li>
                     <li class="nav-item d-lg-none">
                         @if (Auth::check())
-                            <a href="{{ route('logout') }}" class="nav-link text-dark d-flex align-items-center gap-2"><i
+                            <a href="{{ route('logout') }}"
+                                class="nav-link text-dark d-flex align-items-center gap-2"><i
                                     class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         @else
-                            <a href="{{ route('login') }}" class="nav-link text-dark d-flex align-items-center gap-2"><i class="fa-regular fa-user"></i> Login</a>
+                            <a href="{{ route('login') }}"
+                                class="nav-link text-dark d-flex align-items-center gap-2"><i
+                                    class="fa-regular fa-user"></i> Login</a>
                         @endif
                     </li>
                 </ul>

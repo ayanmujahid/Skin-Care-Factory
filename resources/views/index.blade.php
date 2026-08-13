@@ -108,10 +108,11 @@
                     <div class="product-card">
 
                         <div class="product-img">
+                            <a href="{{ route('productDetails', $featuredProduct->slug) }}">
                             <img src="{{ $featuredProduct->mainImage && $featuredProduct->mainImage->url
                                 ? asset('storage/' . $featuredProduct->mainImage->url)
                                 : asset('assets/images/placeholder.png') }}"
-                                class="img-fluid" alt="">
+                                class="img-fluid" alt=""></a>
 
                             <div class="hover-icons">
                                 <button class="icon-btn quick-view-btn" data-product-id="{{ $featuredProduct->id }}">
@@ -256,12 +257,13 @@
                 @foreach ($upperNewProducts as $upperNewProduct)
                     <!-- Product 1 -->
                     <div class="product-card">
+                        <a  href="{{ route('productDetails', $upperNewProduct->slug) }}">
 
                         <div class="product-img">
                             <img src="{{ $upperNewProduct->mainImage && $upperNewProduct->mainImage->url
                                 ? asset('storage/' . $upperNewProduct->mainImage->url)
                                 : asset('assets/images/placeholder.png') }}"
-                                class="img-fluid" alt="">
+                                class="img-fluid" alt=""></a>
 
                             <div class="hover-icons">
                                 <button class="icon-btn quick-view-btn" data-product-id="{{ $upperNewProduct->id }}">
@@ -490,9 +492,484 @@
 @endsection
 @section('css')
     <style type="text/css">
-        /* Video Section Styling */
+    @verbatim
+        /* ==========================================================
+           GSAP Premium Animation — Base States
+           These rules only hide elements pre-animation. They apply
+           only when the browser has no reduced-motion preference,
+           so nothing ever gets stuck invisible if JS fails to run.
+        ========================================================== */
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-box small,
+            .hero-box h1,
+            .hero-box p,
+            .hero-box #cta-btn,
+            .category-section h2,
+            .category-item,
+            .product-card,
+            .whatwedo-content,
+            .whatwedo-content .feature,
+            .whatwedo-content #cta-btn,
+            .extra-feature-category-card,
+            .extra-feature-category-overlay,
+            .essential-video-content,
+            .essential-video-play,
+            .blog-section-card,
+            .testimonial-section,
+            .testimonial-card,
+            .insta-post-item {
+                opacity: 0;
+            }
+        }
+
+        /* GPU-friendly hints — only transform/opacity are animated */
+        .hero-section, .hero-box, .category-item, .category-circle,
+        .product-card, .product-img img, .whatwedo-content, .feature, .feature i,
+        .extra-feature-category-card, .extra-feature-category-card img,
+        .essential-video-content, .essential-video-play, .essential-video-play-btn,
+        .blog-section-card, .blog-section-card img, .blog-section-overlay a,
+        .testimonial-card, .testimonial-stars, .testimonial-author img,
+        .insta-post-item, .insta-post-item img {
+            will-change: transform, opacity;
+        }
+
+        /* Keep zoom/parallax effects clipped inside their cards */
+        .product-img,
+        .extra-feature-category-card,
+        .blog-section-card,
+        .insta-post-item {
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scroll progress bar (injected via JS) */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: #111;
+            z-index: 9999;
+            transform-origin: left;
+            pointer-events: none;
+        }
+
+        /* Instagram hover overlay (injected via JS, markup untouched) */
+        .insta-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .insta-overlay i {
+            color: #fff;
+            font-size: 1.6rem;
+            transform: scale(0.6);
+        }
+
+        /* Reduced motion: everything simply appears, no animation runs */
+        .reduce-motion * {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+    @endverbatim
     </style>
 @endsection
 @section('js')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    @verbatim
+        (function () {
+            function initPremiumAnimations() {
+                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                    console.warn('GSAP/ScrollTrigger failed to load — animations skipped.');
+                    return;
+                }
+                gsap.registerPlugin(ScrollTrigger);
+
+                var root = document.documentElement;
+                var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                if (reduceMotion) {
+                    root.classList.add('reduce-motion');
+                    return; // CSS fallback makes everything visible instantly, no motion
+                }
+
+                gsap.defaults({ ease: 'power3.out', overwrite: 'auto' });
+
+                /* -----------------------------------------------------------
+                   Utility: once-only, staggered "fade + rise" reveal for
+                   repeated card groups (category items, products, etc.)
+                ----------------------------------------------------------- */
+                function revealBatch(selector, opts) {
+                    opts = opts || {};
+                    var els = gsap.utils.toArray(selector);
+                    if (!els.length) return;
+
+                    ScrollTrigger.batch(els, {
+                        start: 'top 85%',
+                        once: true,
+                        onEnter: function (batch) {
+                            gsap.fromTo(batch,
+                                { opacity: 0, y: opts.y || 40, scale: opts.scale || 1 },
+                                {
+                                    opacity: 1,
+                                    y: 0,
+                                    scale: 1,
+                                    duration: opts.duration || 0.8,
+                                    stagger: opts.stagger || 0.1,
+                                    ease: opts.ease || 'power3.out'
+                                });
+                        }
+                    });
+                }
+
+                /* -----------------------------------------------------------
+                   1. HERO SECTION + page entrance
+                ----------------------------------------------------------- */
+                var heroSection = document.querySelector('.hero-section');
+                if (heroSection) {
+                    var heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+                    heroTl
+                        .to(heroSection, { opacity: 1, duration: 0.6 }, 0)
+                        .fromTo(heroSection.querySelector('.hero-box small'),
+                            { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.05)
+                        .fromTo(heroSection.querySelector('.hero-box h1'),
+                            { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0.15)
+                        .fromTo(heroSection.querySelector('.hero-box p'),
+                            { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.5)
+                        .fromTo(heroSection.querySelector('.hero-box #cta-btn'),
+                            { scale: 0.9, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.9)' }, 0.7);
+
+                    // Slow background parallax as the hero scrolls out
+                    gsap.to(heroSection, {
+                        backgroundPosition: 'center 25%',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: heroSection,
+                            start: 'top top',
+                            end: 'bottom top',
+                            scrub: 1
+                        }
+                    });
+                }
+
+                /* -----------------------------------------------------------
+                   2. CATEGORY SECTION
+                ----------------------------------------------------------- */
+                var categorySection = document.querySelector('.category-section');
+                if (categorySection) {
+                    var catHeading = categorySection.querySelector('h2');
+                    if (catHeading) {
+                        gsap.fromTo(catHeading, { y: 30, opacity: 0 }, {
+                            y: 0, opacity: 1, duration: 0.7,
+                            scrollTrigger: { trigger: categorySection, start: 'top 80%', once: true }
+                        });
+                    }
+
+                    revealBatch(categorySection.querySelectorAll('.category-item'), { y: 40, stagger: 0.08, duration: 0.7 });
+
+                    categorySection.querySelectorAll('.category-item').forEach(function (item) {
+                        var circle = item.querySelector('.category-circle');
+                        var img = item.querySelector('img');
+                        if (!circle) return;
+
+                        item.addEventListener('mouseenter', function () {
+                            gsap.to(circle, { rotate: 5, boxShadow: '0 12px 28px rgba(0,0,0,0.18)', duration: 0.4, ease: 'power2.out' });
+                            if (img) gsap.to(img, { scale: 1.12, duration: 0.5, ease: 'power2.out' });
+                        });
+                        item.addEventListener('mouseleave', function () {
+                            gsap.to(circle, { rotate: 0, boxShadow: '0 4px 10px rgba(0,0,0,0.06)', duration: 0.4, ease: 'power2.out' });
+                            if (img) gsap.to(img, { scale: 1, duration: 0.5, ease: 'power2.out' });
+                        });
+                    });
+                }
+
+                /* -----------------------------------------------------------
+                   3. PRODUCT SECTIONS (both "Most Popular Products" blocks,
+                      including the Blade @foreach-rendered cards)
+                ----------------------------------------------------------- */
+                document.querySelectorAll('.product-section').forEach(function (section) {
+                    revealBatch(section.querySelectorAll('.product-card'), { y: 60, scale: 0.95, stagger: 0.1, duration: 0.75 });
+                });
+
+                document.querySelectorAll('.product-card').forEach(function (card) {
+                    var img = card.querySelector('.product-img img');
+                    var addBtn = card.querySelector('button.btn-dark.w-100');
+
+                    card.addEventListener('mouseenter', function () {
+                        gsap.to(card, { y: -10, boxShadow: '0 18px 34px rgba(0,0,0,0.14)', duration: 0.4, ease: 'power2.out' });
+                        if (img) gsap.to(img, { scale: 1.1, duration: 0.6, ease: 'power2.out' });
+                        if (addBtn) gsap.to(addBtn, { y: -4, duration: 0.35, ease: 'power2.out' });
+                    });
+                    card.addEventListener('mouseleave', function () {
+                        gsap.to(card, { y: 0, boxShadow: '0 0 0 rgba(0,0,0,0)', duration: 0.4, ease: 'power2.out' });
+                        if (img) gsap.to(img, { scale: 1, duration: 0.6, ease: 'power2.out' });
+                        if (addBtn) gsap.to(addBtn, { y: 0, duration: 0.35, ease: 'power2.out' });
+                    });
+                });
+
+                /* -----------------------------------------------------------
+                   4. WHAT WE DO SECTION
+                ----------------------------------------------------------- */
+                var whatwedo = document.querySelector('.whatwedo-content');
+                if (whatwedo) {
+                    var wtl = gsap.timeline({
+                        scrollTrigger: { trigger: whatwedo, start: 'top 80%', once: true }
+                    });
+
+                    wtl
+                        .fromTo(whatwedo, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8 })
+                        .fromTo(whatwedo.querySelectorAll('.feature'),
+                            { x: -30, opacity: 0 },
+                            { x: 0, opacity: 1, duration: 0.6, stagger: 0.15 }, '-=0.4')
+                        .fromTo(whatwedo.querySelectorAll('.feature i'),
+                            { rotate: -25, opacity: 0, scale: 0.6 },
+                            { rotate: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.15 }, '<')
+                        .fromTo(whatwedo.querySelector('#cta-btn'),
+                            { scale: 0.85, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.8)' }, '-=0.2');
+                }
+
+                /* -----------------------------------------------------------
+                   5. FEATURED CATEGORY BANNER
+                ----------------------------------------------------------- */
+                revealBatch('.extra-feature-category-card', { y: 50, stagger: 0.15, duration: 0.8 });
+
+                document.querySelectorAll('.extra-feature-category-card').forEach(function (card) {
+                    var img = card.querySelector('img');
+                    var overlay = card.querySelector('.extra-feature-category-overlay');
+
+                    if (overlay) {
+                        gsap.set(overlay, { y: 15 });
+                        ScrollTrigger.create({
+                            trigger: card,
+                            start: 'top 85%',
+                            once: true,
+                            onEnter: function () {
+                                gsap.to(overlay, { opacity: 1, y: 0, duration: 0.6, delay: 0.2 });
+                            }
+                        });
+                    }
+
+                    if (img) {
+                        gsap.to(img, {
+                            scale: 1.15,
+                            ease: 'none',
+                            scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1 }
+                        });
+                    }
+
+                    card.addEventListener('mouseenter', function () {
+                        if (img) gsap.to(img, { scale: 1.22, duration: 0.5 });
+                        if (overlay) gsap.to(overlay, { opacity: 1, duration: 0.3 });
+                    });
+                    card.addEventListener('mouseleave', function () {
+                        if (img) gsap.to(img, { scale: 1.15, duration: 0.5 });
+                    });
+                });
+
+                /* -----------------------------------------------------------
+                   6. VIDEO SECTION
+                ----------------------------------------------------------- */
+                var videoSection = document.querySelector('.essential-video');
+                if (videoSection) {
+                    var vtl = gsap.timeline({
+                        scrollTrigger: { trigger: videoSection, start: 'top 75%', once: true }
+                    });
+
+                    var videoContent = videoSection.querySelector('.essential-video-content');
+                    var videoPlay = videoSection.querySelector('.essential-video-play');
+
+                    if (videoContent) {
+                        vtl.fromTo(videoContent, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8 });
+                    }
+                    if (videoPlay) {
+                        vtl.fromTo(videoPlay, { scale: 0, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.3');
+                    }
+
+                    var playBtn = videoSection.querySelector('.essential-video-play-btn');
+                    if (playBtn) {
+                        gsap.to(playBtn, { scale: 1.12, duration: 1.1, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+                    }
+
+                    gsap.to(videoSection, {
+                        backgroundPositionY: '20%',
+                        ease: 'none',
+                        scrollTrigger: { trigger: videoSection, start: 'top bottom', end: 'bottom top', scrub: 1 }
+                    });
+                }
+
+                /* -----------------------------------------------------------
+                   7. BLOG SECTION
+                ----------------------------------------------------------- */
+                revealBatch('.blog-section-card', { y: 50, stagger: 0.12, duration: 0.75 });
+
+                document.querySelectorAll('.blog-section-card').forEach(function (card) {
+                    var img = card.querySelector('img');
+                    var readMore = card.querySelector('a');
+                    var overlay = card.querySelector('.blog-section-overlay');
+
+                    card.addEventListener('mouseenter', function () {
+                        if (img) gsap.to(img, { scale: 1.12, duration: 0.6 });
+                        if (overlay) gsap.to(overlay, { opacity: 1, duration: 0.4 });
+                        if (readMore) gsap.to(readMore, { x: 6, duration: 0.3 });
+                    });
+                    card.addEventListener('mouseleave', function () {
+                        if (img) gsap.to(img, { scale: 1, duration: 0.6 });
+                        if (readMore) gsap.to(readMore, { x: 0, duration: 0.3 });
+                    });
+                });
+
+                /* -----------------------------------------------------------
+                   8. TESTIMONIALS
+                   Note: only inner content is animated (.testimonial-card,
+                   stars, author photo) — the .swiper-slide itself is left
+                   alone so Swiper's own transforms keep working normally.
+                ----------------------------------------------------------- */
+                var testimonialSection = document.querySelector('.testimonial-section');
+                if (testimonialSection) {
+                    gsap.fromTo(testimonialSection, { y: 40, opacity: 0 }, {
+                        y: 0, opacity: 1, duration: 0.8,
+                        scrollTrigger: { trigger: testimonialSection, start: 'top 80%', once: true }
+                    });
+
+                    testimonialSection.querySelectorAll('.testimonial-card').forEach(function (card, i) {
+                        var stars = card.querySelector('.testimonial-stars');
+                        var author = card.querySelector('.testimonial-author img');
+
+                        gsap.fromTo(card, { x: 40, opacity: 0 }, {
+                            x: 0, opacity: 1, duration: 0.7, delay: i * 0.1,
+                            scrollTrigger: { trigger: testimonialSection, start: 'top 75%', once: true }
+                        });
+
+                        if (stars) {
+                            gsap.fromTo(stars, { scale: 0.6, opacity: 0 }, {
+                                scale: 1, opacity: 1, duration: 0.5, delay: 0.3 + i * 0.1,
+                                scrollTrigger: { trigger: testimonialSection, start: 'top 75%', once: true }
+                            });
+                        }
+                        if (author) {
+                            gsap.fromTo(author, { opacity: 0 }, {
+                                opacity: 1, duration: 0.6, delay: 0.2 + i * 0.1,
+                                scrollTrigger: { trigger: testimonialSection, start: 'top 75%', once: true }
+                            });
+                        }
+                    });
+                }
+
+                /* -----------------------------------------------------------
+                   9. INSTAGRAM GALLERY
+                   Hover overlay + icon are created here in JS only, so the
+                   Blade markup/design stays exactly as written.
+                ----------------------------------------------------------- */
+                document.querySelectorAll('.insta-post-item').forEach(function (item) {
+                    if (!item.querySelector('.insta-overlay')) {
+                        var overlay = document.createElement('div');
+                        overlay.className = 'insta-overlay';
+                        overlay.innerHTML = '<i class="bi bi-instagram"></i>';
+                        item.appendChild(overlay);
+                    }
+
+                    var img = item.querySelector('img');
+                    var overlayEl = item.querySelector('.insta-overlay');
+                    var icon = overlayEl.querySelector('i');
+
+                    item.addEventListener('mouseenter', function () {
+                        if (img) gsap.to(img, { scale: 1.15, duration: 0.6 });
+                        gsap.to(overlayEl, { opacity: 1, duration: 0.35 });
+                        gsap.to(icon, { scale: 1, duration: 0.35, delay: 0.05 });
+                    });
+                    item.addEventListener('mouseleave', function () {
+                        if (img) gsap.to(img, { scale: 1, duration: 0.6 });
+                        gsap.to(overlayEl, { opacity: 0, duration: 0.3 });
+                        gsap.to(icon, { scale: 0.6, duration: 0.3 });
+                    });
+                });
+
+                revealBatch('.insta-post-item', { y: 30, scale: 0.9, stagger: 0.08, duration: 0.6 });
+
+                /* -----------------------------------------------------------
+                   10. MAGNETIC BUTTONS
+                ----------------------------------------------------------- */
+                document.querySelectorAll('#cta-btn, .essential-video-btn').forEach(function (btn) {
+                    btn.addEventListener('mousemove', function (e) {
+                        var rect = btn.getBoundingClientRect();
+                        var x = e.clientX - rect.left - rect.width / 2;
+                        var y = e.clientY - rect.top - rect.height / 2;
+                        gsap.to(btn, { x: x * 0.25, y: y * 0.35, duration: 0.3, ease: 'power2.out' });
+                    });
+                    btn.addEventListener('mouseleave', function () {
+                        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+                    });
+                });
+
+                /* -----------------------------------------------------------
+                   11. SCROLL PROGRESS BAR
+                ----------------------------------------------------------- */
+                var progressBar = document.createElement('div');
+                progressBar.id = 'scroll-progress-bar';
+                document.body.appendChild(progressBar);
+
+                gsap.to(progressBar, {
+                    width: '100%',
+                    ease: 'none',
+                    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+                });
+
+                /* -----------------------------------------------------------
+                   12. COUNTER ANIMATION (ready for stat blocks — add
+                   data-counter="1500" to any element to activate; a no-op
+                   right now since this page has no stats yet)
+                ----------------------------------------------------------- */
+                document.querySelectorAll('[data-counter]').forEach(function (el) {
+                    var target = parseFloat(el.getAttribute('data-counter')) || 0;
+                    var counterObj = { val: 0 };
+                    gsap.to(counterObj, {
+                        val: target,
+                        duration: 1.6,
+                        ease: 'power1.out',
+                        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+                        onUpdate: function () { el.textContent = Math.round(counterObj.val).toLocaleString(); }
+                    });
+                });
+
+                // Recalculate trigger positions once images/fonts finish loading
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+            }
+
+            // Load GSAP + ScrollTrigger from CDN only if not already present
+            // on the page (avoids clashing with a copy loaded in layouts.main)
+            if (window.gsap && window.ScrollTrigger) {
+                document.addEventListener('DOMContentLoaded', initPremiumAnimations);
+                return;
+            }
+
+            var gsapScript = document.createElement('script');
+            gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+            gsapScript.onload = function () {
+                var stScript = document.createElement('script');
+                stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+                stScript.onload = function () {
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', initPremiumAnimations);
+                    } else {
+                        initPremiumAnimations();
+                    }
+                };
+                document.head.appendChild(stScript);
+            };
+            document.head.appendChild(gsapScript);
+        })();
+    @endverbatim
+    </script>
 @endsection

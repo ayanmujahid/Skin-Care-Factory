@@ -2,11 +2,13 @@ body {
   font-family: "Urbanist", sans-serif !important;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 html {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 * {
@@ -49,7 +51,7 @@ html {
 }
 
 .nav-link:hover {
-  color: rgb(255 0 0 / 80%) !important;
+  color: #ddbea9 !important;
 }
 
 p {
@@ -137,11 +139,12 @@ header {
 }
 
 .navbar-brand img {
-  height: 40px;
+  height: 70px;
   /* control logo size */
   width: auto;
   /* keep aspect ratio */
 }
+
 
 /* .navbar-brand {
   position: absolute;
@@ -165,6 +168,7 @@ header {
   background-size: cover;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 /* Beige center panel */
@@ -178,7 +182,8 @@ header {
   font-size: 35px;
   line-height: 1.25;
   color: #111;
-  margin: 0 50px 0 50px;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 /* Small title */
@@ -193,7 +198,8 @@ header {
   font-size: 15px;
   line-height: 1.6;
   font-weight: 600;
-  margin: 0px 129px;
+  margin: 0 auto;
+  max-width: 620px;
 }
 
 /* Button */
@@ -300,6 +306,10 @@ header {
   /* max lines */
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.product-card {
+    border: 1px dotted #333;
+    padding: 10px;
 }
 
 
@@ -2306,7 +2316,7 @@ section.extra-feature-category.py-5 {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 60vh;
   background: #fbf5ec;
 }
 
